@@ -1,93 +1,98 @@
 <template>
-  <div id="wrapper">
+  <div class="main-wrapper">
     <!-- header -->
-    <div id="header">
-      <a id="yc" href="http://www.ycombinator.com">
-        <img src="https://news.ycombinator.com/y18.gif">
-      </a>
-      <h1><a href="#/">Hacker News</a></h1>
-      <span class="source">
-        Built with <a href="http://vuejs.org" target="_blank">Vue.js</a> |
-        <a href="https://github.com/vuejs/vue-hackernews" target="_blank">Source</a>
-      </span>
-    </div>
-    <!-- main view -->
+    <ui-tabs type="text"
+             background-color="clear"
+             text-color="white"
+             text-color-active="white"
+             indicator-color="white">
+      <ui-tab @selected="goTo('/fichas')" header="Fichas"></ui-tab>
+      <ui-tab @selected="goTo('/degustador')" header="Degustador"></ui-tab>
+      <ui-tab @selected="goTo('/revista')" header="Revista"></ui-tab>
+      <ui-tab @selected="goTo('/video')" header="Video"></ui-tab>
+      <ui-tab @selected="goTo('/vinhos')" header="Vinhos"></ui-tab>
+    </ui-tabs>
+
     <router-view
-      class="view"
-      keep-alive
-      transition
-      transition-mode="out-in">
+            class="view"
+            keep-alive
+            transition
+            transition-mode="out-in">
     </router-view>
   </div>
 </template>
 
+<script>
+  export default {
+    data() {
+      return {
+        selected: ''
+      }
+    },
+    methods: {
+      goTo(route) {
+        this.$router.go(route)
+      }
+    }
+  }
+</script>
+
 <style lang="stylus">
-@import "../variables.styl"
+  @import "../variables.styl"
 
-html, body
-  font-family Verdana
-  font-size 13px
-  height 100%
-
-ul
-  list-style-type none
-  padding 0
-  margin 0
-
-a
-  color #000
-  cursor pointer
-  text-decoration none
-  
-#wrapper
-  background-color $bg
-  position relative
-  width 85%
-  min-height 80px
-  margin 0 auto
-
-#header
-  background-color #f60
-  height 24px
-  position relative
-  h1
-    font-weight bold
-    font-size 13px
-    display inline-block
-    vertical-align middle
+  body
+    padding 0
     margin 0
-  .source
-    color #fff
-    font-size 11px
-    position absolute
-    top 4px
-    right 4px
-    a
-      color #fff
-      &:hover
-        text-decoration underline
+    font-family 'Roboto', sans-serif
+    font-weight 300
+  .ui-tabs-body
+    display none
+  h2
+    font-size 2em
+  h3
+    font-size 1.4em
 
-#yc
-  border 1px solid #fff
-  margin 2px
-  display inline-block
-  vertical-align middle
-  img
-    vertical-align middle
+  .main-card
+    background white
+    width 90%
+    margin 0 auto
+    box-shadow 1px 1px 1px #000
+    header
+      width 90%
+      padding 5% 5% 2.5% 5%
+  .card
+    box-shadow 1px 1px 1px #ccc
+    footer
+      display flex
+      justify-content flex-end
+      align-items center
+      width 90%
+      padding 0 5%
+  .has-background
+    position relative
+    *
+      position relative
+      z-index 2
+      color white
+      text-shadow 1px 1px 1px rgba(0,0,0,.7)
+    &:before
+      content ''
+      background linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.4));
+      position absolute
+      bottom 0
+      left 0
+      width 100%
+      height 50%
+      z-index 1
 
-.view
-  position absolute
-  background-color $bg
-  width 100%
-  transition opacity .2s ease
-  box-sizing border-box
-  padding 8px 20px
-  &.v-enter, &.v-leave
-    opacity 0
-
-@media screen and (max-width: 700px)
-  html, body
-    margin 0
-  #wrapper
-    width 100%
+  .main-wrapper
+    &:before
+      content ''
+      background $mainColor
+      position absolute
+      top 0
+      left 0
+      height 150px
+      width 100%
+      z-index -1
 </style>

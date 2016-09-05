@@ -23,3 +23,15 @@ function pluralize(time, label) {
 
     return time + label + 's';
 }
+
+export function toString (value) {
+  if(value.constructor === Array) {
+    return value.map(String);
+  }
+  
+  return value.toString()
+}
+
+export function toInt(value) {
+  return parseInt(value)
+}

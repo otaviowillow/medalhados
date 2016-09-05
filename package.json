@@ -26,6 +26,7 @@
     "css-loader": "^0.24.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.1.1",
+    "vue-charts": "^0.1.14",
     "vue-hot-reload-api": "^1.2.0",
     "vue-html-loader": "^1.0.0",
     "vue-loader": "^8.0.0",
@@ -36,6 +37,8 @@
   "dependencies": {
     "es6-promise": "^3.0.2",
     "firebase": "^2.4.2",
+    "keen-ui": "^0.8.9",
+    "reset-css": "^2.0.20160720",
     "vue": "^1.0.26",
     "vue-router": "^0.7.13"
   }

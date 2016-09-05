@@ -1,30 +1,43 @@
 import Vue from 'vue'
+import Keen from 'keen-ui'
+import VueCharts from 'vue-charts'
 import Router from 'vue-router'
-import { domain, fromNow } from './filters'
+import { domain, fromNow, toString, toInt } from './filters'
 import App from './components/App.vue'
-import NewsView from './components/NewsView.vue'
-import ItemView from './components/ItemView.vue'
-import UserView from './components/UserView.vue'
+import DegustadorView from './views/DegustadorView.vue'
+import FichasView from './views/FichasView.vue'
+import RevistaView from './views/RevistaView.vue'
+import VideoView from './views/VideoView.vue'
+import VinhosView from './views/VinhosView.vue'
 
-// install router
+Vue.use(VueCharts)
+Vue.use(Keen)
 Vue.use(Router)
 
 // register filters globally
 Vue.filter('fromNow', fromNow)
 Vue.filter('domain', domain)
+Vue.filter('toString', toString)
+Vue.filter('toInt', toInt)
 
 // routing
 var router = new Router()
 
 router.map({
-  '/news/:page': {
-    component: NewsView
+  '/degustador': {
+    component: DegustadorView
   },
-  '/user/:id': {
-    component: UserView
+  '/fichas': {
+    component: FichasView
   },
-  '/item/:id': {
-    component: ItemView
+  '/revista': {
+    component: RevistaView
+  },
+  '/video': {
+    component: VideoView
+  },
+  '/vinhos': {
+    component: VinhosView
   }
 })
 
@@ -33,7 +46,7 @@ router.beforeEach(function () {
 })
 
 router.redirect({
-  '*': '/news/1'
+  '*': '/fichas'
 })
 
 router.start(App, '#app')
