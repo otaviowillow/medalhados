@@ -2,17 +2,25 @@
   <div class="vinho-template" @click="expandirVinho" :class="expandido ? 'ativo' : '' ">
     <article class="card" :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }">
       <ui-toolbar type="clear" :hide-nav-icon="true" @click.stop>
+        <div class="main">
+          <object class="medal" data="/static/img/gold_medal.svg"></object>
+          <h3>{{ vinho.nota }}</h3>
+        </div>
         <nav class="nav-buttons">
           <ui-icon-button type="flat" icon="shopping_cart"></ui-icon-button>
         </nav>
       </ui-toolbar>
       <div class="content" @click.stop>
-        <div class="main">
-          <h2>{{ vinho.nota }}</h2>
-          <h3>{{ vinho.nome }}</h3>
-        </div>
         <div class="detalhes" v-if="expandido">
-          <p>Amostra: {{vinho.amostra}}</p>
+          <header>
+            <h3>{{ vinho.nome }}</h3>
+            <h4>{{ vinho.tipo }}</h4>
+          </header>
+          <p>Castas: {{vinho.castas}}</p>
+          <p>Produtor: {{vinho.produtor}}</p>
+          <p>Importador: {{vinho.importador}}</p>
+          <p>Origem: {{ vinho.origem }}</p>
+          <p>Região: {{ vinho.regiao }}</p>
           <p>Álcool: {{vinho.alcool}}</p>
           <p>Cepa: {{vinho.cepa}}</p>
           <p>Safra: {{vinho.safra}}</p>
@@ -21,23 +29,6 @@
     </article>
     <div class="hero-background" v-show="expandido"></div>
   </div>
-  <!--<article @click="expandirVinho" class="vinho-template card has-background" :class="expandido ? 'ativo' : '' " :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }">-->
-    <!--<ui-toolbar type="clear" :hide-nav-icon="true" @click.stop>-->
-      <!--<nav class="nav-buttons">-->
-        <!--<ui-icon-button type="flat" icon="shopping_cart"></ui-icon-button>-->
-      <!--</nav>-->
-    <!--</ui-toolbar>-->
-    <!--<div class="main" @click.stop>-->
-      <!--<h2>{{ vinho.nota }}</h2>-->
-      <!--<h3>{{ vinho.nome }}</h3>-->
-    <!--</div>-->
-    <!--<div class="detalhes" v-if="expandido" @click.stop>-->
-      <!--<p>Amostra: {{vinho.amostra}}</p>-->
-      <!--<p>Álcool: {{vinho.alcool}}</p>-->
-      <!--<p>Cepa: {{vinho.cepa}}</p>-->
-      <!--<p>Safra: {{vinho.safra}}</p>-->
-    <!--</div>-->
-  <!--</article>-->
 </template>
 
 <script>
@@ -62,7 +53,22 @@
   .vinho-template
     position relative
     height 100%
-    border 1px solid blue
+    cursor pointer
+    .main
+      white-space nowrap
+      padding 0 10px
+      h3, aside, .medal
+        display inline-block
+        vertical-align middle
+        white-space nowrap
+      .medal
+        width 25px
+      aside
+        margin-left 10px
+        h2, h3
+          text-shadow 1px 1px 1px white
+    .ui-toolbar
+      z-index 3
     article
       position absolute
       top 0
@@ -72,19 +78,41 @@
       background-size auto 100%
       background-position center
       background-repeat no-repeat
-      display flex
-      align-items flex-end
-      .content
-        border 1px solid red
+      transition background-size .3s ease
+      &:hover
+        background-size auto 103%
+      .detalhes
+        position relative
+        height 60%
+        width 90%
+        padding 20% 5%
+        z-index 2
+        h3
+          font-size 3em
+        h4
+          font-size 1.5em
+          padding 0 0 20px 0
+        p
+          padding 0 0 5px 0
     &.ativo
       position static
       z-index 5
+      cursor inherit
       article
         top 50%
         left 50%
         width 400px
         height 400px
         margin -200px 0 0 -200px
+        &:after
+          content ''
+          position absolute
+          top 0
+          left 0
+          width 100%
+          height 100%
+          background rgba(250,250,250,.8)
+          z-index 1
         .content
           height 100%
       .hero-background
@@ -97,34 +125,3 @@
         z-index -1
         position fixed
 </style>
-
-<!--<style lang="stylus">-->
-  <!--.vinho-template-->
-    <!--display flex-->
-    <!--flex-flow column-->
-    <!--height 100%-->
-    <!--justify-content flex-end-->
-    <!--background-size auto 100%-->
-    <!--background-position center-->
-    <!--background-repeat no-repeat-->
-    <!--transition all .5s-->
-    <!--footer-->
-      <!--flex 1 auto-->
-    <!--&.ativo-->
-      <!--position fixed-->
-      <!--top 50%-->
-      <!--left 50%-->
-      <!--width 400px-->
-      <!--height 400px-->
-      <!--margin -200px 0 0 -200px-->
-      <!--z-index 5-->
-      <!--border 1px solid blue-->
-      <!--&:after-->
-        <!--content ''-->
-        <!--position fixed-->
-        <!--top 0-->
-        <!--left 0-->
-        <!--width 100%-->
-        <!--height 100%-->
-        <!--z-index -1-->
-<!--</style>-->

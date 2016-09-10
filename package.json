@@ -36,10 +36,13 @@
   },
   "dependencies": {
     "es6-promise": "^3.0.2",
-    "firebase": "^2.4.2",
+    "firebase": "^3.3.1",
+    "install": "^0.8.1",
     "keen-ui": "^0.8.9",
+    "npm": "^3.10.6",
     "reset-css": "^2.0.20160720",
     "vue": "^1.0.26",
-    "vue-router": "^0.7.13"
+    "vue-router": "^0.7.13",
+    "vuefire": "^1.2.0"
   }
 }

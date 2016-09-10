@@ -1,90 +1,95 @@
-import Firebase from 'firebase'
+// import Firebase from 'firebase'
+// import { EventEmitter } from 'events'
+// import { Promise } from 'es6-promise'
+//
+// const api = new Firebase('https://medalhados.firebaseio.com')
+// const itemsCache = Object.create(null)
+// const store = new EventEmitter()
+// const storiesPerPage = store.storiesPerPage = 30
+//
+// let topStoryIds = []
+//
+// export default store
+//
+// /**
+//  * Subscribe to real time updates of the top 100 stories,
+//  * and cache the IDs locally.
+//  */
+//
+// api.child('topstories').on('value', snapshot => {
+//   topStoryIds = snapshot.val()
+//   store.emit('topstories-updated')
+// })
+//
+// /**
+//  * Fetch an item data with given id.
+//  *
+//  * @param {Number} id
+//  * @return {Promise}
+//  */
+//
+// store.fetchItem = id => {
+//   return new Promise((resolve, reject) => {
+//     if (itemsCache[id]) {
+//       resolve(itemsCache[id])
+//     } else {
+//       api.child('item/' + id).once('value', snapshot => {
+//         const story = itemsCache[id] = snapshot.val()
+//         resolve(story)
+//       }, reject)
+//     }
+//   })
+// }
+//
+// /**
+//  * Fetch the given list of items.
+//  *
+//  * @param {Array<Number>} ids
+//  * @return {Promise}
+//  */
+//
+// store.fetchItems = ids => {
+//   if (!ids || !ids.length) {
+//     return Promise.resolve([])
+//   } else {
+//     return Promise.all(ids.map(id => store.fetchItem(id)))
+//   }
+// }
+//
+// /**
+//  * Fetch items for the given page.
+//  *
+//  * @param {Number} page
+//  * @return {Promise}
+//  */
+//
+// store.fetchItemsByPage = page => {
+//   const start = (page - 1) * storiesPerPage
+//   const end = page * storiesPerPage
+//   const ids = topStoryIds.slice(start, end)
+//   return store.fetchItems(ids)
+// }
+//
+// /**
+//  * Fetch a user data with given id.
+//  *
+//  * @param {Number} id
+//  * @return {Promise}
+//  */
+//
+// store.fetchUser = id => {
+//   return new Promise((resolve, reject) => {
+//     api.child('user/' + id).once('value', snapshot => {
+//       resolve(snapshot.val())
+//     }, reject)
+//   })
+// }
+
 import { EventEmitter } from 'events'
-import { Promise } from 'es6-promise'
 
-const api = new Firebase('https://hacker-news.firebaseio.com/v0')
-const itemsCache = Object.create(null)
 const store = new EventEmitter()
-const storiesPerPage = store.storiesPerPage = 30
-
-let topStoryIds = []
 
 export default store
-
-/**
- * Subscribe to real time updates of the top 100 stories,
- * and cache the IDs locally.
- */
-
-api.child('topstories').on('value', snapshot => {
-  topStoryIds = snapshot.val()
-  store.emit('topstories-updated')
-})
-
-/**
- * Fetch an item data with given id.
- *
- * @param {Number} id
- * @return {Promise}
- */
-
-store.fetchItem = id => {
-  return new Promise((resolve, reject) => {
-    if (itemsCache[id]) {
-      resolve(itemsCache[id])
-    } else {
-      api.child('item/' + id).once('value', snapshot => {
-        const story = itemsCache[id] = snapshot.val()
-        resolve(story)
-      }, reject)
-    }
-  })
-}
-
-/**
- * Fetch the given list of items.
- *
- * @param {Array<Number>} ids
- * @return {Promise}
- */
-
-store.fetchItems = ids => {
-  if (!ids || !ids.length) {
-    return Promise.resolve([])
-  } else {
-    return Promise.all(ids.map(id => store.fetchItem(id)))
-  }
-}
-
-/**
- * Fetch items for the given page.
- *
- * @param {Number} page
- * @return {Promise}
- */
-
-store.fetchItemsByPage = page => {
-  const start = (page - 1) * storiesPerPage
-  const end = page * storiesPerPage
-  const ids = topStoryIds.slice(start, end)
-  return store.fetchItems(ids)
-}
-
-/**
- * Fetch a user data with given id.
- *
- * @param {Number} id
- * @return {Promise}
- */
-
-store.fetchUser = id => {
-  return new Promise((resolve, reject) => {
-    api.child('user/' + id).once('value', snapshot => {
-      resolve(snapshot.val())
-    }, reject)
-  })
-}
-
 
 store.fetchUsuario = () => {
   var usuario = {
@@ -131,15 +136,22 @@ store.fetchUsuario = () => {
 
 store.fetchIndividualVinho = () => {
   var vinho = {
-    nome: 'Chandon',
+    nome: 'Esteva',
     foto_garrafa_url: 'http://assets.angeloni.com.br/files/images/8/4E/1A/2216906_1_A.jpg',
     tipo: 'Espumante',
     alcool: '15%',
     cepa: 'Chardonnay',
+    castas: 'Touriga Nacional',
+    produtor: 'Casa Ferreirinha',
+    importador: 'Cantu',
+    origem: 'Portugal',
+    regiao: 'Douro',
     safra: '2012',
     amostra: '???',
     avaliado: false,
     nota: 0,
+    notaOficial: 0,
+    preco: 125,
     notas: [
       {
         categoria: 'Visual',
@@ -213,15 +225,22 @@ store.fetchIndividualVinho = () => {
 store.fetchVinhos = () => {
   var vinhos = [
     {
-      nome: 'Chandon',
+      nome: 'Esteva',
       foto_garrafa_url: 'http://assets.angeloni.com.br/files/images/8/4E/1A/2216906_1_A.jpg',
       tipo: 'Espumante',
       alcool: '15%',
       cepa: 'Chardonnay',
+      castas: 'Touriga Nacional',
+      produtor: 'Casa Ferreirinha',
+      importador: 'Cantu',
+      origem: 'Portugal',
+      regiao: 'Douro',
       safra: '2012',
       amostra: '???',
-      avaliado: true,
-      nota: 102,
+      avaliado: false,
+      nota: 0,
+      notaOficial: 0,
+      preco: 75,
       notas: [
         {
           categoria: 'Visual',
@@ -289,14 +308,22 @@ store.fetchVinhos = () => {
       ]
     },
     {
-      nome: 'Chandon',
+      nome: 'Esteva',
       foto_garrafa_url: 'http://assets.angeloni.com.br/files/images/8/4E/1A/2216906_1_A.jpg',
       tipo: 'Espumante',
       alcool: '15%',
       cepa: 'Chardonnay',
+      castas: 'Touriga Nacional',
+      produtor: 'Casa Ferreirinha',
+      importador: 'Cantu',
+      origem: 'Portugal',
+      regiao: 'Douro',
       safra: '2012',
       amostra: '???',
-      nota: 94,
+      avaliado: false,
+      nota: 85,
+      notaOficial: 0,
+      preco: 95,
       notas: [
         {
           categoria: 'Visual',
@@ -364,15 +391,22 @@ store.fetchVinhos = () => {
       ]
     },
     {
-      nome: 'Chandon',
+      nome: 'Esteva',
       foto_garrafa_url: 'http://assets.angeloni.com.br/files/images/8/4E/1A/2216906_1_A.jpg',
       tipo: 'Espumante',
       alcool: '15%',
       cepa: 'Chardonnay',
+      castas: 'Touriga Nacional',
+      produtor: 'Casa Ferreirinha',
+      importador: 'Cantu',
+      origem: 'Portugal',
+      regiao: 'Douro',
       safra: '2012',
       amostra: '???',
-      avaliado: true,
-      nota: 82,
+      avaliado: false,
+      nota: 0,
+      notaOficial: 0,
+      preco: 125,
       notas: [
         {
           categoria: 'Visual',

@@ -53,6 +53,6 @@
         flex-flow column
         justify-content flex-end
         background-color white
-        flex 0 0 250px
-        height 300px
+        flex 0 0 300px
+        height 350px
 </style>
