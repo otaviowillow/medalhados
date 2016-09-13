@@ -2,9 +2,12 @@
   <div class="vinho-template" @click="expandirVinho" :class="expandido ? 'ativo' : '' ">
     <article class="card" :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }">
       <ui-toolbar type="clear" :hide-nav-icon="true" @click.stop>
-        <div class="main">
+        <div class="main" v-if="vinho.avaliado">
           <object class="medal" data="/static/img/gold_medal.svg"></object>
           <h3>{{ vinho.nota }}</h3>
+        </div>
+        <div class="main" v-else>
+          <a v-link="{ path: '/' }">Avaliar</a>
         </div>
         <nav class="nav-buttons">
           <ui-icon-button type="flat" icon="shopping_cart"></ui-icon-button>

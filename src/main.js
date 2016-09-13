@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Keen from 'keen-ui'
 import VueCharts from 'vue-charts'
 import Router from 'vue-router'
-import VueFire from "vuefire";
 import { domain, fromNow, toString, toInt } from './filters'
 import App from './components/App.vue'
 import DegustadorView from './views/DegustadorView.vue'
@@ -11,7 +10,9 @@ import RevistaView from './views/RevistaView.vue'
 import VideoView from './views/VideoView.vue'
 import VinhosView from './views/VinhosView.vue'
 import LoginView from './views/LoginView.vue'
+import AdicionarVinhosView from './views/AdicionarVinhosView.vue'
 import * as firebase from 'firebase'
+import VueFire from "vuefire";
 
 Vue.use(VueCharts)
 Vue.use(VueFire)
@@ -48,20 +49,24 @@ router.map({
     component: VinhosView,
     auth: true
   },
+  '/adicionar-vinho': {
+    component: AdicionarVinhosView,
+    auth: true
+  },
   '/login': {
     component: LoginView,
     auth: false
   },
 })
 
-var config = {
-  apiKey: "AIzaSyC8Blps39GwdxP57vPaok1135Pbr9ROMbA",
-  authDomain: "medalhados.firebaseapp.com",
-  databaseURL: "https://medalhados.firebaseio.com",
-  storageBucket: "medalhados.appspot.com",
-};
-
-firebase.initializeApp(config);
+// var config = {
+//   apiKey: "AIzaSyC8Blps39GwdxP57vPaok1135Pbr9ROMbA",
+//   authDomain: "medalhados.firebaseapp.com",
+//   databaseURL: "https://medalhados.firebaseio.com",
+//   storageBucket: "medalhados.appspot.com",
+// };
+//
+// firebase.initializeApp(config);
 
 router.beforeEach(function (transition) {
   firebase.auth().onAuthStateChanged(function(user) {

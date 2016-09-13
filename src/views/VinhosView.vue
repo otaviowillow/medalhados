@@ -1,10 +1,12 @@
 <template>
   <div class="vinhos-view">
-    <ul>
-      <li v-for="vinho in vinhos" :class="vinho.avaliado ? 'avaliado' : ''">
-        <vinho :vinho="vinho"></vinho>
-      </li>
-    </ul>
+    <div v-if="!$loadingRouteData">
+      <ul>
+        <li v-for="vinho in vinhos" :class="vinho.avaliado ? 'avaliado' : ''">
+          <vinho :vinho="vinho"></vinho>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -12,18 +14,22 @@
   import store from '../store'
   import Vinho from '../components/Vinho.vue'
 
-  export default{
-    data() {
-      return {
-        vinhos: []
-      }
-    },
+  var config = {
+    apiKey: "AIzaSyC8Blps39GwdxP57vPaok1135Pbr9ROMbA",
+    authDomain: "medalhados.firebaseapp.com",
+    databaseURL: "https://medalhados.firebaseio.com",
+    storageBucket: "medalhados.appspot.com",
+  };
 
-    route: {
-      data ({ to }) {
-        document.title = 'Medalhados - Ficha'
-        this.vinhos = store.fetchVinhos()
-      }
+  firebase.initializeApp(config);
+
+  var itemsRef = firebase.database().ref('vinhos');
+
+  export default {
+    name: 'VinhosView',
+
+    firebase: {
+      vinhos: itemsRef.limitToLast(25)
     },
 
     components: {
