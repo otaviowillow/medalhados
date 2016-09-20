@@ -171,3 +171,25 @@ store.fetchVinhos = () => {
     }, reject)
   })
 }
+
+var config = {
+  apiKey: "AIzaSyC8Blps39GwdxP57vPaok1135Pbr9ROMbA",
+  authDomain: "medalhados.firebaseapp.com",
+  databaseURL: "https://medalhados.firebaseio.com",
+  storageBucket: "medalhados.appspot.com",
+};
+
+firebase.initializeApp(config);
+
+store.dbVinhos = () => {
+  var vinhosRef = firebase.database().ref('vinhos');
+  var arr
+
+  return new Promise((resolve, reject) => {
+    vinhosRef.once('value').then( function(snapshot) {
+      var vinhosSnapshot = snapshot.val()
+
+      resolve(Object.keys(vinhosSnapshot).map(key => vinhosSnapshot[key]))
+    });
+  }, reject)
+}

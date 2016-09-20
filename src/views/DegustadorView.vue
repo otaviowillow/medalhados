@@ -1,9 +1,9 @@
 <template>
   <div class="main-card degustador">
     <header>
-      <figure class="profile-pic" :style="{ backgroundImage: 'url(' + usuario.avatar + ')' }"></figure>
+      <figure class="profile-pic" :style="{ backgroundImage: 'url(' + usuario.photoURL + ')' }"></figure>
       <aside>
-        <h2>{{ nomeCompleto }}</h2>
+        <h2>{{ usuario.displayName }}</h2>
         <h3>{{ usuario.vinhos_avaliados }} Vinhos avaliados</h3>
       </aside>
     </header>
@@ -38,7 +38,7 @@
     route: {
       data ({ to }) {
         document.title = 'Medalhados - Desgustador'
-        this.usuario = store.fetchUsuario()
+        this.usuario = firebase.auth().currentUser
       }
     },
 

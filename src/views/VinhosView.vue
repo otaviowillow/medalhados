@@ -3,7 +3,7 @@
     <div v-if="!$loadingRouteData">
       <ul>
         <li v-for="vinho in vinhos" :class="vinho.avaliado ? 'avaliado' : ''">
-          <vinho :vinho="vinho"></vinho>
+          <vinho :vinho="vinho" :key="vinhoKey" :usuario="usuario"></vinho>
         </li>
       </ul>
     </div>
@@ -14,27 +14,47 @@
   import store from '../store'
   import Vinho from '../components/Vinho.vue'
 
-  var config = {
-    apiKey: "AIzaSyC8Blps39GwdxP57vPaok1135Pbr9ROMbA",
-    authDomain: "medalhados.firebaseapp.com",
-    databaseURL: "https://medalhados.firebaseio.com",
-    storageBucket: "medalhados.appspot.com",
-  };
-
-  firebase.initializeApp(config);
-
-  var itemsRef = firebase.database().ref('vinhos');
-
   export default {
     name: 'VinhosView',
 
-    firebase: {
-      vinhos: itemsRef.limitToLast(25)
+    data() {
+      return {
+        vinhos: [],
+        usuario: {}
+      }
+    },
+
+    ready: function () {
+      this.fetchVinhos()
+      this.fetchUsuario()
     },
 
     components: {
       Vinho
     },
+
+    methods: {
+      fetchVinhos() {
+        var self = this;
+        var vinhosRef = firebase.database().ref('vinhos');
+
+        vinhosRef.once("value")
+          .then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+              var key = childSnapshot.key;
+              self.vinho = childSnapshot.val();
+
+              self.vinho.key = key
+              self.vinhos.push(self.vinho)
+            });
+          });
+      },
+      fetchUsuario() {
+        var userRef = firebase.auth().currentUser
+
+        this.usuario = userRef
+      }
+    }
   }
 </script>
 

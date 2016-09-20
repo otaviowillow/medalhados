@@ -67,8 +67,9 @@
             this.formDisabled = false
       },
       enviarVinho() {
-       firebase.database().ref().child('vinhos').push(this.vinho)
-        this.$router.go('/vinhos')
+        firebase.database().ref().child('vinhos').push(this.vinho)
+
+        //this.$router.go('/vinhos')
       }
     }
   }
