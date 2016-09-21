@@ -5,7 +5,7 @@
     <h2>{{ usuario.photoUrl }}</h2>
   </div>
   <div class="main" v-else>
-    <a @click="avaliarVinho">Avaliar</a>
+    <a v-link="{ name: 'ficha', params: { id: vinho.key } }">Avaliar</a>
   </div>
 </template>
 
@@ -33,17 +33,11 @@
 
         this.usuarioVinhos.orderByChild("avaliado").equalTo(true).on("child_added", function(snapshot) {
           var vinho = snapshot.val()
-          if(self.vinho.key == vinho.vinho_id)
+          if(self.vinho.key == vinho.vinho_id) {
             self.avaliado = true
             self.nota = vinho.nota
+          }
         });
-      },
-      avaliarVinho() {
-        this.usuarioVinhos.push({
-          vinho_id: this.vinho.key,
-          avaliado: true,
-          nota: 82
-        })
       }
     }
   }

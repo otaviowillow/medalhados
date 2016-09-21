@@ -5,19 +5,7 @@
 
       <botao-voto :vinho="vinho"></botao-voto>
 
-      <div v-for="notas in vinho.notas" class="card">
-        <aside :style="{ backgroundImage: 'url(' + notas.foto_url + ')' }">
-          <h3>{{ notas.categoria }}</h3>
-        </aside>
-        <div class="notas">
-          <nota v-for="subcategoria in notas.subcategorias"
-            :categoria="notas.categoria"
-            :subcategoria="subcategoria.categoria"
-            :notas="subcategoria.notasPossiveis"
-            :selecionada.sync="subcategoria.selecionada | toInt">
-          </nota>
-        </div>
-      </div>
+      <notas :tipo="vinho.tipo"></notas>
     </div>
   </div>
 </template>
@@ -25,8 +13,8 @@
 <script>
   import store from '../store'
   import VinhoDetalhes from '../components/VinhoDetalhes.vue'
-  import Nota from '../components/Nota.vue'
   import BotaoVoto from '../components/BotaoVoto.vue'
+  import Notas from '../components/Notas.vue'
 
   export default{
     name: 'FichasView',
@@ -39,40 +27,14 @@
 
     route: {
       data ({ to }) {
-        document.title = 'Medalhados - Ficha'
-        this.vinho = store.fetchIndividualVinho()
+        this.$bindAsObject('vinho', firebase.database().ref('vinhos/' + to.params.id))
       }
     },
-    components: {
-      Nota,
-      VinhoDetalhes,
-      BotaoVoto
-    },
-    events: {
-      'adicionar-voto' : function (voto) {
 
-      },
+    components: {
+      VinhoDetalhes,
+      BotaoVoto,
+      Notas
     }
   }
 </script>
-
-<style lang="stylus">
-  .fichas
-    .card
-      display flex
-      aside
-        display flex
-        align-items flex-end
-        flex: 0 0 300px;
-        background-position left top
-        background-size cover
-        background-repeat no-repeat
-        h3
-          color white
-      .notas
-        display flex
-        flex-direction column
-        justify-content center
-        flex 1 auto
-
-</style>

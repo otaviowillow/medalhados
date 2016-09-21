@@ -30,30 +30,42 @@ var router = new Router()
 
 router.map({
   '/degustador': {
+    name: 'degustador',
     component: DegustadorView,
     auth: true
   },
   '/fichas': {
+    name: 'fichas',
+    component: FichasView,
+    auth: true
+  },
+  '/ficha/:id': {
+    name: 'ficha',
     component: FichasView,
     auth: true
   },
   '/revista': {
+    name: 'revista',
     component: RevistaView,
     auth: true
   },
   '/video': {
+    name: 'video',
     component: VideoView,
     auth: true
   },
   '/vinhos': {
+    name: 'vinhos',
     component: VinhosView,
     auth: true
   },
   '/adicionar-vinho': {
+    name: 'adicionar-vinho',
     component: AdicionarVinhosView,
     auth: true
   },
   '/login': {
+    name: 'login',
     component: LoginView,
     auth: false
   },

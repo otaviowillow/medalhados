@@ -43,9 +43,6 @@
         expandido: false
       }
     },
-//    ready: function () {
-//      console.log(this.vinho)
-//    },
     components: {
       VinhoPontuacao
     },

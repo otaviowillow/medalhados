@@ -25,6 +25,13 @@
     methods: {
       computarVotos() {
         //console.log()
+      },
+      avaliarVinho() {
+        this.usuarioVinhos.push({
+          vinho_id: this.vinho.key,
+          avaliado: true,
+          nota: 82
+        })
       }
     }
   }

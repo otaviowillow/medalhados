@@ -1,17 +1,23 @@
 <template>
   <div class="main-wrapper">
-    <!-- header -->
-    <ui-tabs type="text"
-             background-color="clear"
-             text-color="white"
-             text-color-active="white"
-             indicator-color="white">
-      <ui-tab @selected="goTo('/fichas')" header="Fichas"></ui-tab>
-      <ui-tab @selected="goTo('/degustador')" header="Degustador"></ui-tab>
-      <ui-tab @selected="goTo('/revista')" header="Revista"></ui-tab>
-      <ui-tab @selected="goTo('/video')" header="Video"></ui-tab>
-      <ui-tab @selected="goTo('/vinhos')" header="Vinhos"></ui-tab>
-    </ui-tabs>
+    <!--<ui-tabs type="text"-->
+             <!--background-color="clear"-->
+             <!--text-color="white"-->
+             <!--text-color-active="white"-->
+             <!--indicator-color="white">-->
+      <!--<ui-tab @selected="goTo('/fichas')" header="Fichas"></ui-tab>-->
+      <!--<ui-tab @selected="goTo('/degustador')" header="Degustador"></ui-tab>-->
+      <!--<ui-tab @selected="goTo('/revista')" header="Revista"></ui-tab>-->
+      <!--<ui-tab @selected="goTo('/video')" header="Video"></ui-tab>-->
+      <!--<ui-tab @selected="goTo('/vinhos')" header="Vinhos"></ui-tab>-->
+    <!--</ui-tabs>-->
+    <nav class="main-menu">
+      <!--<ui-button v-link="{ path: /fichas }" type="flat">Fichas</ui-button>-->
+      <ui-button v-link="{ name: 'degustador' }" type="flat">Degustador</ui-button>
+      <ui-button v-link="{ name: 'vinhos' }" type="flat">Vinhos</ui-button>
+      <ui-button v-link="{ name: 'revista' }" type="flat">Revista</ui-button>
+      <ui-button v-link="{ name: 'video' }" type="flat">Video</ui-button>
+    </nav>
 
     <router-view
             class="view"
@@ -51,6 +57,13 @@
     font-size 2em
   h3
     font-size 1.4em
+  .ui-button-flat
+    &:hover
+      background transparent !important
+
+  .main-menu
+    .v-link-active
+      border-bottom 3px solid white
 
   .main-card
     background white
