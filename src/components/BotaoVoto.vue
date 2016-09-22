@@ -1,36 +1,55 @@
 <template>
-  <div class="button-fab">
-    <ui-fab @click="computarVotos" icon="local_bar" color="accent" tooltip="Envie suas notas" tooltip-position="left center">Default, Raised</ui-fab>
-  </div>
+  <div>
+    <div class="button-fab">
+      <ui-fab @click="computarVotos" icon="local_bar" color="accent">Default, Raised</ui-fab>
+    </div>
 
-  <ui-modal :show.sync="show.vote">
-    <p>asdasdasd</p>
-  </ui-modal>
+    <ui-modal type="small" :show.sync="show.vote">
+      <h3 slot="header"></h3>
+      <p>{{ votosTotal }}</p>
+      <footer slot="footer">
+        <ui-button @click="avaliarVinho">Votar</ui-button>
+      </footer>
+    </ui-modal>
+  </div>
 </template>
 
 <script>
   export default{
     props: {
-      vinho: {}
+      vinho: {},
+      vinhoKey: '12'
     },
 
     data() {
       return {
         show: {
           vote: false
-        }
+        },
+        votosTotal: 0
       }
     },
 
     methods: {
       computarVotos() {
-        //console.log()
+        var self = this
+        var radios = document.getElementsByClassName('ui-radio-input')
+
+        self.votosTotal = 0
+
+        for(var i = 0; i < radios.length; i++)
+          if(radios[i].checked)
+            self.votosTotal += parseInt(radios[i].value)
+
+        this.show.vote = true
       },
       avaliarVinho() {
-        this.usuarioVinhos.push({
-          vinho_id: this.vinho.key,
+        var usuarioVinhos = firebase.database().ref('usuarios/' + firebase.auth().currentUser.uid + '/vinhos')
+
+        usuarioVinhos.push({
           avaliado: true,
-          nota: 82
+          vinho_id: this.vinhoKey,
+          nota: this.votosTotal
         })
       }
     }

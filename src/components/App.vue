@@ -11,8 +11,11 @@
       <!--<ui-tab @selected="goTo('/video')" header="Video"></ui-tab>-->
       <!--<ui-tab @selected="goTo('/vinhos')" header="Vinhos"></ui-tab>-->
     <!--</ui-tabs>-->
+
+    <!--<object data="static/img/medalhados_logo.svg"></object>-->
+    <!--<user-bar></user-bar>-->
+
     <nav class="main-menu">
-      <!--<ui-button v-link="{ path: /fichas }" type="flat">Fichas</ui-button>-->
       <ui-button v-link="{ name: 'degustador' }" type="flat">Degustador</ui-button>
       <ui-button v-link="{ name: 'vinhos' }" type="flat">Vinhos</ui-button>
       <ui-button v-link="{ name: 'revista' }" type="flat">Revista</ui-button>
@@ -29,11 +32,16 @@
 </template>
 
 <script>
+  import UserBar from '../components/UserBar.vue'
+
   export default {
     data() {
       return {
         selected: ''
       }
+    },
+    components: {
+      UserBar
     },
     methods: {
       goTo(route) {
@@ -105,7 +113,7 @@
       position absolute
       top 0
       left 0
-      height 150px
+      height 250px
       width 100%
       z-index -1
 </style>
