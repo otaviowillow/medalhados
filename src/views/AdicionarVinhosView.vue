@@ -3,7 +3,8 @@
     <form class="main-card">
       <ui-select name="tipo" :value.sync="vinho.tipo" :options="tipos" label="Tipo" default="Tinto" required></ui-select>
 
-      <ui-textbox name="foto_garrafa_url" :value.sync="vinho.foto_garrafa_url" label="Foto da Garrafa" validation-rules="required" @blurred="formState"></ui-textbox>
+      <input type="file" @change="uploadFile($event)">
+      <!--<ui-textbox name="foto_garrafa_url" :value.sync="vinho.foto_garrafa_url" label="Foto da Garrafa" validation-rules="required" @blurred="formState"></ui-textbox>-->
       <ui-textbox name="nome" :value.sync="vinho.nome" label="Nome" label="Nome" validation-rules="required" @blurred="formState"></ui-textbox>
 
       <fieldset>
@@ -57,6 +58,22 @@
       }
     },
     methods: {
+      uploadFile(event) {
+        var self = this
+        var file = event.currentTarget
+
+        var storageRef = firebase.storage().ref();
+        var vinhoRef = storageRef.child('vinho.jpg');
+
+        if (file.files.length > 0) {
+          for (var i = 0; i < file.files.length; i++) {
+            vinhoRef.put(file.files[i]).then(function(snapshot) {
+              self.vinho.foto_garrafa_url = snapshot.downloadURL
+              console.log(snapshot.downloadURL);
+            });
+          }
+        }
+      },
       formState() {
         var textboxes = document.getElementsByClassName('ui-textbox')
 
@@ -69,7 +86,7 @@
       enviarVinho() {
         firebase.database().ref().child('vinhos').push(this.vinho)
 
-        //this.$router.go('/vinhos')
+        this.$router.go('/vinhos')
       }
     }
   }
