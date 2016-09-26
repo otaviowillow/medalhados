@@ -35,6 +35,8 @@
       width 30%
       h4, i
         display inline
+        vertical-align middle
+        border 1px solid red
       i
         padding 0 10px
     .ui-radio-group

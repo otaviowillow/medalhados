@@ -2,7 +2,6 @@
   <div class="vinho-template" @click="expandirVinho" :class="expandido ? 'ativo' : '' ">
     <article class="card" :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }">
       <ui-toolbar type="clear" :hide-nav-icon="true" @click.stop>
-
         <vinho-pontuacao :vinho="vinho" :usuario="usuario"></vinho-pontuacao>
 
         <nav class="nav-buttons">
@@ -59,9 +58,13 @@
     position relative
     height 100%
     cursor pointer
+    .ui-button-flat
+      transition all .3s
+      &:hover
+        color #ccc
     .main
       white-space nowrap
-      padding 0 10px
+      padding 10px 20px
       h3, aside, .medal
         display inline-block
         vertical-align middle
@@ -80,12 +83,13 @@
       left 0
       width 100%
       height 100%
-      background-size auto 100%
+      background-color white
+      background-size auto 70%
       background-position center
       background-repeat no-repeat
       transition background-size .3s ease
       &:hover
-        background-size auto 103%
+        background-size auto 80%
       .detalhes
         position relative
         height 60%
@@ -109,6 +113,8 @@
         width 400px
         height 400px
         margin -200px 0 0 -200px
+        &:hover
+          background-size auto 70%
         &:after
           content ''
           position absolute
@@ -116,7 +122,7 @@
           left 0
           width 100%
           height 100%
-          background rgba(250,250,250,.8)
+          background rgba(250,250,250,.9)
           z-index 1
         .content
           height 100%

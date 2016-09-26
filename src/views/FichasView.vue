@@ -3,9 +3,9 @@
     <div class="main-card">
       <vinho-detalhes :vinho="vinho"></vinho-detalhes>
 
-      <botao-voto :vinho="vinho" :vinho-key="vinhoKey"></botao-voto>
+      <botao-voto :vinho="vinho" :vinho-key="vinhoKey" :nota-total="notaTotal"></botao-voto>
 
-      <notas :tipo="vinho.tipo"></notas>
+      <notas :tipo="vinho.tipo" :nota-total.sync="notaTotal"></notas>
     </div>
   </div>
 </template>
@@ -22,14 +22,14 @@
     data() {
       return {
         vinho: {},
-        vinhoKey: ''
+        vinhoKey: '',
+        notaTotal: 0
       }
     },
 
     route: {
       data ({ to }) {
         this.vinhoKey = to.params.id
-        console.log(this.vinhoKey)
         this.$bindAsObject('vinho', firebase.database().ref('vinhos/' + this.vinhoKey))
       }
     },

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Keen from 'keen-ui'
 import VueCharts from 'vue-charts'
 import Router from 'vue-router'
+import Resource from 'vue-resource'
 import { domain, fromNow, toString, toInt } from './filters'
 import App from './components/App.vue'
 import DegustadorView from './views/DegustadorView.vue'
@@ -14,6 +15,7 @@ import AdicionarVinhosView from './views/AdicionarVinhosView.vue'
 import * as firebase from 'firebase'
 import VueFire from "vuefire";
 
+Vue.use(Resource)
 Vue.use(VueCharts)
 Vue.use(VueFire)
 Vue.use(Keen)

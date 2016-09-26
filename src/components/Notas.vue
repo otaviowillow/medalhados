@@ -1,5 +1,5 @@
 <template>
-  <div v-for="notas in categoria" class="notas card">
+  <div v-for="notas in categoria" class="notas card" :nota-total.sync="notaTotal">
     <aside :style="{ backgroundImage: 'url(' + notas.foto_url + ')' }">
       <h3>{{ notas.categoria }}</h3>
     </aside>
@@ -20,16 +20,41 @@
 
   export default {
     props: {
-      tipo: ''
+      tipo: '',
+      notaTotal: 0
     },
 
     computed: {
       categoria() {
         var self = this
+
         switch (self.tipo) {
           case 'Tinto':
+            for(var i = 0; i < notas.tintos.length; i++)
+              this.notaTotal += notas.tintos[i].nota
+
             return notas.tintos
             break;
+          case 'Branco':
+            for(var i = 0; i < notas.brancos.length; i++)
+              this.notaTotal += notas.brancos[i].nota
+
+            return notas.brancos
+            break;
+//          case 'Sobremesa':
+//            for(var i = 0; i < notas.sobremesa.length; i++)
+//              this.notaTotal += notas.sobremesa[i].nota
+//
+////            this.$dispatch('add-notas-total', notaTotal)
+//            return notas.sobremesa
+//            break;
+//          case 'Espumante':
+//            for(var i = 0; i < notas.espumantes.length; i++)
+//              this.notaTotal += notas.espumantes[i].nota
+//
+////            this.$dispatch('add-notas-total', notaTotal)
+//            return notas.espumantes
+//            break;
         }
       }
     },
@@ -43,6 +68,7 @@
 <style lang="stylus">
   .notas
     display flex
+    min-height 120px;
     aside
       display flex
       align-items flex-end
@@ -52,9 +78,13 @@
       background-repeat no-repeat
       h3
         color white
+        font-size 1.6em
+        text-shadow 1px 1px 1px rgba(0,0,0,.2)
+        padding 20px
     .notas
       display flex
       flex-direction column
       justify-content center
       flex 1 auto
+      padding 20px
 </style>

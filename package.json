@@ -42,7 +42,9 @@
     "npm": "^3.10.6",
     "reset-css": "^2.0.20160720",
     "vue": "^1.0.26",
+    "vue-resource": "^1.0.2",
     "vue-router": "^0.7.13",
-    "vuefire": "^1.2.0"
+    "vuefire": "^1.2.0",
+    "world-countries": "^1.8.0"
   }
 }

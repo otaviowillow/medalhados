@@ -23,7 +23,6 @@
     blockquote
       *
         display inline-block
-        border 1px solid red
       p
         font-size 1.5em
       p::first-letter

@@ -14,12 +14,12 @@
 
     <!--<object data="static/img/medalhados_logo.svg"></object>-->
     <!--<user-bar></user-bar>-->
-
     <nav class="main-menu">
       <ui-button v-link="{ name: 'degustador' }" type="flat">Degustador</ui-button>
       <ui-button v-link="{ name: 'vinhos' }" type="flat">Vinhos</ui-button>
       <ui-button v-link="{ name: 'revista' }" type="flat">Revista</ui-button>
       <ui-button v-link="{ name: 'video' }" type="flat">Video</ui-button>
+      <ui-button icon="lock_outline" v-link="{ name: 'adicionar-vinho' }" type="flat">Adicionar vinho</ui-button>
     </nav>
 
     <router-view

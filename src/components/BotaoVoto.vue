@@ -6,6 +6,7 @@
 
     <ui-modal type="small" :show.sync="show.vote">
       <h3 slot="header"></h3>
+      <object :data="medal"></object>
       <p>{{ votosTotal }}</p>
       <footer slot="footer">
         <ui-button @click="avaliarVinho">Votar</ui-button>
@@ -18,7 +19,8 @@
   export default{
     props: {
       vinho: {},
-      vinhoKey: '12'
+      vinhoKey: '12',
+      notaTotal: 0
     },
 
     data() {
@@ -27,6 +29,18 @@
           vote: false
         },
         votosTotal: 0
+      }
+    },
+
+    computed: {
+      medal() {
+        if(this.votosTotal > this.notaTotal * .8)
+          return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/bronze_medal.svg?alt=media&token=7c908e1c-639e-4821-812b-eee65187c0a8'
+
+        if(this.votosTotal > this.notaTotal * .6)
+          return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/silver_medal.svg?alt=media&token=734bd64a-2a20-48a1-9ac9-231fa6171c14'
+
+        return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/bronze_medal.svg?alt=media&token=7c908e1c-639e-4821-812b-eee65187c0a8'
       }
     },
 
@@ -48,6 +62,7 @@
 
         usuarioVinhos.push({
           avaliado: true,
+          medalha: this.medal,
           vinho_id: this.vinhoKey,
           nota: this.votosTotal
         })

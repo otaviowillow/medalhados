@@ -61,7 +61,8 @@
 <style lang="stylus">
   .vinhos-view
     .nav-buttons
-      width 100%
+      width 95%
+      padding 0 2.5%
       text-align right
     .ui-toolbar
       position absolute
