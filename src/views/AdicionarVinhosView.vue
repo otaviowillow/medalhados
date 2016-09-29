@@ -14,7 +14,7 @@
           <fieldset class="first">
             <ui-textbox name="nome" :value.sync="vinho.nome" label="Nome" label="Nome" validation-rules="required" @blurred="formState"></ui-textbox>
             <ui-select name="tipo" :value.sync="vinho.tipo" :options="tipos" label="Tipo" default="Tinto" required></ui-select>
-            <ui-select name="regiao" :value.sync="vinho.regiao" :options="paises" label="Região" show-search required></ui-select>
+            <ui-select name="regiao" :value.sync="vinho.regiao.nome" :options="paises" label="Região" show-search required></ui-select>
             <!--<ui-textbox name="foto_garrafa_url" :value.sync="vinho.foto_garrafa_url" label="Foto da Garrafa" validation-rules="required" @blurred="formState"></ui-textbox>-->
           </fieldset>
 
@@ -54,7 +54,7 @@
   export default {
     data() {
       return {
-        tipos: ['Espumante', 'Tinto', 'Branco', 'Sobremesa'],
+        tipos: ['Espumante', 'Tinto', 'Branco', 'Sobremesa', 'Rose'],
         formDisabled: true,
         paises: [],
         vinho: {
@@ -67,7 +67,10 @@
           produtor: '',
           importador: '',
           origem: '',
-          regiao: '',
+          regiao: {
+            nome: '',
+            codigo: ''
+          },
           safra: '',
           avaliado: false,
           preco: ''
@@ -115,7 +118,7 @@
           for(var i = 0; i < countriesData.length; i++) {
             var country = countriesData[i]
 
-//            countries.push({name: country.translations.por.common, code: country.cioc})
+//            countries.push({nome: country.translations.por.common, code: country.cioc})
             countries.push(country.translations.por.common)
           }
         })

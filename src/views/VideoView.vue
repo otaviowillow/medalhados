@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div>this is template body</div>
+  <div class="youtube-video">
+    <iframe width="896" height="504" src="https://www.youtube.com/embed/nsDXSJpXQck" frameborder="0" allowfullscreen></iframe>
   </div>
 </template>
 
@@ -14,6 +14,9 @@
   }
 </script>
 
-<style>
-
+<style lang="stylus">
+  .youtube-video
+    width 896px
+    float none
+    margin 0 auto
 </style>

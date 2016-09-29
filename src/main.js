@@ -12,6 +12,7 @@ import VideoView from './views/VideoView.vue'
 import VinhosView from './views/VinhosView.vue'
 import LoginView from './views/LoginView.vue'
 import AdicionarVinhosView from './views/AdicionarVinhosView.vue'
+import CartaDoPresidenteView from './views/CartaDoPresidenteView.vue'
 import * as firebase from 'firebase'
 import VueFire from "vuefire";
 
@@ -64,6 +65,11 @@ router.map({
   '/adicionar-vinho': {
     name: 'adicionar-vinho',
     component: AdicionarVinhosView,
+    auth: true
+  },
+  '/carta-do-presidente': {
+    name: 'carta-do-presidente',
+    component: CartaDoPresidenteView,
     auth: true
   },
   '/login': {

@@ -28,15 +28,16 @@
   .nota-individual
     display table
     width 100%
+    padding 0 0 5px 0
     aside, .ui-radio-group
       display table-cell
     aside
       white-space nowrap
+      vertical-align middle
       width 30%
       h4, i
         display inline
         vertical-align middle
-        border 1px solid red
       i
         padding 0 10px
     .ui-radio-group
@@ -44,4 +45,7 @@
       .ui-radio-border
         width 16px
         height 16px
+    /*.ui-radio-group-options-wrapper*/
+      /*label*/
+        /*flex 1 auto*/
 </style>

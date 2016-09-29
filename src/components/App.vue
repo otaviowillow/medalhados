@@ -1,26 +1,17 @@
 <template>
   <div class="main-wrapper">
-    <!--<ui-tabs type="text"-->
-             <!--background-color="clear"-->
-             <!--text-color="white"-->
-             <!--text-color-active="white"-->
-             <!--indicator-color="white">-->
-      <!--<ui-tab @selected="goTo('/fichas')" header="Fichas"></ui-tab>-->
-      <!--<ui-tab @selected="goTo('/degustador')" header="Degustador"></ui-tab>-->
-      <!--<ui-tab @selected="goTo('/revista')" header="Revista"></ui-tab>-->
-      <!--<ui-tab @selected="goTo('/video')" header="Video"></ui-tab>-->
-      <!--<ui-tab @selected="goTo('/vinhos')" header="Vinhos"></ui-tab>-->
-    <!--</ui-tabs>-->
 
-    <!--<object data="static/img/medalhados_logo.svg"></object>-->
-    <!--<user-bar></user-bar>-->
-    <nav class="main-menu">
-      <ui-button v-link="{ name: 'degustador' }" type="flat">Degustador</ui-button>
-      <ui-button v-link="{ name: 'vinhos' }" type="flat">Vinhos</ui-button>
-      <ui-button v-link="{ name: 'revista' }" type="flat">Revista</ui-button>
-      <ui-button v-link="{ name: 'video' }" type="flat">Video</ui-button>
-      <ui-button icon="lock_outline" v-link="{ name: 'adicionar-vinho' }" type="flat">Adicionar vinho</ui-button>
-    </nav>
+    <header class="main-header">
+      <object data="static/img/medalhados_logo_lateral.png"></object>
+
+      <nav class="main-menu">
+        <ui-button v-link="{ name: 'degustador' }" type="flat">Degustador</ui-button>
+        <ui-button v-link="{ name: 'vinhos' }" type="flat">Vinhos</ui-button>
+        <ui-button v-link="{ name: 'revista' }" type="flat">Revista</ui-button>
+        <ui-button v-link="{ name: 'video' }" type="flat">Video</ui-button>
+        <ui-button icon="lock_outline" v-link="{ name: 'adicionar-vinho' }" type="flat">Adicionar vinho</ui-button>
+      </nav>
+    </header>
 
     <router-view
             class="view"
@@ -37,7 +28,13 @@
   export default {
     data() {
       return {
-        selected: ''
+        selected: '',
+        authenticated: false
+      }
+    },
+    events: {
+      'is-authenticated' : function () {
+        this.authenticated = true
       }
     },
     components: {
@@ -69,7 +66,20 @@
     &:hover
       background transparent !important
 
+  .main-header
+    width 90%
+    padding 25px 5%
+    object
+      display inline-block
+      vertical-align middle
+      height 60px
+
   .main-menu
+    display inline-block
+    float right
+    vertical-align middle
+    .ui-button-content
+      color white
     .v-link-active
       border-bottom 3px solid white
 
@@ -116,4 +126,8 @@
       height 250px
       width 100%
       z-index -1
+    /*header*/
+      /*padding 20px 0*/
+      /*object*/
+        /*height 60px*/
 </style>

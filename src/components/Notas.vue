@@ -35,26 +35,12 @@
 
             return notas.tintos
             break;
-          case 'Branco':
-            for(var i = 0; i < notas.brancos.length; i++)
-              this.notaTotal += notas.brancos[i].nota
+          default:
+            for(var i = 0; i < notas.tintos.length; i++)
+              this.notaTotal += notas.tintos[i].nota
 
-            return notas.brancos
+            return notas.tintos
             break;
-//          case 'Sobremesa':
-//            for(var i = 0; i < notas.sobremesa.length; i++)
-//              this.notaTotal += notas.sobremesa[i].nota
-//
-////            this.$dispatch('add-notas-total', notaTotal)
-//            return notas.sobremesa
-//            break;
-//          case 'Espumante':
-//            for(var i = 0; i < notas.espumantes.length; i++)
-//              this.notaTotal += notas.espumantes[i].nota
-//
-////            this.$dispatch('add-notas-total', notaTotal)
-//            return notas.espumantes
-//            break;
         }
       }
     },

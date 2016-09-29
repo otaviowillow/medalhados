@@ -75,6 +75,8 @@
       display flex
       flex-wrap wrap
       justify-content space-around
+      width 90%
+      padding 0 5%
       li
         display flex
         flex-flow column
@@ -82,4 +84,5 @@
         background-color white
         flex 0 0 300px
         height 350px
+        margin 0 0 20px 0
 </style>

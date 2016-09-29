@@ -132,7 +132,6 @@
         height 100%
         top 0
         left 0
-        border 1px solid red
         z-index -1
         position fixed
 </style>
