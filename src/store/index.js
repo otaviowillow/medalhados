@@ -181,15 +181,12 @@ var config = {
 
 firebase.initializeApp(config);
 
-store.dbVinhos = () => {
-  var vinhosRef = firebase.database().ref('vinhos');
-  var arr
+store.getFichasLidas = id => {
+  var lidas = firebase.database().ref('usuarios/' + id + '/lidas')
 
   return new Promise((resolve, reject) => {
-    vinhosRef.once('value').then( function(snapshot) {
-      var vinhosSnapshot = snapshot.val()
-
-      resolve(Object.keys(vinhosSnapshot).map(key => vinhosSnapshot[key]))
-    });
-  }, reject)
+    lidas.once('value', function(snapshot) {
+      resolve(snapshot.val())
+    }, reject)
+  })
 }

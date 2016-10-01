@@ -1,7 +1,7 @@
 <template>
   <div class="vinhos-view">
     <div v-if="!$loadingRouteData">
-      <carta-do-presidente v-if="ficha" :vinho="ficha"></carta-do-presidente>
+      <carta-do-presidente :vinho="ficha"></carta-do-presidente>
 
       <!--<ul v-else>-->
         <!--<li v-for="vinho in fichas">-->
@@ -41,12 +41,14 @@
 
     computed: {
       ficha() {
+        var user = firebase.database().ref('usuarios/' + this.usuario.uid)
         var fichas = _.differenceBy(this.vinhos, this.avaliados, 'key')
 
-        if (fichas.length > 0)
+        if (fichas.length > 1)
           return fichas[0]
 
-//        return showFichas = false
+        user.child('fichasCompletas').set(true);
+        this.$router.go('vinhos')
       }
     },
 
@@ -55,7 +57,7 @@
         var self = this
         var vinhosRef = firebase.database().ref('vinhos')
 
-        vinhosRef.once("value").then(function(snapshot) {
+        vinhosRef.on("value").then(function(snapshot) {
           snapshot.forEach(function(childSnapshot) {
             var key = childSnapshot.key
             self.vinho = childSnapshot.val()

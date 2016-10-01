@@ -46,7 +46,7 @@
         var self = this
         var vinhosRef = firebase.database().ref('vinhos')
 
-        vinhosRef.once("child_added").then(function(snapshot) {
+        vinhosRef.on("value", function(snapshot) {
           snapshot.forEach(function(childSnapshot) {
             var key = childSnapshot.key
             self.vinho = childSnapshot.val()

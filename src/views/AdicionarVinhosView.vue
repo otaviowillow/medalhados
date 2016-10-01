@@ -55,7 +55,6 @@
 <script>
   import * as firebase from 'firebase'
   import countryList from 'world-countries'
-  import notas from '../notas'
 
   export default {
     data() {

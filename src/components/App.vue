@@ -6,7 +6,7 @@
 
       <nav class="main-menu">
         <ui-button v-link="{ name: 'degustador' }" type="flat">Degustador</ui-button>
-        <ui-button v-if="showFichas" v-link="{ name: 'fichas' }" type="flat">Fichas</ui-button>
+        <ui-button v-link="{ name: 'fichas' }" type="flat">Fichas</ui-button>
         <ui-button v-link="{ name: 'vinhos' }" type="flat">Vinhos</ui-button>
         <ui-button v-link="{ name: 'revista' }" type="flat">Revista</ui-button>
         <ui-button v-link="{ name: 'video' }" type="flat">Video</ui-button>

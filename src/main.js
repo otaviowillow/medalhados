@@ -15,6 +15,7 @@ import LoginView from './views/LoginView.vue'
 import AdicionarVinhosView from './views/AdicionarVinhosView.vue'
 import * as firebase from 'firebase'
 import VueFire from "vuefire";
+import store from './store'
 
 Vue.use(Resource)
 Vue.use(VueCharts)
@@ -94,11 +95,14 @@ router.beforeEach(function (transition) {
     if (transition.to.auth && !user) {
       window.scrollTo(0, 0)
       transition.redirect('/login')
+    } else if (transition.to.name == 'fichas' && '=)' || transition.to.path == '/' && '=)') {
+      window.scrollTo(0, 0)
+      transition.redirect('/vinhos')
     } else {
       window.scrollTo(0, 0)
       transition.next()
     }
-  });
+  })
 })
 
 router.redirect({
