@@ -1,14 +1,8 @@
 <template>
   <div class="vinho-template" @click="expandirVinho" :class="expandido ? 'ativo' : '' ">
-    <article class="card" :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }">
-      <ui-toolbar type="clear" :hide-nav-icon="true" @click.stop>
-        <vinho-pontuacao :vinho="vinho" :usuario="usuario"></vinho-pontuacao>
-
-        <nav class="nav-buttons">
-          <ui-icon-button type="flat" icon="shopping_cart"></ui-icon-button>
-        </nav>
-      </ui-toolbar>
+    <article class="card" :style="{ backgroundImage: 'url(' + fotoGarrafaUrl + ')' }">
       <div class="content" @click.stop>
+        <a v-if="!vinho.avaliado" v-link="{ name: 'ficha', params: { id: vinho.key } }">Avaliar</a>
         <div class="detalhes" v-if="expandido">
           <header>
             <h3>{{ vinho.nome }}</h3>
@@ -45,9 +39,41 @@
     components: {
       VinhoPontuacao
     },
+    computed: {
+      fotoGarrafaUrl() {
+        if(this.avaliado)
+          return this.vinho.foto_garrafa_url
+
+        return ''
+      }
+    },
+    ready: function() {
+      console.log(this.vinho)
+      this.fetchAvaliados()
+    },
     methods: {
       expandirVinho() {
-        this.expandido = !this.expandido
+        console.log(this.vinho.avaliado)
+        if(this.vinho.avaliado)
+          this.expandido = !this.expandido
+        else
+          this.$router.go('/ficha/' + this.vinho.key)
+      },
+      fetchAvaliados() {
+        var self = this
+        var avaliadosPeloUsuario = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos')
+
+        avaliadosPeloUsuario.orderByChild("avaliado").equalTo(true).on("value", function(snapshot) {
+          snapshot.forEach(function(childSnapshot) {
+            var childData = childSnapshot.val();
+
+//            console.log(self.vinho.key)
+//            console.log(childData.vinho_id)
+
+            if(self.vinho.key == childData.vinho_id)
+              self.avaliado = true
+          });
+        });
       }
     }
   }

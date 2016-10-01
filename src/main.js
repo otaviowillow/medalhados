@@ -7,12 +7,12 @@ import { domain, fromNow, toString, toInt } from './filters'
 import App from './components/App.vue'
 import DegustadorView from './views/DegustadorView.vue'
 import FichasView from './views/FichasView.vue'
+import FichaView from './views/FichaView.vue'
 import RevistaView from './views/RevistaView.vue'
 import VideoView from './views/VideoView.vue'
 import VinhosView from './views/VinhosView.vue'
 import LoginView from './views/LoginView.vue'
 import AdicionarVinhosView from './views/AdicionarVinhosView.vue'
-import CartaDoPresidenteView from './views/CartaDoPresidenteView.vue'
 import * as firebase from 'firebase'
 import VueFire from "vuefire";
 
@@ -32,6 +32,11 @@ Vue.filter('toInt', toInt)
 var router = new Router()
 
 router.map({
+  '/': {
+    component: FichasView,
+    showFichas: true,
+    auth: true
+  },
   '/degustador': {
     name: 'degustador',
     component: DegustadorView,
@@ -40,11 +45,12 @@ router.map({
   '/fichas': {
     name: 'fichas',
     component: FichasView,
+    showFichas: true,
     auth: true
   },
   '/ficha/:id': {
     name: 'ficha',
-    component: FichasView,
+    component: FichaView,
     auth: true
   },
   '/revista': {
@@ -65,11 +71,6 @@ router.map({
   '/adicionar-vinho': {
     name: 'adicionar-vinho',
     component: AdicionarVinhosView,
-    auth: true
-  },
-  '/carta-do-presidente': {
-    name: 'carta-do-presidente',
-    component: CartaDoPresidenteView,
     auth: true
   },
   '/login': {
@@ -101,7 +102,7 @@ router.beforeEach(function (transition) {
 })
 
 router.redirect({
-  '*': '/fichas'
+  '*': '/'
 })
 
 router.start(App, '#app')

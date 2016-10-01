@@ -1,6 +1,7 @@
 <template>
   <div class="card login-view">
-    <object class="logo" data="/static/img/gold_medal.svg"></object>
+    <!--<object class="logo" data="/static/img/gold_medal.svg"></object>-->
+    <img class="logo" src="/static/img/medalhados_logo.png">
     <button class="facebook-login" @click="facebookSignIn"><i class="fa fa-facebook"></i> Login with Facebook</button>
   </div>
 </template>
@@ -9,12 +10,6 @@
   import * as firebase from 'firebase'
 
   export default{
-    route: {
-      data ({ to }) {
-        document.title = 'Medalhados - Login'
-      }
-    },
-
     methods: {
       facebookSignIn() {
         var self = this
@@ -25,7 +20,7 @@
           var user = result.user;
 
           self.$dispatch('is-authenticated')
-          self.$router.go('/vinhos')
+          self.$router.go('/carta-do-presidente')
         }).catch(function(error) {
           var errorCode = error.code;
           var errorMessage = error.message;

@@ -70,7 +70,7 @@
         usuarioVinhos.push({
           avaliado: true,
           medalha: this.medal,
-          vinho_id: this.vinhoKey,
+          key: this.vinhoKey,
           nota: this.votosTotal
         })
 

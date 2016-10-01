@@ -1,8 +1,9 @@
 <template>
   <header class="vinho-detalhes has-background" :style="{ backgroundImage: 'url(' + backgroundType + ')' }">
-    <figure :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }" ></figure>
+    <!--<figure :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }" ></figure>-->
     <div class="vinho-descricao">
-      <h2>{{vinho.nome}}</h2>
+      <!--<h2>{{vinho.nome}}</h2>-->
+      <h2>Agosto, 2016</h2>
       <h3>{{vinho.tipo}}</h3>
       <!--<p>Amostra: {{vinho.amostra}}</p>-->
       <footer>
@@ -12,7 +13,7 @@
       </footer>
     </div>
 
-    <usuario-input></usuario-input>
+    <!--<usuario-input></usuario-input>-->
   </header>
 </template>
 
@@ -57,12 +58,12 @@
 <style lang="stylus">
   .vinho-detalhes
     display flex
-    /*background url('http://www.lacadievineyards.ca/images/img-head-sparkling-wine.jpg')*/
     background-size 100% auto
     background-position center
     color white
     width 100%
-    .vinho-descricao, .usuario-input
+    height 200px
+    .vinho-descricao, .usuario-input, .amostra
       flex 1 auto
     .vinho-descricao
       display flex

@@ -2,10 +2,11 @@
   <div class="main-wrapper">
 
     <header class="main-header">
-      <object data="static/img/medalhados_logo_lateral.png"></object>
+      <object v-link="{ path: '/' }" data="static/img/medalhados_logo_lateral.png"></object>
 
       <nav class="main-menu">
         <ui-button v-link="{ name: 'degustador' }" type="flat">Degustador</ui-button>
+        <ui-button v-if="showFichas" v-link="{ name: 'fichas' }" type="flat">Fichas</ui-button>
         <ui-button v-link="{ name: 'vinhos' }" type="flat">Vinhos</ui-button>
         <ui-button v-link="{ name: 'revista' }" type="flat">Revista</ui-button>
         <ui-button v-link="{ name: 'video' }" type="flat">Video</ui-button>
@@ -29,7 +30,7 @@
     data() {
       return {
         selected: '',
-        authenticated: false
+        authenticated: false,
       }
     },
     events: {
@@ -126,8 +127,4 @@
       height 250px
       width 100%
       z-index -1
-    /*header*/
-      /*padding 20px 0*/
-      /*object*/
-        /*height 60px*/
 </style>

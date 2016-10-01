@@ -2,7 +2,7 @@
   <div class="vinhos-view">
     <div v-if="!$loadingRouteData">
       <ul>
-        <li v-for="vinho in vinhos" :class="vinho.avaliado ? 'avaliado' : ''">
+        <li v-for="vinho in medalhados">
           <vinho :vinho="vinho" :key="vinhoKey" :usuario="usuario"></vinho>
         </li>
       </ul>
@@ -20,6 +20,7 @@
     data() {
       return {
         vinhos: [],
+        avaliados: [],
         usuario: {}
       }
     },
@@ -27,33 +28,49 @@
     ready: function () {
       this.fetchVinhos()
       this.fetchUsuario()
+      this.fetchAvaliados()
     },
 
     components: {
       Vinho
     },
 
+    computed: {
+      medalhados() {
+        return _.difference(this.avaliados, this.vinhos, 'key')
+      }
+    },
+
     methods: {
       fetchVinhos() {
-        var self = this;
-        var vinhosRef = firebase.database().ref('vinhos');
+        var self = this
+        var vinhosRef = firebase.database().ref('vinhos')
 
-        vinhosRef.once("value")
-          .then(function(snapshot) {
-            snapshot.forEach(function(childSnapshot) {
-              var key = childSnapshot.key;
-              self.vinho = childSnapshot.val();
+        vinhosRef.once("child_added").then(function(snapshot) {
+          snapshot.forEach(function(childSnapshot) {
+            var key = childSnapshot.key
+            self.vinho = childSnapshot.val()
 
-              self.vinho.key = key
-              self.vinhos.push(self.vinho)
-            });
+            self.vinho.key = key
+            self.vinhos.push(self.vinho)
           });
+        });
+      },
+      fetchAvaliados() {
+        var self = this
+        var avaliadosPeloUsuario = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos')
+
+        avaliadosPeloUsuario.orderByChild("avaliado").equalTo(true).on("value", function(snapshot) {
+          snapshot.forEach(function(childSnapshot) {
+            var childData = childSnapshot.val();
+
+            self.avaliados.push(childData)
+          });
+        });
       },
       fetchUsuario() {
-        var userRef = firebase.auth().currentUser
-
-        this.usuario = userRef
-      }
+        this.usuario = firebase.auth().currentUser
+      },
     }
   }
 </script>

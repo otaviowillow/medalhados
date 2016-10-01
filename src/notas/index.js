@@ -71,6 +71,18 @@ notas.tintos = [
       }
     ]
   },
+  {
+    categoria: 'Harmonia',
+    foto_url: 'static/img/harmonia.jpg',
+    nota: 11,
+    subcategorias: [
+      {
+        categoria: 'Harmonia',
+        notasPossiveis: [11, 10, 9, 8, 7],
+        selecionada: 11
+      }
+    ]
+  },
 ]
 
 notas.espumantes = [

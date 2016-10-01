@@ -1,6 +1,12 @@
 <template>
   <div class="adicionar-vinhos">
     <form class="main-card">
+      <h2>Introdução</h2>
+      <div class="introducao">
+        <ui-textbox name="intro" :value.sync="vinho.intro" :multi-line="true"></ui-textbox>
+      </div>
+
+      <h2>Detalhes do Vinho</h2>
       <div class="wrapper">
         <div class="upload-image">
           <input class="upload-file" type="file" @change="uploadFile($event)">
@@ -58,6 +64,8 @@
         formDisabled: true,
         paises: [],
         vinho: {
+          intro: '',
+          criadoEm: '',
           tipo: '',
           nome: '',
           foto_garrafa_url: null,
@@ -107,9 +115,14 @@
             this.formDisabled = false
       },
       enviarVinho() {
+        var utc = new Date().toJSON().slice(0,10);
+        this.vinho.criadoEm = utc
+
         firebase.database().ref().child('vinhos').push(this.vinho)
 
-        this.$router.go('/vinhos')
+        firebase.database().ref().child('lastest').set(this.vinho)
+
+        this.$router.go('/')
       },
       setPaises(countries) {
         this.$http.get('../node_modules/world-countries/dist/countries.json').then((response) => {
@@ -130,6 +143,9 @@
 <style lang="stylus">
   .adicionar-vinhos
     width 100%
+    .introducao
+      width 95%
+      padding 0 2.5%
     footer
       text-align right
       width 95%
