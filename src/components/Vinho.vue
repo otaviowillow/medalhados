@@ -1,8 +1,13 @@
 <template>
   <div class="vinho-template" @click="expandirVinho" :class="expandido ? 'ativo' : '' ">
-    <article class="card" :style="{ backgroundImage: 'url(' + fotoGarrafaUrl + ')' }">
+    <article class="card" :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }">
       <div class="content" @click.stop>
-        <a v-if="!vinho.avaliado" v-link="{ name: 'ficha', params: { id: vinho.key } }">Avaliar</a>
+        <!--<a v-if="!vinho.avaliado" v-link="{ name: 'ficha', params: { id: vinho.key } }">Avaliar</a>-->
+        <ui-toolbar type="clear" :hide-nav-icon="true">
+          <div slot="actions">
+            <ui-icon-button type="clear" icon="shopping_cart"></ui-icon-button>
+          </div>
+        </ui-toolbar>
         <div class="detalhes" v-if="expandido">
           <header>
             <h3>{{ vinho.nome }}</h3>
@@ -12,7 +17,7 @@
           <p>Produtor: {{vinho.produtor}}</p>
           <p>Importador: {{vinho.importador}}</p>
           <p>Origem: {{ vinho.origem }}</p>
-          <p>Região: {{ vinho.regiao }}</p>
+          <p>Região: {{ vinho.regiao.nome }}</p>
           <p>Álcool: {{vinho.alcool}}</p>
           <p>Cepa: {{vinho.cepa}}</p>
           <p>Safra: {{vinho.safra}}</p>
@@ -39,25 +44,12 @@
     components: {
       VinhoPontuacao
     },
-    computed: {
-      fotoGarrafaUrl() {
-        if(this.avaliado)
-          return this.vinho.foto_garrafa_url
-
-        return ''
-      }
-    },
     ready: function() {
-      console.log(this.vinho)
       this.fetchAvaliados()
     },
     methods: {
       expandirVinho() {
-        console.log(this.vinho.avaliado)
-        if(this.vinho.avaliado)
-          this.expandido = !this.expandido
-        else
-          this.$router.go('/ficha/' + this.vinho.key)
+        this.expandido = !this.expandido
       },
       fetchAvaliados() {
         var self = this
@@ -66,9 +58,6 @@
         avaliadosPeloUsuario.orderByChild("avaliado").equalTo(true).on("value", function(snapshot) {
           snapshot.forEach(function(childSnapshot) {
             var childData = childSnapshot.val();
-
-//            console.log(self.vinho.key)
-//            console.log(childData.vinho_id)
 
             if(self.vinho.key == childData.vinho_id)
               self.avaliado = true

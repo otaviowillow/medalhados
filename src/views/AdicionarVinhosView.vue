@@ -6,6 +6,12 @@
         <ui-textbox name="intro" :value.sync="vinho.intro" :multi-line="true"></ui-textbox>
       </div>
 
+      <h2>Video Aula</h2>
+      <p>Link de YouTube</p>
+      <div class="introducao">
+        <ui-textbox name="video" :value.sync="vinho.video"></ui-textbox>
+      </div>
+
       <h2>Detalhes do Vinho</h2>
       <div class="wrapper">
         <div class="upload-image">
@@ -21,7 +27,6 @@
             <ui-textbox name="nome" :value.sync="vinho.nome" label="Nome" label="Nome" validation-rules="required" @blurred="formState"></ui-textbox>
             <ui-select name="tipo" :value.sync="vinho.tipo" :options="tipos" label="Tipo" default="Tinto" required></ui-select>
             <ui-select name="regiao" :value.sync="vinho.regiao.nome" :options="paises" label="Região" show-search required></ui-select>
-            <!--<ui-textbox name="foto_garrafa_url" :value.sync="vinho.foto_garrafa_url" label="Foto da Garrafa" validation-rules="required" @blurred="formState"></ui-textbox>-->
           </fieldset>
 
           <fieldset>
@@ -31,7 +36,6 @@
           </fieldset>
 
           <fieldset>
-            <!--<ui-textbox name="regiao" :value.sync="vinho.regiao" label="Região" validation-rules="required" @blurred="formState"></ui-textbox>-->
             <ui-textbox name="preco" :value.sync="vinho.preco" type="number" label="Preço" validation-rules="required" @blurred="formState"></ui-textbox>
             <ui-textbox name="safra" :value.sync="vinho.safra" label="Safra" validation-rules="required" @blurred="formState"></ui-textbox>
           </fieldset>
@@ -114,12 +118,16 @@
             this.formDisabled = false
       },
       enviarVinho() {
-        var utc = new Date().toJSON().slice(0,10);
+        var utc = new Date()
         this.vinho.criadoEm = utc
+
+        console.log(utc)
 
         firebase.database().ref().child('vinhos').push(this.vinho)
 
-        firebase.database().ref().child('lastest').set(this.vinho)
+        firebase.database().ref('latest').child('vinho').set(this.vinho)
+
+        firebase.database().ref('latest').child('video').set(this.vinho.video)
 
         this.$router.go('/')
       },

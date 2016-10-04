@@ -1,13 +1,14 @@
 <template>
   <div class="vinhos-view">
-    <div v-if="!$loadingRouteData">
-      <carta-do-presidente :vinho="ficha"></carta-do-presidente>
+    <div v-if="$loadingRouteData">Loading..</div>
 
-      <!--<ul v-else>-->
-        <!--<li v-for="vinho in fichas">-->
-          <!--<vinho :vinho="vinho" :key="vinhoKey" :usuario="usuario"></vinho>-->
-        <!--</li>-->
-      <!--</ul>-->
+    <div v-if="!$loadingRouteData">
+      <carta-do-presidente v-if="ficha" :vinho="ficha"></carta-do-presidente>
+
+      <div class="card testado" v-else>
+        <header :style="{ backgroundImage: 'url(' + backgroundImage + ')' }"></header>
+        <p>Não há mais fichas esse mês</p>
+      </div>
     </div>
   </div>
 </template>
@@ -22,16 +23,12 @@
 
     data() {
       return {
+        backgroundImage: '/static/img/wine-tasting.jpg',
         vinhos: [],
         avaliados: [],
-        usuario: {}
+        usuario: {},
+        ficha: {},
       }
-    },
-
-    ready: function () {
-      this.fetchVinhos()
-      this.fetchUsuario()
-      this.fetchAvaliados()
     },
 
     components: {
@@ -39,16 +36,20 @@
       CartaDoPresidente
     },
 
+    route: {
+      data () {
+        return Promise.all([
+          this.fetchVinhos(),
+          this.fetchAvaliados()
+        ]).then(() => {
+          this.setFicha()
+        });
+      }
+    },
+
     computed: {
-      ficha() {
-        var user = firebase.database().ref('usuarios/' + this.usuario.uid)
-        var fichas = _.differenceBy(this.vinhos, this.avaliados, 'key')
-
-        if (fichas.length > 1)
-          return fichas[0]
-
-        user.child('fichasCompletas').set(true);
-        this.$router.go('vinhos')
+      usuario() {
+        return firebase.auth().currentUser
       }
     },
 
@@ -56,8 +57,9 @@
       fetchVinhos() {
         var self = this
         var vinhosRef = firebase.database().ref('vinhos')
+        var vinhos = []
 
-        vinhosRef.on("value").then(function(snapshot) {
+        return vinhosRef.once("value").then(function(snapshot) {
           snapshot.forEach(function(childSnapshot) {
             var key = childSnapshot.key
             self.vinho = childSnapshot.val()
@@ -71,7 +73,7 @@
         var self = this
         var avaliadosPeloUsuario = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos')
 
-        avaliadosPeloUsuario.orderByChild("avaliado").equalTo(true).on("value", function(snapshot) {
+        return avaliadosPeloUsuario.orderByChild("avaliado").equalTo(true).once("value").then((snapshot) => {
           snapshot.forEach(function(childSnapshot) {
             var childData = childSnapshot.val();
 
@@ -82,6 +84,12 @@
       fetchUsuario() {
         this.usuario = firebase.auth().currentUser
       },
+      setFicha() {
+        var fichas = _.differenceBy(this.vinhos, this.avaliados, 'key')
+
+        if (fichas.length > 0)
+          this.ficha = fichas[0]
+      }
     }
   }
 </script>
@@ -113,4 +121,18 @@
         flex 0 0 300px
         height 350px
         margin 0 0 20px 0
+    .testado
+      background white
+      width 500px
+      float none
+      margin 0 auto
+      text-align center
+      header
+        background-size cover
+        background-position center
+        background-repeat no-repeat
+        width 100%
+        height 250px
+      p
+        padding 30px 0
 </style>

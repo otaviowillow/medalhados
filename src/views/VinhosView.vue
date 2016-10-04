@@ -37,7 +37,7 @@
 
     computed: {
       medalhados() {
-        return _.difference(this.avaliados, this.vinhos, 'key')
+        return _.differenceBy(this.vinhos, this.avaliados, 'key')
       }
     },
 

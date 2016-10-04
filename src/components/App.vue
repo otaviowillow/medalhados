@@ -1,18 +1,7 @@
 <template>
   <div class="main-wrapper">
 
-    <header class="main-header">
-      <object v-link="{ path: '/' }" data="static/img/medalhados_logo_lateral.png"></object>
-
-      <nav class="main-menu">
-        <ui-button v-link="{ name: 'degustador' }" type="flat">Degustador</ui-button>
-        <ui-button v-link="{ name: 'fichas' }" type="flat">Fichas</ui-button>
-        <ui-button v-link="{ name: 'vinhos' }" type="flat">Vinhos</ui-button>
-        <ui-button v-link="{ name: 'revista' }" type="flat">Revista</ui-button>
-        <ui-button v-link="{ name: 'video' }" type="flat">Video</ui-button>
-        <ui-button icon="lock_outline" v-link="{ name: 'adicionar-vinho' }" type="flat">Adicionar vinho</ui-button>
-      </nav>
-    </header>
+    <main-header></main-header>
 
     <router-view
             class="view"
@@ -25,6 +14,7 @@
 
 <script>
   import UserBar from '../components/UserBar.vue'
+  import MainHeader from '../components/MainHeader.vue'
 
   export default {
     data() {
@@ -39,13 +29,9 @@
       }
     },
     components: {
-      UserBar
+      UserBar,
+      MainHeader
     },
-    methods: {
-      goTo(route) {
-        this.$router.go(route)
-      }
-    }
   }
 </script>
 
@@ -67,33 +53,16 @@
     &:hover
       background transparent !important
 
-  .main-header
-    width 90%
-    padding 25px 5%
-    object
-      display inline-block
-      vertical-align middle
-      height 60px
-
-  .main-menu
-    display inline-block
-    float right
-    vertical-align middle
-    .ui-button-content
-      color white
-    .v-link-active
-      border-bottom 3px solid white
-
   .main-card
     background white
     width 90%
     margin 0 auto
-    box-shadow 1px 1px 1px #000
+    box-shadow 1px 1px 3px rgba(0,0,0,.3)
     header
       width 90%
       padding 5% 5% 2.5% 5%
   .card
-    box-shadow 1px 1px 1px #ccc
+    box-shadow 1px 1px 3px rgba(0,0,0,.3)
     footer
       display flex
       justify-content flex-end

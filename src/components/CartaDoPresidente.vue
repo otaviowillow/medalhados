@@ -7,7 +7,7 @@
     <img class="signature" src="/static/img/signature.png">
 
     <footer>
-      <ui-button v-link="{ name: 'video' }">Video Aula</ui-button>
+      <ui-button v-link="{ name: 'video', params: { id: vinho.video } }">Video Aula</ui-button>
       <ui-button v-link="{ path: 'ficha/' + vinho.key }">Ficha do Mês</ui-button>
     </footer>
   </div>
@@ -17,10 +17,6 @@
   export default {
     props: {
       vinho: {}
-    },
-
-    ready:function() {
-      console.log(this.vinho)
     }
   }
 </script>
