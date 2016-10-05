@@ -56,8 +56,9 @@
     methods: {
       fetchVinhos() {
         var self = this
-        var vinhosRef = firebase.database().ref('vinhos')
         var vinhos = []
+        var vinhosRef = firebase.database().ref('vinhos')
+        var avaliadosPeloUsuario = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos')
 
         return vinhosRef.once("value").then(function(snapshot) {
           snapshot.forEach(function(childSnapshot) {

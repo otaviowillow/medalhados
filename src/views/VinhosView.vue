@@ -1,5 +1,6 @@
 <template>
   <div class="vinhos-view">
+    <p v-if="$loadingRouteData">Loading...</p>
     <div v-if="!$loadingRouteData">
       <ul>
         <li v-for="vinho in medalhados">
@@ -21,14 +22,19 @@
       return {
         vinhos: [],
         avaliados: [],
-        usuario: {}
+        medalhados: []
       }
     },
 
-    ready: function () {
-      this.fetchVinhos()
-      this.fetchUsuario()
-      this.fetchAvaliados()
+    ready: function() {
+
+      return Promise.all([
+        this.fetchVinhos(),
+        this.fetchAvaliados()
+      ]).then(() => {
+        this.setMedalhados()
+      });
+
     },
 
     components: {
@@ -36,8 +42,8 @@
     },
 
     computed: {
-      medalhados() {
-        return _.differenceBy(this.vinhos, this.avaliados, 'key')
+      usuario() {
+        return firebase.auth().currentUser
       }
     },
 
@@ -45,8 +51,9 @@
       fetchVinhos() {
         var self = this
         var vinhosRef = firebase.database().ref('vinhos')
+        var vinhos = []
 
-        vinhosRef.on("value", function(snapshot) {
+        return vinhosRef.once("value").then((snapshot) => {
           snapshot.forEach(function(childSnapshot) {
             var key = childSnapshot.key
             self.vinho = childSnapshot.val()
@@ -60,7 +67,8 @@
         var self = this
         var avaliadosPeloUsuario = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos')
 
-        avaliadosPeloUsuario.orderByChild("avaliado").equalTo(true).on("value", function(snapshot) {
+//        return avaliadosPeloUsuario.orderByChild("avaliado").equalTo(true).once("value").then((snapshot) => {
+        return avaliadosPeloUsuario.once("value").then((snapshot) => {
           snapshot.forEach(function(childSnapshot) {
             var childData = childSnapshot.val();
 
@@ -71,6 +79,12 @@
       fetchUsuario() {
         this.usuario = firebase.auth().currentUser
       },
+      setMedalhados() {
+        this.medalhados = _.differenceBy(this.vinhos, this.avaliados, 'key')
+//        console.log(this.vinhos)
+//        console.log(this.avaliados)
+//        console.log(_.differenceBy(this.vinhos, this.avaliados, 'key'))
+      }
     }
   }
 </script>

@@ -26,7 +26,6 @@
         this.getLatestVideo()
       ]).then(() => {
         this.loaded = true
-        console.log('loaded')
       });
     },
     methods: {
@@ -35,11 +34,9 @@
       },
       getLatestVideo() {
         var videoRef = firebase.database().ref('latest').child('video')
-        var self = this
 
-        return videoRef.once('value').then(function (snapshot) {
-          self.latestVideo = snapshot.val()
-          console.log(snapshot.val())
+        return videoRef.once('value').then((snapshot) => {
+          this.latestVideo = snapshot.val()
         })
       }
     }

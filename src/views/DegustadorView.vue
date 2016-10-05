@@ -64,8 +64,8 @@
     .profile-pic
       background-size cover
       background-position center top
-      width 120px
-      height 120px
+      width 80px
+      height 80px
       border-radius 50%
     .todos-vinhos
       display flex
