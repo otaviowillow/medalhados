@@ -4,6 +4,10 @@
       <div class="content" @click.stop>
         <!--<a v-if="!vinho.avaliado" v-link="{ name: 'ficha', params: { id: vinho.key } }">Avaliar</a>-->
         <ui-toolbar type="clear" :hide-nav-icon="true">
+          <div class="nota">
+            <object class="medalha" :data="medalha"></object>
+            <h4>{{ nota }}</h4>
+          </div>
           <div slot="actions">
             <ui-icon-button type="clear" icon="shopping_cart"></ui-icon-button>
           </div>
@@ -34,41 +38,66 @@
   export default{
     props: {
       vinho: {},
-      usuario: {}
+      usuario: {},
+      nota: 0,
+      medalha: ''
     },
     data() {
       return {
-        expandido: false
+        expandido: false,
+        avaliados: []
       }
     },
     components: {
       VinhoPontuacao
     },
+//    computed: {
+//      medal() {
+//        return 'static/img/gold_medal.svg'
+//      }
+//    },
     ready: function() {
-      this.fetchAvaliados()
+      return Promise.all([
+        this.fetchAvaliados(),
+      ]).then(() => {
+        this.setAvaliado()
+      });
     },
     methods: {
       expandirVinho() {
         this.expandido = !this.expandido
       },
       fetchAvaliados() {
-        var self = this
         var avaliadosPeloUsuario = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos')
 
-        avaliadosPeloUsuario.orderByChild("avaliado").equalTo(true).on("value", function(snapshot) {
-          snapshot.forEach(function(childSnapshot) {
-            var childData = childSnapshot.val();
+        function valuesToArray(obj) {
+          return Object.keys(obj).map(function (key) { return obj[key]; });
+        }
 
-            if(self.vinho.key == childData.vinho_id)
-              self.avaliado = true
-          });
-        });
+        return avaliadosPeloUsuario.once('value', (snapshot) => {
+          this.avaliados = valuesToArray(snapshot.val())
+        })
+      },
+      setAvaliado() {
+        var avaliado = this.avaliados.find(x => x.key === this.vinho.key)
+
+        this.medalha = avaliado.medalha
+        this.nota = avaliado.nota
       }
     }
   }
 </script>
 
 <style lang="stylus">
+  .nota
+    margin-left 15px
+    h4, .medalha
+      display inline-block
+      vertical-align middle
+    h4
+      font-size 1.3em
+    .medalha
+      width 20px
   .vinho-template
     position relative
     height 100%

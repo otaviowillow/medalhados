@@ -3,7 +3,7 @@
     <div class="main-card">
       <vinho-detalhes :vinho="vinho"></vinho-detalhes>
 
-      <botao-voto :vinho="vinho" :vinho-key="vinhoKey" :nota-total="notaTotal"></botao-voto>
+      <botao-voto :vinho="vinho" :vinho-key="vinhoKey" :nota-total="notaTotal" :usuario="usuario"></botao-voto>
 
       <notas :tipo="vinho.tipo" :nota-total.sync="notaTotal"></notas>
     </div>
@@ -23,6 +23,7 @@
       return {
         vinho: {},
         vinhoKey: '',
+        usuario: {},
         notaTotal: 0
       }
     },
@@ -31,6 +32,7 @@
       data ({ to }) {
         this.vinhoKey = to.params.id
         this.$bindAsObject('vinho', firebase.database().ref('vinhos/' + this.vinhoKey))
+        this.$bindAsObject('usuario', firebase.database().ref('usuarios').child(firebase.auth().currentUser.uid))
       }
     },
 
@@ -38,6 +40,6 @@
       VinhoDetalhes,
       BotaoVoto,
       Notas
-    }
+    },
   }
 </script>

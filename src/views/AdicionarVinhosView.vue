@@ -1,51 +1,51 @@
 <template>
   <div class="adicionar-vinhos">
     <form class="main-card">
-      <h2>Introdução</h2>
       <div class="introducao">
+        <h2>Introdução</h2>
         <ui-textbox name="intro" :value.sync="vinho.intro" :multi-line="true"></ui-textbox>
       </div>
 
-      <h2>Video Aula</h2>
-      <p>Link de YouTube</p>
-      <div class="introducao">
+      <div class="video">
+        <h2>Video Aula</h2>
+        <p>ID do vídeo do youtube: <em>https://www.youtube.com/watch?v=<strong>veMmZtybxu0</strong></em></p>
         <ui-textbox name="video" :value.sync="vinho.video"></ui-textbox>
       </div>
 
-      <h2>Detalhes do Vinho</h2>
       <div class="wrapper">
-        <div class="upload-image">
-          <input class="upload-file" type="file" @change="uploadFile($event)">
-          <div class="background-upload" :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }">
-            <span v-show="!vinho.foto_garrafa_url">Adicionar foto de vinho</span>
+        <h2>Detalhes do Vinho</h2>
+        <div class="content">
+          <div class="upload-image">
+            <input class="upload-file" type="file" @change="uploadFile($event)">
+            <div class="background-upload" :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }">
+              <span v-show="!vinho.foto_garrafa_url">Adicionar foto de vinho</span>
+            </div>
           </div>
-        </div>
 
-        <div class="fields">
+          <div class="fields">
+            <fieldset class="first">
+              <ui-textbox name="nome" :value.sync="vinho.nome" label="Nome" label="Nome" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-select name="tipo" :value.sync="vinho.tipo" :options="tipos" label="Tipo" default="Tinto" required></ui-select>
+              <ui-select name="regiao" :value.sync="vinho.regiao.nome" :options="paises" label="Região" show-search required></ui-select>
+            </fieldset>
 
-          <fieldset class="first">
-            <ui-textbox name="nome" :value.sync="vinho.nome" label="Nome" label="Nome" validation-rules="required" @blurred="formState"></ui-textbox>
-            <ui-select name="tipo" :value.sync="vinho.tipo" :options="tipos" label="Tipo" default="Tinto" required></ui-select>
-            <ui-select name="regiao" :value.sync="vinho.regiao.nome" :options="paises" label="Região" show-search required></ui-select>
-          </fieldset>
+            <fieldset>
+              <ui-textbox name="alcool" :value.sync="vinho.alcool" label="Álcool" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="cepa" :value.sync="vinho.cepa" label="Cepa" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="castas" :value.sync="vinho.castas" label="Castas" validation-rules="required" @blurred="formState"></ui-textbox>
+            </fieldset>
 
-          <fieldset>
-            <ui-textbox name="alcool" :value.sync="vinho.alcool" label="Álcool" validation-rules="required" @blurred="formState"></ui-textbox>
-            <ui-textbox name="cepa" :value.sync="vinho.cepa" label="Cepa" validation-rules="required" @blurred="formState"></ui-textbox>
-            <ui-textbox name="castas" :value.sync="vinho.castas" label="Castas" validation-rules="required" @blurred="formState"></ui-textbox>
-          </fieldset>
+            <fieldset>
+              <ui-textbox name="preco" :value.sync="vinho.preco" type="number" label="Preço" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="safra" :value.sync="vinho.safra" label="Safra" validation-rules="required" @blurred="formState"></ui-textbox>
+            </fieldset>
 
-          <fieldset>
-            <ui-textbox name="preco" :value.sync="vinho.preco" type="number" label="Preço" validation-rules="required" @blurred="formState"></ui-textbox>
-            <ui-textbox name="safra" :value.sync="vinho.safra" label="Safra" validation-rules="required" @blurred="formState"></ui-textbox>
-          </fieldset>
-
-          <fieldset>
-            <ui-textbox name="produtor" :value.sync="vinho.produtor" label="Produtor" validation-rules="required" @blurred="formState"></ui-textbox>
-            <ui-textbox name="importador" :value.sync="vinho.importador" label="Importador" validation-rules="required" @blurred="formState"></ui-textbox>
-            <ui-textbox name="origem" :value.sync="vinho.origem" label="Origem" validation-rules="required" @blurred="formState"></ui-textbox>
-          </fieldset>
-
+            <fieldset>
+              <ui-textbox name="produtor" :value.sync="vinho.produtor" label="Produtor" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="importador" :value.sync="vinho.importador" label="Importador" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="origem" :value.sync="vinho.origem" label="Origem" validation-rules="required" @blurred="formState"></ui-textbox>
+            </fieldset>
+          </div>
         </div>
       </div>
 
@@ -119,9 +119,7 @@
       },
       enviarVinho() {
         var utc = new Date()
-        this.vinho.criadoEm = utc
-
-        console.log(utc)
+        this.vinho.criadoEm = utc.toString()
 
         firebase.database().ref().child('vinhos').push(this.vinho)
 
@@ -150,18 +148,32 @@
 <style lang="stylus">
   .adicionar-vinhos
     width 100%
-    .introducao
+    .introducao, .video, .wrapper
       width 95%
-      padding 0 2.5%
+      padding 2.5%
+      h2
+        margin-bottom 10px
     footer
       text-align right
       width 95%
       padding 2.5%
       padding-top 0
+    .introducao
+      textarea
+        height 300px
+    .video
+      p
+        font-size .9em
+        em
+          font-size .9em
+          font-style italic
+        strong
+          font-weight 700
     .wrapper
-      width 95%
-      padding 2.5%
-    .wrapper
+      h2
+        display block
+        width 100%
+    .content
       display table
     .upload-image
       display table-cell

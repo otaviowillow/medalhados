@@ -17,10 +17,5 @@
     ready: function () {
       this.usuario = firebase.auth().currentUser
     }
-//    computed: {
-//      usuario() {
-//        return firebase.auth().currentUser
-//      }
-//    }
   }
 </script>

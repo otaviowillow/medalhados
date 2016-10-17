@@ -3,9 +3,8 @@
     <!--<figure :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }" ></figure>-->
     <div class="vinho-descricao">
       <!--<h2>{{vinho.nome}}</h2>-->
-      <h2>Agosto, 2016</h2>
+      <h2>{{ vinho.criadoEm | dateFilter }}</h2>
       <h3>{{vinho.tipo}}</h3>
-      <!--<p>Amostra: {{vinho.amostra}}</p>-->
       <footer>
         <p>Álcool: {{vinho.alcool}}</p>
         <p>Cepa: {{vinho.cepa}}</p>
@@ -19,6 +18,7 @@
 
 <script>
   import UsuarioInput from '../components/UsuarioInput.vue'
+  import moment from 'moment'
 
   export default{
     props: {
@@ -27,8 +27,6 @@
 
     computed: {
       backgroundType() {
-        console.log(this.vinho)
-
         switch (this.vinho.tipo) {
           case 'Tinto':
             return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/red-wine-background.jpg?alt=media&token=da64ce08-8d9d-4674-a74f-b17f7d24c035'
@@ -43,9 +41,15 @@
             return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/sparkling-wine.jpg?alt=media&token=c3409906-5569-4379-a4aa-2027356349c6'
             break
           case 'Rose':
-            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/rose-spring.jpg?alt=media&token=ea6fee1a-2631-4b95-9f31-689d80d3deb9'
+            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/rose-pour.jpg?alt=media&token=d7b56c4d-232f-4856-9ce1-a12457a03ac8'
             break
         }
+      }
+    },
+
+    filters: {
+      dateFilter(value) {
+        return moment(value).lang("pt").format('MMMM YYYY');
       }
     },
 
@@ -72,11 +76,14 @@
       padding 0 2%
       h2
         font-size 3em
+      h3
+        margin 10px 0
     footer
       width 80%
       p
+        display inline-block
         font-size .8em
-        padding 5px 0 0 0
+        padding 5px 10px 0 0
     figure
       background-color white
       background-size auto 90%

@@ -27,14 +27,12 @@
     },
 
     ready: function() {
-
       return Promise.all([
         this.fetchVinhos(),
         this.fetchAvaliados()
       ]).then(() => {
         this.setMedalhados()
       });
-
     },
 
     components: {
@@ -67,7 +65,6 @@
         var self = this
         var avaliadosPeloUsuario = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos')
 
-//        return avaliadosPeloUsuario.orderByChild("avaliado").equalTo(true).once("value").then((snapshot) => {
         return avaliadosPeloUsuario.once("value").then((snapshot) => {
           snapshot.forEach(function(childSnapshot) {
             var childData = childSnapshot.val();
@@ -76,14 +73,23 @@
           });
         });
       },
+      fetchNota() {
+        var avaliadosPeloUsuario = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos')
+
+        return avaliadosPeloUsuario.once('value', (snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+            if(childSnapshot.val().key == this.vinho.key) {
+              console.log(childSnapshot.val().nota)
+              childSnapshot.val().nota
+            }
+          })
+        })
+      },
       fetchUsuario() {
         this.usuario = firebase.auth().currentUser
       },
       setMedalhados() {
-        this.medalhados = _.differenceBy(this.vinhos, this.avaliados, 'key')
-//        console.log(this.vinhos)
-//        console.log(this.avaliados)
-//        console.log(_.differenceBy(this.vinhos, this.avaliados, 'key'))
+        this.medalhados = _.intersectionBy(this.vinhos, this.avaliados, 'key')
       }
     }
   }

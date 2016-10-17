@@ -15,10 +15,11 @@
         var self = this
         var provider = new firebase.auth.FacebookAuthProvider();
 
-        firebase.auth().signInWithPopup(provider).then(function(result) {
+        firebase.auth().signInWithRedirect(provider).then(function(result) {
           var token = result.credential.accessToken;
           var user = result.user;
 
+          console.log(token)
           self.$dispatch('is-authenticated')
           self.$router.go('/carta-do-presidente')
         }).catch(function(error) {
@@ -26,6 +27,8 @@
           var errorMessage = error.message;
           var email = error.email;
           var credential = error.credential;
+
+          console.log(errorMessage)
         });
       }
     }

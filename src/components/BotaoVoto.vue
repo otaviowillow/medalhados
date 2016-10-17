@@ -23,6 +23,7 @@
     props: {
       vinho: {},
       vinhoKey: '12',
+      usuario: {},
       notaTotal: 0,
     },
 
@@ -42,12 +43,12 @@
         console.info(this.votosTotal +" "+" "+this.notaTotal+" "+this.notaTotal * .8)
 
         if(this.votosTotal > this.notTotal * .8)
-          return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/gold_medal.svg?alt=media&token=67110758-8a97-4a4b-a74b-cb7e2f567916'
+          return 'static/img/gold_medal.svg'
 
         if(this.votosTotal > this.notTotal * .6)
-          return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/silver_medal.svg?alt=media&token=734bd64a-2a20-48a1-9ac9-231fa6171c14'
+          return 'static/img/silver_medal.svg'
 
-        return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/bronze_medal.svg?alt=media&token=7c908e1c-639e-4821-812b-eee65187c0a8'
+        return 'static/img/bronze_medal.svg'
       }
     },
 
@@ -64,11 +65,20 @@
 
         this.show.vote = true
       },
+      adicionarNotas() {
+        var notasRef = firebase.database().ref('notas')
+
+
+        console.log(this.vinho)
+      },
       avaliarVinho() {
         var usuarioVinhos = firebase.database().ref('usuarios/' + firebase.auth().currentUser.uid + '/vinhos')
 
+        this.adicionarNotas()
+
         usuarioVinhos.push({
           avaliado: true,
+          tipo: this.vinho.tipo,
           medalha: this.medal,
           key: this.vinhoKey,
           nota: this.votosTotal

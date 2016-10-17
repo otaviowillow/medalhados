@@ -1,6 +1,6 @@
 <template>
   <div class="vinhos-view">
-    <div v-if="$loadingRouteData">Loading..</div>
+    <div v-if="$loadingRouteData"><ui-progress-circular type="indeterminate"></ui-progress-circular></div>
 
     <div v-if="!$loadingRouteData">
       <carta-do-presidente v-if="ficha" :vinho="ficha"></carta-do-presidente>
@@ -88,7 +88,9 @@
       setFicha() {
         var fichas = _.differenceBy(this.vinhos, this.avaliados, 'key')
 
-        if (fichas.length > 0)
+        console.log(fichas[0])
+
+        if (fichas)
           this.ficha = fichas[0]
       }
     }

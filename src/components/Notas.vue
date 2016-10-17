@@ -59,7 +59,7 @@
       display flex
       align-items flex-end
       flex: 0 0 300px;
-      background-position left top
+      background-position center top
       background-size cover
       background-repeat no-repeat
       h3

@@ -12,6 +12,7 @@ import RevistaView from './views/RevistaView.vue'
 import VideoView from './views/VideoView.vue'
 import VinhosView from './views/VinhosView.vue'
 import LoginView from './views/LoginView.vue'
+import HomeView from './views/HomeView.vue'
 import AdicionarVinhosView from './views/AdicionarVinhosView.vue'
 import * as firebase from 'firebase'
 import VueFire from "vuefire";
@@ -41,15 +42,11 @@ router.map({
     component: DegustadorView,
     auth: true
   },
+
   '/fichas': {
     name: 'fichas',
     component: FichasView,
     showFichas: true,
-    auth: true
-  },
-  '/ficha/:id': {
-    name: 'ficha',
-    component: FichaView,
     auth: true
   },
   '/revista': {
@@ -77,25 +74,21 @@ router.map({
     component: LoginView,
     auth: false
   },
+  '/home': {
+    name: 'home',
+    component: HomeView,
+    auth: false
+  },
 })
-
-// var config = {
-//   apiKey: "AIzaSyC8Blps39GwdxP57vPaok1135Pbr9ROMbA",
-//   authDomain: "medalhados.firebaseapp.com",
-//   databaseURL: "https://medalhados.firebaseio.com",
-//   storageBucket: "medalhados.appspot.com",
-// };
-//
-// firebase.initializeApp(config);
 
 router.beforeEach(function (transition) {
   firebase.auth().onAuthStateChanged(function(user) {
     if (transition.to.auth && !user) {
       window.scrollTo(0, 0)
       transition.redirect('/login')
-    // } else if (transition.to.name == 'fichas' && '=)' || transition.to.path == '/' && '=)') {
-    //   window.scrollTo(0, 0)
-    //   transition.redirect('/vinhos')
+    } else if (transition.to.name == 'home' && user || transition.to.name == 'login' && user) {
+      window.scrollTo(0, 0)
+      transition.redirect('/')
     } else {
       window.scrollTo(0, 0)
       transition.next()
