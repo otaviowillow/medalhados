@@ -38,6 +38,9 @@
 <style lang="stylus">
   @import "../variables.styl"
 
+  html, body
+    overflow-x scroll
+
   body
     padding 0
     margin 0
@@ -63,12 +66,31 @@
       padding 5% 5% 2.5% 5%
   .card
     box-shadow 1px 1px 3px rgba(0,0,0,.3)
+    .card-body
+      width 90%
+      padding 5%
+      padding-bottom 0
     footer
+      background white
       display flex
       justify-content flex-end
       align-items center
       width 90%
-      padding 0 5%
+      padding 5%
+  .card-shadow
+    position relative
+    *
+      position relative
+      z-index 2
+    &:before
+      content ''
+      background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.6));
+      position absolute
+      top 0
+      left 0
+      width 100%
+      height 100%
+      z-index 1
   .has-background
     position relative
     *

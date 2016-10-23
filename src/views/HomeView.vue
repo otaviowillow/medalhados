@@ -2,7 +2,7 @@
   <div class="home-view">
     <header>
       <h1 class="logo">Medalhados</h1>
-      <button class="login">Log in</button>
+      <button class="login" v-link="{ name: 'login' }">Log in</button>
     </header>
     <article class="intro">
       <div>
@@ -13,13 +13,13 @@
         <h4>Deixe seus dados e receba mais informações</h4>
 
         <form>
-          <input type="text" placeholder="Seu Nome">
-          <input type="text" placeholder="Seu E-mail">
-          <input type="text" placeholder="Sua Cidade">
+          <input v-model="user.nome" type="text" placeholder="Seu Nome">
+          <input v-model="user.email" type="text" placeholder="Seu E-mail">
+          <input v-model="user.cidade" type="text" placeholder="Sua Cidade">
 
           <span>Seus dados serão utilizados exclusivamente para lhe fornecer mais informações sobre o nosso clube</span>
 
-          <input type="submit" class="submit" value="Enviar">
+          <input type="submit" class="submit" value="Enviar" @click.prevent="enviarRegistro">
         </form>
       </div>
     </article>
@@ -218,14 +218,65 @@
       <span>© 2016 Medalhados. All Rights Reserved</span>
       <h1 class="logo">Medalhados</h1>
     </footer>
+
+    <div class="alert alert-success">
+      <ui-alert type="success" :show="show.success">Você se cadastrou com Sucesso!</ui-alert>
+    </div>
+
+    <div class="alert alert-error">
+      <ui-alert type="error" :show="show.error">Houve um problema com o envio dos seus dados. Por favor, tente novamente</ui-alert>
+    </div>
   </div>
 </template>
 
+<script>
+  export default {
+    data() {
+      return {
+        user: {
+          nome: '',
+          email: '',
+          cidade: ''
+        },
+        show: {
+          success: false,
+          error: false
+        }
+      }
+    },
+    methods: {
+      enviarRegistro() {
+        var email = 'eu@zeluiztavares.com.br'
+
+        this.$http.post('https://formspree.io/' + email, this.user).then((response) => {
+          this.show.success = true
+        }).catch((error) => {
+          this.show.error = true
+        })
+      }
+    }
+  }
+</script>
+
 <style lang="stylus">
-  article
-    text-align center
   .home-view
     background white
+    article
+      text-align center
+    .alert
+      background white
+      position fixed
+      bottom 0
+      left 50%
+      margin-bottom 12px
+      .ui-alert-toggle-transition
+        margin-bottom 0
+    .alert-error
+      width 650px
+      margin-left -325px
+    .alert-success
+      width 350px
+      margin-left -150px
     h2, h3
       font-weight 700
       text-transform uppercase

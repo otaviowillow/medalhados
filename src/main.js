@@ -6,13 +6,15 @@ import Resource from 'vue-resource'
 import { domain, fromNow, toString, toInt } from './filters'
 import App from './components/App.vue'
 import DegustadorView from './views/DegustadorView.vue'
-import FichasView from './views/FichasView.vue'
 import FichaView from './views/FichaView.vue'
 import RevistaView from './views/RevistaView.vue'
 import VideoView from './views/VideoView.vue'
 import VinhosView from './views/VinhosView.vue'
+import VinhoView from './views/VinhoView.vue'
 import LoginView from './views/LoginView.vue'
 import HomeView from './views/HomeView.vue'
+import FichasView from './views/FichasView.vue'
+import CartaView from './views/CartaView.vue'
 import AdicionarVinhosView from './views/AdicionarVinhosView.vue'
 import * as firebase from 'firebase'
 import VueFire from "vuefire";
@@ -34,8 +36,8 @@ var router = new Router()
 
 router.map({
   '/': {
-    component: FichasView,
-    auth: true
+    component: HomeView,
+    auth: false
   },
   '/degustador': {
     name: 'degustador',
@@ -43,12 +45,12 @@ router.map({
     auth: true
   },
 
-  '/fichas': {
-    name: 'fichas',
-    component: FichasView,
-    showFichas: true,
-    auth: true
-  },
+  // '/fichas': {
+  //   name: 'fichas',
+  //   component: FichasView,
+  //   showFichas: true,
+  //   auth: true
+  // },
   '/revista': {
     name: 'revista',
     component: RevistaView,
@@ -59,14 +61,34 @@ router.map({
     component: VideoView,
     auth: true
   },
+  '/vinho/:id': {
+    name: 'vinho',
+    component: VinhoView,
+    auth: true
+  },
   '/vinhos': {
     name: 'vinhos',
     component: VinhosView,
     auth: true
   },
+  '/fichas': {
+    name: 'fichas',
+    component: FichasView,
+    auth: true
+  },
+  '/ficha/:id': {
+    name: 'ficha',
+    component: FichaView,
+    auth: true
+  },
   '/adicionar-vinho': {
     name: 'adicionar-vinho',
     component: AdicionarVinhosView,
+    auth: true
+  },
+  '/carta-do-presidente': {
+    name: 'carta-do-presidente',
+    component: CartaView,
     auth: true
   },
   '/login': {
@@ -86,9 +108,9 @@ router.beforeEach(function (transition) {
     if (transition.to.auth && !user) {
       window.scrollTo(0, 0)
       transition.redirect('/login')
-    } else if (transition.to.name == 'home' && user || transition.to.name == 'login' && user) {
+    } else if (transition.to.path == '/' && user || transition.to.name == 'login' && user) {
       window.scrollTo(0, 0)
-      transition.redirect('/')
+      transition.redirect('/fichas')
     } else {
       window.scrollTo(0, 0)
       transition.next()

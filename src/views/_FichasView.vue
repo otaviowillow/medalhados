@@ -1,19 +1,14 @@
 <template>
   <div class="vinhos-view">
-    <p v-if="$loadingRouteData">Loading...</p>
+    <div v-if="$loadingRouteData"><ui-progress-circular type="indeterminate"></ui-progress-circular></div>
 
     <div v-if="!$loadingRouteData">
-      <p>{{ medalhados.length }}</p>
-      <ul v-if="medalhados">
-        <li v-for="vinho in medalhados">
-          <vinho :vinho="vinho" :key="vinhoKey" :usuario="usuario"></vinho>
-        </li>
-      </ul>
-    </div>
+      <carta-do-presidente v-if="ficha" :vinho="ficha"></carta-do-presidente>
 
-    <div class="card testado" v-else>
-      <header></header>
-      <p>Não há mais fichas esse mês</p>
+      <div class="card testado" v-else>
+        <header :style="{ backgroundImage: 'url(' + backgroundImage + ')' }"></header>
+        <p>Não há mais fichas esse mês</p>
+      </div>
     </div>
   </div>
 </template>
@@ -21,6 +16,7 @@
 <script>
   import store from '../store'
   import Vinho from '../components/Vinho.vue'
+  import CartaDoPresidente from '../components/CartaDoPresidente.vue'
 
   export default {
     name: 'VinhosView',
@@ -29,21 +25,25 @@
       return {
         vinhos: [],
         avaliados: [],
-        medalhados: []
+        usuario: {},
+        ficha: {},
       }
     },
 
-    ready: function() {
-      return Promise.all([
-        this.fetchVinhos(),
-        this.fetchAvaliados()
-      ]).then(() => {
-        this.setMedalhados()
-      });
+    components: {
+      Vinho,
+      CartaDoPresidente
     },
 
-    components: {
-      Vinho
+    route: {
+      data () {
+        return Promise.all([
+          this.fetchVinhos(),
+          this.fetchAvaliados()
+        ]).then(() => {
+          this.setFicha()
+        });
+      }
     },
 
     computed: {
@@ -55,10 +55,11 @@
     methods: {
       fetchVinhos() {
         var self = this
-        var vinhosRef = firebase.database().ref('vinhos')
         var vinhos = []
+        var vinhosRef = firebase.database().ref('vinhos')
+        var avaliadosPeloUsuario = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos')
 
-        return vinhosRef.once("value").then((snapshot) => {
+        return vinhosRef.once("value").then(function(snapshot) {
           snapshot.forEach(function(childSnapshot) {
             var key = childSnapshot.key
             self.vinho = childSnapshot.val()
@@ -72,7 +73,7 @@
         var self = this
         var avaliadosPeloUsuario = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos')
 
-        return avaliadosPeloUsuario.once("value").then((snapshot) => {
+        return avaliadosPeloUsuario.orderByChild("avaliado").equalTo(true).once("value").then((snapshot) => {
           snapshot.forEach(function(childSnapshot) {
             var childData = childSnapshot.val();
 
@@ -80,23 +81,16 @@
           });
         });
       },
-      fetchNota() {
-        var avaliadosPeloUsuario = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos')
-
-        return avaliadosPeloUsuario.once('value', (snapshot) => {
-          snapshot.forEach((childSnapshot) => {
-            if(childSnapshot.val().key == this.vinho.key) {
-              console.log(childSnapshot.val().nota)
-              childSnapshot.val().nota
-            }
-          })
-        })
-      },
       fetchUsuario() {
         this.usuario = firebase.auth().currentUser
       },
-      setMedalhados() {
-        this.medalhados = _.intersectionBy(this.vinhos, this.avaliados, 'key')
+      setFicha() {
+        var fichas = _.differenceBy(this.vinhos, this.avaliados, 'key')
+
+        console.log(fichas[0])
+
+        if (fichas)
+          this.ficha = fichas[0]
       }
     }
   }
@@ -129,20 +123,4 @@
         flex 0 0 300px
         height 350px
         margin 0 0 20px 0
-  
-    .testado
-      background white
-      width 500px
-      float none
-      margin 0 auto
-      text-align center
-      header
-        background url("/static/img/wine-tasting.jpg")
-        background-size cover
-        background-position center
-        background-repeat no-repeat
-        width 100%
-        height 250px
-      p
-        padding 30px 0
 </style>

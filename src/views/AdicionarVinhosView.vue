@@ -23,27 +23,30 @@
           </div>
 
           <div class="fields">
+            <p>{{ amostra }}</p>
+
             <fieldset class="first">
-              <ui-textbox name="nome" :value.sync="vinho.nome" label="Nome" label="Nome" validation-rules="required" @blurred="formState"></ui-textbox>
               <ui-select name="tipo" :value.sync="vinho.tipo" :options="tipos" label="Tipo" default="Tinto" required></ui-select>
-              <ui-select name="regiao" :value.sync="vinho.regiao.nome" :options="paises" label="Região" show-search required></ui-select>
-            </fieldset>
-
-            <fieldset>
-              <ui-textbox name="alcool" :value.sync="vinho.alcool" label="Álcool" validation-rules="required" @blurred="formState"></ui-textbox>
-              <ui-textbox name="cepa" :value.sync="vinho.cepa" label="Cepa" validation-rules="required" @blurred="formState"></ui-textbox>
               <ui-textbox name="castas" :value.sync="vinho.castas" label="Castas" validation-rules="required" @blurred="formState"></ui-textbox>
-            </fieldset>
-
-            <fieldset>
-              <ui-textbox name="preco" :value.sync="vinho.preco" type="number" label="Preço" validation-rules="required" @blurred="formState"></ui-textbox>
-              <ui-textbox name="safra" :value.sync="vinho.safra" label="Safra" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="nome" :value.sync="vinho.nome" label="Nome" label="Nome" validation-rules="required" @blurred="formState"></ui-textbox>
             </fieldset>
 
             <fieldset>
               <ui-textbox name="produtor" :value.sync="vinho.produtor" label="Produtor" validation-rules="required" @blurred="formState"></ui-textbox>
               <ui-textbox name="importador" :value.sync="vinho.importador" label="Importador" validation-rules="required" @blurred="formState"></ui-textbox>
               <ui-textbox name="origem" :value.sync="vinho.origem" label="Origem" validation-rules="required" @blurred="formState"></ui-textbox>
+            </fieldset>
+
+            <fieldset>
+              <ui-select name="regiao" :value.sync="vinho.regiao.nome" :options="paises" label="Região" show-search required></ui-select>
+              <ui-textbox name="safra" :value.sync="vinho.safra" label="Safra" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="alcool" :value.sync="vinho.alcool" label="Álcool" validation-rules="required" @blurred="formState"></ui-textbox>
+            </fieldset>
+
+            <fieldset>
+              <ui-textbox name="preco" :value.sync="vinho.preco" type="number" label="Preço" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="fermentacao" :value.sync="vinho.fermentacao" label="Fermentação" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="notaOficial" :value.sync="vinho.notaOficial" label="Nota Oficial" validation-rules="required" @blurred="formState"></ui-textbox>
             </fieldset>
           </div>
         </div>
@@ -73,15 +76,16 @@
           nome: '',
           foto_garrafa_url: null,
           alcool: '',
-          cepa: '',
           castas: '',
           produtor: '',
           importador: '',
           origem: '',
+          notaOficial: '',
           regiao: {
             nome: '',
             codigo: ''
           },
+          fermentacao: '',
           safra: '',
           avaliado: false,
           preco: ''
@@ -90,6 +94,24 @@
     },
     ready: function() {
       this.setPaises(this.paises)
+      this.getAmostra()
+    },
+//    filters: {
+//      amostraString(num) {
+//        var zero = 3 - num.toString().length + 1;
+//        return Array(+(zero > 0 && zero)).join("0") + num + '/16';
+//      }
+//    },
+    computed: {
+      amostra() {
+        var num = 1
+        var zero = 3 - num.toString().length + 1;
+        var filteredList = Array(+(zero > 0 && zero)).join("0") + num + '16';
+
+        this.vinho.amostra = filteredList
+
+        return filteredList
+      }
     },
     methods: {
       uploadFile(event) {
@@ -121,13 +143,25 @@
         var utc = new Date()
         this.vinho.criadoEm = utc.toString()
 
-        firebase.database().ref().child('vinhos').push(this.vinho)
+        firebase.database().ref('vinhos/' + this.amostra).set(this.vinho);
 
-        firebase.database().ref('latest').child('vinho').set(this.vinho)
-
-        firebase.database().ref('latest').child('video').set(this.vinho.video)
+//        firebase.database().ref().child('vinhos').push(this.vinho)
+//
+//        firebase.database().ref('latest').child('vinho').set(this.vinho)
+//
+//        firebase.database().ref('latest').child('video').set(this.vinho.video)
 
         this.$router.go('/')
+      },
+      getAmostra() {
+        var vinhos = firebase.database().ref().child('vinhos')
+
+        return vinhos.once('value', (snapshot) => {
+          console.log(snapshot.val())
+
+          if(snapshot.val() !== null)
+            this.vinho.amostra = 1 //snapshot.val().length
+        })
       },
       setPaises(countries) {
         this.$http.get('../node_modules/world-countries/dist/countries.json').then((response) => {

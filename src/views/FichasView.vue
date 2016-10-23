@@ -1,141 +1,120 @@
 <template>
-  <div class="vinhos-view">
-    <div v-if="$loadingRouteData"><ui-progress-circular type="indeterminate"></ui-progress-circular></div>
-
-    <div v-if="!$loadingRouteData">
-      <carta-do-presidente v-if="ficha" :vinho="ficha"></carta-do-presidente>
-
-      <div class="card testado" v-else>
-        <header :style="{ backgroundImage: 'url(' + backgroundImage + ')' }"></header>
-        <p>Não há mais fichas esse mês</p>
+  <div class="degustar-view">
+    <div class="wrapper">
+      <div class="card main card-shadow">
+        <div class="card-body">
+          <h2>Sua Ficha</h2>
+          <p>digite no campo marcado o código da amostra que irá degustar e acesse a ficha oficial de avaliação.</p>
+          <ui-textbox name="vinhoId" :value.sync="vinho.id" :autofocus="true" placeholder="_ _ _ /_ _" @keydown-enter="procurarVinho"></ui-textbox>
+        </div>
       </div>
+
+      <aside>
+        <div class="video-aula card">
+          <div class="card-header card-shadow">
+            <h2>Vídeo aula</h2>
+          </div>
+          <div class="card-body">
+            <p>Se esta é sua primeira degustação - ou mesmo se quiser recordar - assista a video-aula preparada especialmente para orientá-lo sobre as técnicas de avaliação de vinhos</p>
+          </div>
+          <footer>
+            <ui-button v-link="{ name: 'video', params: { id: 'qYN1M9oc8' } }">Assistir</ui-button>
+          </footer>
+        </div>
+
+        <div class="carta-presidente card">
+          <div class="card-header card-shadow">
+            <h2>Carta do Presidente</h2>
+          </div>
+          <footer>
+            <ui-button v-link="{ name: 'carta-do-presidente' }">Ler</ui-button>
+          </footer>
+        </div>
+      </aside>
     </div>
   </div>
 </template>
 
 <script>
-  import store from '../store'
-  import Vinho from '../components/Vinho.vue'
-  import CartaDoPresidente from '../components/CartaDoPresidente.vue'
-
-  export default {
-    name: 'VinhosView',
-
+  export default{
     data() {
       return {
-        backgroundImage: '/static/img/wine-tasting.jpg',
-        vinhos: [],
-        avaliados: [],
-        usuario: {},
-        ficha: {},
-      }
-    },
-
-    components: {
-      Vinho,
-      CartaDoPresidente
-    },
-
-    route: {
-      data () {
-        return Promise.all([
-          this.fetchVinhos(),
-          this.fetchAvaliados()
-        ]).then(() => {
-          this.setFicha()
-        });
-      }
-    },
-
-    computed: {
-      usuario() {
-        return firebase.auth().currentUser
+        vinho: {
+          id: ''
+        }
       }
     },
 
     methods: {
-      fetchVinhos() {
-        var self = this
-        var vinhos = []
-        var vinhosRef = firebase.database().ref('vinhos')
-        var avaliadosPeloUsuario = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos')
-
-        return vinhosRef.once("value").then(function(snapshot) {
-          snapshot.forEach(function(childSnapshot) {
-            var key = childSnapshot.key
-            self.vinho = childSnapshot.val()
-
-            self.vinho.key = key
-            self.vinhos.push(self.vinho)
-          });
-        });
-      },
-      fetchAvaliados() {
-        var self = this
-        var avaliadosPeloUsuario = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos')
-
-        return avaliadosPeloUsuario.orderByChild("avaliado").equalTo(true).once("value").then((snapshot) => {
-          snapshot.forEach(function(childSnapshot) {
-            var childData = childSnapshot.val();
-
-            self.avaliados.push(childData)
-          });
-        });
-      },
-      fetchUsuario() {
-        this.usuario = firebase.auth().currentUser
-      },
-      setFicha() {
-        var fichas = _.differenceBy(this.vinhos, this.avaliados, 'key')
-
-        console.log(fichas[0])
-
-        if (fichas)
-          this.ficha = fichas[0]
+      procurarVinho() {
+        this.$router.go('/ficha/' + this.vinho.id)
       }
     }
   }
 </script>
 
 <style lang="stylus">
-  .vinhos-view
-    .nav-buttons
-      width 95%
-      padding 0 2.5%
-      text-align right
-    .ui-toolbar
-      position absolute
-      top 0
-      left 0
-      width 100%
-      *
-        text-shadow none
-    ul
-      display flex
-      flex-wrap wrap
-      justify-content space-around
-      width 90%
-      padding 0 5%
-      li
-        display flex
-        flex-flow column
-        justify-content flex-end
-        background-color white
-        flex 0 0 300px
-        height 350px
-        margin 0 0 20px 0
-    .testado
-      background white
-      width 500px
-      float none
-      margin 0 auto
+  @import "../variables.styl"
+
+  .degustar-view
+    .wrapper
       text-align center
-      header
-        background-size cover
-        background-position center
-        background-repeat no-repeat
-        width 100%
-        height 250px
+    .card
+      display inline-block
+      position relative
+      width 400px
+      color white
+      text-align left
+      z-index 2
+      .card-body
+        background white
+        color $textColor
+        p
+          margin 0
+      .ui-textbox-input
+        text-align left
+        color white
+        font-size 4em
+        height 100px
+      h2
+        font-size 3.5rem
       p
-        padding 30px 0
+        font-size .9em
+        line-height 1.5em
+        margin 20px 0
+    .main, aside
+      display inline-block
+      vertical-align top
+    .main
+      background url("/static/img/cellar.jpg")
+      background-size cover
+      padding 150px 30px 60px 30px
+      .card-body
+        background transparent
+        h2, p
+          color white
+        p
+          margin 15px 0 30px 0
+    .video-aula
+      .card-header
+        background url("/static/img/wine_camera.jpg") center
+        background-size 100% auto
+        /*background-size cover*/
+        padding 70px 30px 30px 30px
+    .carta-presidente
+      background url("/static/img/writing-a-letter.jpg") center
+      background-size cover
+      margin 10px 0 0 0
+      .card-header
+        padding 43px 30px 10px 30px
+        h2
+          font-size 2em
+    aside
+      margin-left 5px
+      .card
+        float left
+        clear both
+        width 350px
+        h2
+          font-size 2.5rem
 </style>

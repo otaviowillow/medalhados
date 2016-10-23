@@ -7,7 +7,7 @@
       <ui-button v-link="{ name: 'fichas' }" type="flat">Fichas</ui-button>
       <ui-button v-link="{ name: 'vinhos' }" type="flat">Vinhos</ui-button>
       <!--<ui-button v-link="{ name: 'revista' }" type="flat">Revista</ui-button>-->
-      <ui-button v-link="{ name: 'video', params: { id: latestVideo } }" type="flat">Video</ui-button>
+      <ui-button v-link="{ name: 'video', params: { id: 'qYN1M9oc8-w' } }" type="flat">Video</ui-button>
       <ui-button icon="lock_outline" v-link="{ name: 'adicionar-vinho' }" type="flat">Adicionar vinho</ui-button>
     </nav>
   </header>

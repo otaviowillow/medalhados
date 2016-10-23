@@ -1,11 +1,11 @@
 <template>
   <div class="fichas">
     <div class="main-card">
-      <vinho-detalhes :vinho="vinho"></vinho-detalhes>
-
-      <botao-voto :vinho="vinho" :vinho-key="vinhoKey" :nota-total="notaTotal" :usuario="usuario"></botao-voto>
+      <vinho-detalhes :vinho="vinho" :pontuacao="pontuacao"></vinho-detalhes>
 
       <notas :tipo="vinho.tipo" :nota-total.sync="notaTotal"></notas>
+
+      <botao-voto :vinho="vinho" :vinho-key="vinhoKey" :nota-total="notaTotal" :usuario="usuario"></botao-voto>
     </div>
   </div>
 </template>
@@ -24,7 +24,8 @@
         vinho: {},
         vinhoKey: '',
         usuario: {},
-        notaTotal: 0
+        notaTotal: 0,
+        pontuacao: 0
       }
     },
 
@@ -41,5 +42,11 @@
       BotaoVoto,
       Notas
     },
+
+    computed: {
+      pontuacao() {
+        return 98
+      }
+    }
   }
 </script>

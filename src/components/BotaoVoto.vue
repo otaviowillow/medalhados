@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <div class="button-fab">
-      <ui-fab @click="computarVotos" icon="local_bar" color="accent">Default, Raised</ui-fab>
-    </div>
+  <div class="botao-voto">
+    <!--<div class="button-fab">-->
+      <!--<ui-fab @click="computarVotos" icon="done" color="accent">Default, Raised</ui-fab>-->
+    <!--</div>-->
+
+    <ui-button @click="computarVotos" icon="done" color="success" class="confirmar">Confirmar</ui-button>
 
     <ui-modal type="small" :show.sync="show.vote">
       <h3 slot="header"></h3>
@@ -37,20 +39,20 @@
       }
     },
 
-    computed: {
-      medal() {
-        console.log(this.votosTotal +" "+" "+this.notTotal+" "+this.notTotal * .8)
-        console.info(this.votosTotal +" "+" "+this.notaTotal+" "+this.notaTotal * .8)
-
-        if(this.votosTotal > this.notTotal * .8)
-          return 'static/img/gold_medal.svg'
-
-        if(this.votosTotal > this.notTotal * .6)
-          return 'static/img/silver_medal.svg'
-
-        return 'static/img/bronze_medal.svg'
-      }
-    },
+//    computed: {
+//      medal() {
+//        console.log(this.votosTotal +" "+" "+this.notTotal+" "+this.notTotal * .8)
+//        console.info(this.votosTotal +" "+" "+this.notaTotal+" "+this.notaTotal * .8)
+//
+//        if(this.votosTotal > this.notTotal * .8)
+//          return 'static/img/gold_medal.svg'
+//
+//        if(this.votosTotal > this.notTotal * .6)
+//          return 'static/img/silver_medal.svg'
+//
+//        return 'static/img/bronze_medal.svg'
+//      }
+//    },
 
     methods: {
       computarVotos() {
@@ -65,50 +67,61 @@
 
         this.show.vote = true
       },
-      adicionarNotas() {
-        var notasRef = firebase.database().ref('notas')
-
-
-        console.log(this.vinho)
-      },
       avaliarVinho() {
-        var usuarioVinhos = firebase.database().ref('usuarios/' + firebase.auth().currentUser.uid + '/vinhos')
+        var usuarioVinhos = firebase.database().ref('usuarios/' + firebase.auth().currentUser.uid)
 
-        this.adicionarNotas()
-
-        usuarioVinhos.push({
+        usuarioVinhos.child('vinhos/' + this.vinhoKey).set({
           avaliado: true,
           tipo: this.vinho.tipo,
-          medalha: this.medal,
           key: this.vinhoKey,
           nota: this.votosTotal
-        })
+        });
 
-        this.$router.go('/vinhos')
+        this.$router.go('/vinho/' + this.vinhoKey)
       }
     }
   }
 </script>
 
 <style lang="stylus">
-  .ui-modal-container
-    width 250px !important
-  .button-fab
-    position relative
-    width 100%
-    .ui-fab
-      position absolute
-      top -30px
-      right 30px
-  .medal
-    text-align center
-    h3
-      padding 0 0 20px 0
-    object, h2
+  .botao-voto
+    text-align right
+    .confirmar
       display inline-block
-      vertical-align middle
-    object
-      height 60px
-    h2
-      font-size 4.5em
+      margin 20px
+
+    .medal
+      text-align center
+      h3
+        padding 0 0 20px 0
+      object, h2
+        display inline-block
+        vertical-align middle
+      object
+        height 60px
+      h2
+        font-size 4.5em
 </style>
+
+<!--<style lang="stylus">-->
+  <!--.ui-modal-container-->
+    <!--width 250px !important-->
+  <!--.button-fab-->
+    <!--position relative-->
+    <!--width 100%-->
+    <!--.ui-fab-->
+      <!--position absolute-->
+      <!--top -30px-->
+      <!--right 30px-->
+  <!--.medal-->
+    <!--text-align center-->
+    <!--h3-->
+      <!--padding 0 0 20px 0-->
+    <!--object, h2-->
+      <!--display inline-block-->
+      <!--vertical-align middle-->
+    <!--object-->
+      <!--height 60px-->
+    <!--h2-->
+      <!--font-size 4.5em-->
+<!--</style>-->

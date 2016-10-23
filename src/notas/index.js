@@ -16,7 +16,7 @@ notas.tintos = [
         selecionada: 5
       },
       {
-        categoria: 'Brilho2',
+        categoria: 'Brilho',
         notasPossiveis: [5, 2],
         selecionada: 5
       }

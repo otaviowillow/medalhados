@@ -1,17 +1,29 @@
 <template>
   <header class="vinho-detalhes has-background" :style="{ backgroundImage: 'url(' + backgroundType + ')' }">
-    <!--<figure :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }" ></figure>-->
+    <ui-toolbar title="Vinho Tranquilo"
+                brand="Ficha de Degustação"
+                type="clear"
+                text-color="white"
+                show-brand
+                hide-nav-icon>
+      <div slot="actions">
+        <ui-icon-button type="clear" color="white" icon="delete"></ui-icon-button>
+      </div>
+    </ui-toolbar>
+
     <div class="vinho-descricao">
-      <!--<h2>{{vinho.nome}}</h2>-->
-      <h2>{{ vinho.criadoEm | dateFilter }}</h2>
+      <h2>{{vinho.amostra}}</h2>
       <h3>{{vinho.tipo}}</h3>
       <footer>
-        <p>Álcool: {{vinho.alcool}}</p>
-        <p>Cepa: {{vinho.cepa}}</p>
+        <p>Casta: {{vinho.casta}}</p>
         <p>Safra: {{vinho.safra}}</p>
       </footer>
     </div>
 
+    <aside class="nota-total">
+      <h5>Pontuação</h5>
+      <p>{{ pontuacao }}</p>
+    </aside>
     <!--<usuario-input></usuario-input>-->
   </header>
 </template>
@@ -22,11 +34,14 @@
 
   export default{
     props: {
-      vinho: {}
+      vinho: {},
+      pontuacao: 0
     },
 
     computed: {
       backgroundType() {
+        console.log(this.vinho)
+
         switch (this.vinho.tipo) {
           case 'Tinto':
             return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/red-wine-background.jpg?alt=media&token=da64ce08-8d9d-4674-a74f-b17f7d24c035'
@@ -61,12 +76,19 @@
 
 <style lang="stylus">
   .vinho-detalhes
+    position relative
     display flex
     background-size 100% auto
     background-position center
     color white
     width 100%
     height 200px
+    .ui-toolbar
+      position absolute
+      top 0
+      left 0
+      width 95%
+      padding 0 2.5%
     .vinho-descricao, .usuario-input, .amostra
       flex 1 auto
     .vinho-descricao
@@ -78,6 +100,14 @@
         font-size 3em
       h3
         margin 10px 0
+    aside
+      text-align center
+      h5
+        font-size 1.15em
+        text-transform uppercase
+        margin 40px 0 0 0
+      p
+        font-size 6em
     footer
       width 80%
       p

@@ -2,7 +2,6 @@
   <div class="vinho-template" @click="expandirVinho" :class="expandido ? 'ativo' : '' ">
     <article class="card" :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }">
       <div class="content" @click.stop>
-        <!--<a v-if="!vinho.avaliado" v-link="{ name: 'ficha', params: { id: vinho.key } }">Avaliar</a>-->
         <ui-toolbar type="clear" :hide-nav-icon="true">
           <div class="nota">
             <object class="medalha" :data="medalha"></object>
@@ -51,11 +50,6 @@
     components: {
       VinhoPontuacao
     },
-//    computed: {
-//      medal() {
-//        return 'static/img/gold_medal.svg'
-//      }
-//    },
     ready: function() {
       return Promise.all([
         this.fetchAvaliados(),
@@ -65,7 +59,9 @@
     },
     methods: {
       expandirVinho() {
-        this.expandido = !this.expandido
+        console.log(this.vinho.key)
+
+        this.$router.go('/vinho/' + this.vinho.key)
       },
       fetchAvaliados() {
         var avaliadosPeloUsuario = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos')

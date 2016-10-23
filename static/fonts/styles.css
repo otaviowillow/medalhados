@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "donorsee";
+  src:url("donorsee.eot");
+  src:url("donorsee.eot?#iefix") format("embedded-opentype"),
+    url("donorsee.woff") format("woff"),
+    url("donorsee.ttf") format("truetype"),
+    url("donorsee.svg#donorsee") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "donorsee" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "donorsee" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-apple:before {
+  content: "\61";
+}
+.icon-clock:before {
+  content: "\62";
+}
+.icon-close:before {
+  content: "\63";
+}
+.icon-facebook:before {
+  content: "\64";
+}
+.icon-favorite:before {
+  content: "\65";
+}
+.icon-globe:before {
+  content: "\66";
+}
+.icon-group:before {
+  content: "\67";
+}
+.icon-info:before {
+  content: "\68";
+}
+.icon-notification:before {
+  content: "\69";
+}
+.icon-socialmedia:before {
+  content: "\6a";
+}
+.icon-upload:before {
+  content: "\6b";
+}
+.icon-person:before {
+  content: "\6c";
+}
+.icon-pencil-square-o:before {
+  content: "\6d";
+}
+.icon-compass:before {
+  content: "\6e";
+}
+.icon-medal:before {
+  content: "\6f";
+}
