@@ -23,12 +23,14 @@
           </div>
 
           <div class="fields">
-            <p>{{ amostra }}</p>
-
             <fieldset class="first">
+              <h2>{{ vinho.amostra }}</h2>
+            </fieldset>
+
+            <fieldset>
               <ui-select name="tipo" :value.sync="vinho.tipo" :options="tipos" label="Tipo" default="Tinto" required></ui-select>
-              <ui-textbox name="castas" :value.sync="vinho.castas" label="Castas" validation-rules="required" @blurred="formState"></ui-textbox>
               <ui-textbox name="nome" :value.sync="vinho.nome" label="Nome" label="Nome" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="castas" :value.sync="vinho.castas" label="Castas" validation-rules="required" @blurred="formState"></ui-textbox>
             </fieldset>
 
             <fieldset>
@@ -70,6 +72,7 @@
         formDisabled: true,
         paises: [],
         vinho: {
+          amostra: '',
           intro: '',
           criadoEm: '',
           tipo: '',
@@ -92,28 +95,32 @@
         }
       }
     },
+    route: {
+      data ({ to }) {
+        Promise.all([
+          this.fetchAmostra()
+        ])
+      }
+    },
     ready: function() {
       this.setPaises(this.paises)
       this.getAmostra()
     },
-//    filters: {
-//      amostraString(num) {
-//        var zero = 3 - num.toString().length + 1;
-//        return Array(+(zero > 0 && zero)).join("0") + num + '/16';
-//      }
-//    },
-    computed: {
-      amostra() {
-        var num = 1
-        var zero = 3 - num.toString().length + 1;
-        var filteredList = Array(+(zero > 0 && zero)).join("0") + num + '16';
-
-        this.vinho.amostra = filteredList
-
-        return filteredList
-      }
-    },
     methods: {
+      fetchAmostra() {
+        var vinhosRef = firebase.database().ref('/vinhos')
+
+        return vinhosRef.once('value', (snapshot) => {
+          var obj = snapshot.val()
+          var arr = Object.keys(obj).map(function (key) { return obj[key]; })
+          var num = arr.length
+
+          var zero = 3 - num.toString().length + 1;
+          var filteredList = Array(+(zero > 0 && zero)).join("0") + num + '-16';
+
+          this.vinho.amostra = filteredList
+        })
+      },
       uploadFile(event) {
         var self = this
         var file = event.currentTarget
@@ -143,13 +150,7 @@
         var utc = new Date()
         this.vinho.criadoEm = utc.toString()
 
-        firebase.database().ref('vinhos/' + this.amostra).set(this.vinho);
-
-//        firebase.database().ref().child('vinhos').push(this.vinho)
-//
-//        firebase.database().ref('latest').child('vinho').set(this.vinho)
-//
-//        firebase.database().ref('latest').child('video').set(this.vinho.video)
+        firebase.database().ref('vinhos/' + this.vinho.amostra).set(this.vinho);
 
         this.$router.go('/')
       },
@@ -157,8 +158,6 @@
         var vinhos = firebase.database().ref().child('vinhos')
 
         return vinhos.once('value', (snapshot) => {
-          console.log(snapshot.val())
-
           if(snapshot.val() !== null)
             this.vinho.amostra = 1 //snapshot.val().length
         })
@@ -217,6 +216,8 @@
       fieldset
         display table
         width 100%
+        h2
+          padding 10px
       .ui-select, .ui-textbox
         display table-cell
         min-width 200px

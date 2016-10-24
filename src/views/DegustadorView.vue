@@ -145,7 +145,7 @@
       display flex
       flex-wrap wrap
       li
-        background-size auto 100%
+        background-size cover
         background-position center
         flex 1 auto
         width 130px

@@ -46,8 +46,10 @@
       padding 12px 0
       border-radius 50%
     .duplo-ouro
+      position relative
       background gold
       border 4px solid goldenrod
+      box-shadow: 0 0 0 4px hsl(46, 100%, 49%), 0 0 0 6px hsl(49, 74%, 76%);
     .ouro
       background gold
       border 4px solid goldenrod
@@ -55,11 +57,13 @@
       background silver
       border 4px solid slategray
     h4
+      position relative
       background white
       width 75px
       font-size .7em
       text-align center
       padding 3px 0
       margin -12px 0 0 -13px
+      z-index 3
       border 1px solid black
 </style>

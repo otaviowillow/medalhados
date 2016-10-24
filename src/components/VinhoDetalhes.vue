@@ -20,11 +20,10 @@
       </footer>
     </div>
 
-    <aside class="nota-total">
-      <h5>Pontuação</h5>
-      <p>{{ pontuacao }}</p>
-    </aside>
-    <!--<usuario-input></usuario-input>-->
+    <!--<aside class="nota-total">-->
+      <!--<h5>Pontuação</h5>-->
+      <!--<p>{{ pontuacao }}</p>-->
+    <!--</aside>-->
   </header>
 </template>
 

@@ -3,7 +3,6 @@
     <p v-if="$loadingRouteData">Loading...</p>
 
     <div v-if="!$loadingRouteData">
-      <p>{{ medalhados.length }}</p>
       <ul v-if="medalhados">
         <li v-for="vinho in medalhados">
           <vinho :vinho="vinho" :key="vinhoKey" :usuario="usuario"></vinho>

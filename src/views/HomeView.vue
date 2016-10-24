@@ -263,20 +263,6 @@
     background white
     article
       text-align center
-    .alert
-      background white
-      position fixed
-      bottom 0
-      left 50%
-      margin-bottom 12px
-      .ui-alert-toggle-transition
-        margin-bottom 0
-    .alert-error
-      width 650px
-      margin-left -325px
-    .alert-success
-      width 350px
-      margin-left -150px
     h2, h3
       font-weight 700
       text-transform uppercase

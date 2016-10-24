@@ -27,7 +27,10 @@
     <p>E, como se tudo isso não bastasse, o melhor vem agora: se ao longo do tempo, suas notas se mostrarem assertivas e coerentes, prepare-se para participar das degustações da Vinho Magazine, do Wine Weekend e outros grandes concursos nacionais e internacionais, como meu convidado especial.</p>
     <p>Estou torcendo por você!</p>
 
-    <img class="signature" src="/static/img/signature.png">
+    <div class="signature">
+      <img src="/static/img/signature.png">
+      <span>Eduardo Virotti</span>
+    </div>
 
     <footer>
       <ui-button v-link="{ name: 'video', params: { id: 'qYN1M9oc8-w' } }">Video Aula</ui-button>
@@ -56,8 +59,17 @@
       white-space pre-wrap
     .signature
       float right
-      height 70px
       margin-bottom 20px
+      img, span
+        float left
+        clear both
+      img
+        height 70px
+      span
+        width 100%
+        text-align center
+        padding 5px 0 0 0
+        border-top 1px solid black
     footer
       width 100%
       padding 0

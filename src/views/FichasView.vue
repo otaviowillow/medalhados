@@ -5,7 +5,7 @@
         <div class="card-body">
           <h2>Sua Ficha</h2>
           <p>digite no campo marcado o código da amostra que irá degustar e acesse a ficha oficial de avaliação.</p>
-          <ui-textbox name="vinhoId" :value.sync="vinho.id" :autofocus="true" placeholder="_ _ _ /_ _" @keydown-enter="procurarVinho"></ui-textbox>
+          <ui-textbox name="vinhoId" :value.sync="vinho.id" :autofocus="true" placeholder="_ _ _ - _ _" @keydown-enter="procurarVinho"></ui-textbox>
         </div>
       </div>
 
@@ -32,6 +32,15 @@
         </div>
       </aside>
     </div>
+    <div class="alert alert-success">
+      <ui-alert type="success" :show="show.success.state" @dismissed="show.success.state = false">
+        Esse vinho já foi avaliado! <a v-link="{ name: 'vinho', params: { id: show.success.link } }">Confira aqui</a> o vinho
+      </ui-alert>
+    </div>
+
+    <div class="alert alert-error">
+      <ui-alert type="error" :show="show.error.state" @dismissed="show.error.state = false">{{ show.error.message }}</ui-alert>
+    </div>
   </div>
 </template>
 
@@ -40,14 +49,54 @@
     data() {
       return {
         vinho: {
-          id: ''
+          id: '',
+        },
+        show: {
+          success: {
+            link: '',
+            state: false,
+            message: 'Esse vinho já foi avaliado!'
+          },
+          error: {
+            state: false,
+            message: 'Esse vinho não existe, confira o código digitado e tente novamente.'
+          }
+        }
+      }
+    },
+
+    filters: {
+      'stringThing': {
+        read: function(val) {
+//          return val.match(new RegExp('.{1,4}$|.{1,3}', 'g')).join("-");
+//          return '$'+val.toFixed(2)
+        },
+        write: function(val, oldVal) {
+//          var number = +val.replace(/[^\d.]/g, '')
+//          return isNaN(number) ? 0 : parseFloat(number.toFixed(2))
         }
       }
     },
 
     methods: {
       procurarVinho() {
-        this.$router.go('/ficha/' + this.vinho.id)
+        var vinhoRef = firebase.database().ref('vinhos/' + this.vinho.id)
+        var usuarioVinhoRef = firebase.database().ref('usuarios').child(firebase.auth().currentUser.uid).child('vinhos/' + this.vinho.id)
+
+        vinhoRef.once('value', (snapshot) => {
+          if(!snapshot.val()) {
+            return this.show.error.state = true
+          } else {
+            usuarioVinhoRef.once('value', (snapshot) => {
+              if(snapshot.val()) {
+                this.show.success.link = snapshot.val().key
+                return this.show.success.state = true
+              } else {
+                return this.$router.go('/ficha/' + this.vinho.id)
+              }
+            })
+          }
+        })
       }
     }
   }
@@ -57,12 +106,14 @@
   @import "../variables.styl"
 
   .degustar-view
+    .alert-success
+      width 450px
     .wrapper
       text-align center
     .card
       display inline-block
       position relative
-      width 400px
+      width 390px
       color white
       text-align left
       z-index 2

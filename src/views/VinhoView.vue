@@ -143,7 +143,7 @@
       .medalhas
         float left
         clear both
-        margin 45px 0 0 0
+        margin 25px 0 0 0
         dl
           float left
           text-align center
@@ -151,7 +151,7 @@
         dt
           font-size .8em
           text-align center
-          padding 15px 0 5px 0
+          padding 15px 0 10px 0
         dd
           display inline-block
           clear both
