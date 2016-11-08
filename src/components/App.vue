@@ -1,12 +1,12 @@
 <template>
   <div class="main-wrapper">
 
-    <main-header></main-header>
+    <main-header :usuario="usuario" :authenticated="authenticated"></main-header>
 
     <router-view
             class="view"
             keep-alive
-            transition
+            transition="fade"
             transition-mode="out-in">
     </router-view>
   </div>
@@ -19,19 +19,28 @@
   export default {
     data() {
       return {
+        usuario: {},
         selected: '',
         authenticated: false,
       }
     },
     events: {
-      'is-authenticated' : function () {
+      'is-authenticated' : function (user) {
         this.authenticated = true
+
+        var usr = user.uid
+        var userRef = firebase.database().ref('usuarios').child(usr)
+
+        userRef.on('value', (snapshot) => {
+          this.usuario = snapshot.val()
+          console.log(this.usuario)
+        })
       }
     },
     components: {
       UserBar,
       MainHeader
-    },
+    }
   }
 </script>
 
@@ -124,6 +133,12 @@
       width 100%
       height 50%
       z-index 1
+
+  //Animations
+  .fade-transition
+    transition opacity .3s ease
+  .fade-enter, .fade-leave
+    opacity 0
 
   .main-wrapper
     &:before

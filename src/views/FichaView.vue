@@ -1,7 +1,7 @@
 <template>
   <div class="fichas">
     <div class="main-card">
-      <vinho-detalhes :vinho="vinho" :pontuacao="pontuacao"></vinho-detalhes>
+      <vinho-detalhes :vinho="vinho" :pontuacao.sync="pontuacao"></vinho-detalhes>
 
       <notas :tipo="vinho.tipo" :nota-total.sync="notaTotal"></notas>
 
@@ -37,16 +37,36 @@
       }
     },
 
+    ready: function () {
+      this.novaNota()
+    },
+
     components: {
       VinhoDetalhes,
       BotaoVoto,
       Notas
     },
 
-    computed: {
-      pontuacao() {
-        return 98
+    events: {
+      'mudar-nota' : function (value) {
+        this.pontuacao = value
+      }
+    },
+
+    methods: {
+      novaNota() {
+        var self = this
+        var radios = document.getElementsByClassName('ui-radio-input')
+
+        self.pontuacao = 0
+
+        for(var i = 0; i < radios.length; i++)
+          if(radios[i].checked)
+            self.pontuacao += parseInt(radios[i].value)
+
+        self.$dispatch('mudar-nota', self.pontuacao)
       }
     }
+
   }
 </script>

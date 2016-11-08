@@ -4,7 +4,7 @@
       <div class="card main card-shadow">
         <div class="card-body">
           <h2>Sua Ficha</h2>
-          <p>digite no campo marcado o código da amostra que irá degustar e acesse a ficha oficial de avaliação.</p>
+          <p>Digite no campo marcado o código da amostra que irá degustar e acesse a ficha oficial de avaliação.</p>
           <ui-textbox name="vinhoId" :value.sync="vinho.id" :autofocus="true" placeholder="_ _ _ - _ _" @keydown-enter="procurarVinho"></ui-textbox>
         </div>
       </div>

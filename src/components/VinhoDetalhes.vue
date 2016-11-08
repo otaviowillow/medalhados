@@ -20,10 +20,10 @@
       </footer>
     </div>
 
-    <!--<aside class="nota-total">-->
-      <!--<h5>Pontuação</h5>-->
-      <!--<p>{{ pontuacao }}</p>-->
-    <!--</aside>-->
+    <aside class="nota-total">
+      <h5>Pontuação</h5>
+      <p>{{ pontuacao }}</p>
+    </aside>
   </header>
 </template>
 
@@ -39,8 +39,6 @@
 
     computed: {
       backgroundType() {
-        console.log(this.vinho)
-
         switch (this.vinho.tipo) {
           case 'Tinto':
             return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/red-wine-background.jpg?alt=media&token=da64ce08-8d9d-4674-a74f-b17f7d24c035'

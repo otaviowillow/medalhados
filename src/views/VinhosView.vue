@@ -1,18 +1,17 @@
 <template>
   <div class="vinhos-view">
-    <p v-if="$loadingRouteData">Loading...</p>
+    <p v-if="!loaded">Loading...</p>
 
-    <div v-if="!$loadingRouteData">
-      <ul v-if="medalhados">
+    <div v-if="loaded">
+      <ul v-if="medalhados.length > 0">
         <li v-for="vinho in medalhados">
           <vinho :vinho="vinho" :key="vinhoKey" :usuario="usuario"></vinho>
         </li>
       </ul>
-    </div>
 
-    <div class="card testado" v-else>
-      <header></header>
-      <p>Não há mais fichas esse mês</p>
+      <div class="card" v-else>
+        <carta-do-presidente></carta-do-presidente>
+      </div>
     </div>
   </div>
 </template>
@@ -20,6 +19,7 @@
 <script>
   import store from '../store'
   import Vinho from '../components/Vinho.vue'
+  import CartaDoPresidente from '../components/CartaDoPresidente.vue'
 
   export default {
     name: 'VinhosView',
@@ -28,7 +28,8 @@
       return {
         vinhos: [],
         avaliados: [],
-        medalhados: []
+        medalhados: [],
+        loaded: false
       }
     },
 
@@ -37,12 +38,14 @@
         this.fetchVinhos(),
         this.fetchAvaliados()
       ]).then(() => {
-        this.setMedalhados()
-      });
+        this.setMedalhados(),
+        this.loaded = true
+      })
     },
 
     components: {
-      Vinho
+      Vinho,
+      CartaDoPresidente
     },
 
     computed: {
@@ -96,6 +99,8 @@
       },
       setMedalhados() {
         this.medalhados = _.intersectionBy(this.vinhos, this.avaliados, 'key')
+
+        console.log(this.medalhados.length)
       }
     }
   }
@@ -111,7 +116,8 @@
       position absolute
       top 0
       left 0
-      width 100%
+      width 90%
+      padding 0 5%
       *
         text-shadow none
     ul

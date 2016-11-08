@@ -3,7 +3,7 @@
     <aside></aside>
     <ul>
       <li v-for="carinha in carinhas">
-        {{ carinha }}
+        <img :src="carinha">
       </li>
     </ul>
   </div>
@@ -13,7 +13,14 @@
   export default {
     data() {
       return {
-        carinhas: ['😀','🙂','😐','😒','😩']
+//        carinhas: ['😀','🙂','😐','😒','😩']
+        carinhas: [
+          '../static/img/face-1.png',
+          '../static/img/face-2.png',
+          '../static/img/face-3.png',
+          '../static/img/face-4.png',
+          '../static/img/face-5.png'
+        ]
       }
     }
   }
@@ -33,4 +40,6 @@
       display inline-block
       font-size 2.5em
       width 20%
+      img
+        height 35px
 </style>

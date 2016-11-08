@@ -4,7 +4,15 @@
 
     <div class="main-card degustador">
       <header>
-        <figure class="profile-pic" :style="{ backgroundImage: 'url(' + usuario.photoURL + ')' }"></figure>
+        <ui-toolbar type="clear" :hide-nav-icon="true">
+          <div slot="actions">
+            <ui-icon-button type="clear" color="white" icon="more_vert" has-dropdown-menu
+            :menu-options="menu" dropdown-position="bottom right" @menu-option-selected="handleSelected"></ui-icon-button>
+          </div>
+        </ui-toolbar>
+
+        <upload-imagem-usuario :usuario="usuario"></upload-imagem-usuario>
+
         <aside>
           <h2>{{ usuario.displayName }}</h2>
           <h3>{{ totalAvaliados }} Vinhos avaliados</h3>
@@ -16,6 +24,7 @@
           <li class="card has-background" v-for="vinho in vinhos" :style="{ backgroundImage: 'url(' + backgroundType(vinho[0].tipo) + ')' }">
             <!--<div :style="{ backgroundImage: 'url(' + backgroundType('Tinto') + ')' }"></div>-->
             <!--<h2>{{ vinho.length }}</h2>-->
+            <p>{{ vinho | json }}</p>
             <h2>{{ vinho | average }}</h2>
             <p>{{ vinho[0].tipo }}</p>
             <span>Nota Média</span>
@@ -33,13 +42,20 @@
 <script>
   import store from '../store'
   import GraficoNotas from '../components/GraficoNotas.vue'
+  import UploadImagemUsuario from '../components/UploadImagemUsuario.vue'
 
   export default{
     data() {
       return {
         usuario: {},
         vinhos: [],
-        totalAvaliados: 0
+        totalAvaliados: 0,
+        menu: [
+          {
+            id: 'logout',
+            text: 'Logout'
+          }
+        ]
       }
     },
 
@@ -49,9 +65,7 @@
 
         Promise.all([
           this.fetchDetalhesUsuario()
-        ]).then(() => {
-          this.organizeData()
-        })
+        ])
       }
     },
 
@@ -68,7 +82,8 @@
     },
 
     components: {
-      GraficoNotas
+      GraficoNotas,
+      UploadImagemUsuario
     },
 
     ready: function () {
@@ -99,14 +114,10 @@
         var self = this
         var usuarioRef = firebase.database().ref('usuarios').child(this.usuario.uid).child('vinhos')
 
+        console.info("usuario " + this.usuario)
+
         return usuarioRef.once("value", (snapshot) => {
           self.vinhos = snapshot.val()
-
-//          snapshot.forEach(function(childSnapshot) {
-//            var childData = childSnapshot.val();
-//
-//            console.log(childData)
-//          });
         })
       },
       organizeData() {
@@ -118,8 +129,9 @@
         this.totalAvaliados = this.vinhos.length
 
         this.vinhos = _.groupBy(this.vinhos, 'tipo')
-
-        console.log(this.vinhos)
+      },
+      handleSelected(event) {
+        this.$router.go('/' + event.id)
       }
     }
   }
@@ -128,16 +140,17 @@
 <style lang="stylus">
   .degustador
     header
+      position relative
       background #800020
       .profile-pic, aside
         display inline-block
         vertical-align middle
-      .profile-pic
-        background-size cover
-        background-position center top
-        width 80px
-        height 80px
-        border-radius 50%
+      .ui-toolbar
+        position absolute
+        top 0
+        left 0
+        width 95%
+        padding 0 2.5%
       aside
         color white
         padding-left 10px

@@ -2,7 +2,15 @@
   <div class="card login-view">
     <!--<object class="logo" data="/static/img/gold_medal.svg"></object>-->
     <img class="logo" src="/static/img/medalhados_logo.png">
-    <button class="facebook-login" @click="facebookSignIn"><i class="fa fa-facebook"></i> Login with Facebook</button>
+    <p>Bem-vindo ao primeiro clube de degustadores do Brasil.</p>
+    <p>E, talvez, do mundo.</p>
+
+    <!--<button class="facebook-login" @click="facebookSignIn"><i class="fa fa-facebook"></i> Login with Facebook</button>-->
+    <div class="fields">
+      <ui-textbox name="email" :value.sync="email" label="Degustador"></ui-textbox>
+      <ui-textbox name="senha" :value.sync="senha" label="Senha" type="password"></ui-textbox>
+      <ui-button @click.prevent="emailSignIn">Acessar</ui-button>
+    </div>
   </div>
 </template>
 
@@ -10,26 +18,33 @@
   import * as firebase from 'firebase'
 
   export default{
+    data() {
+      return {
+        email: '',
+        senha: ''
+      }
+    },
+
     methods: {
+      emailSignIn() {
+        firebase.auth().signInWithEmailAndPassword(this.email, this.senha).then((result) => {
+          this.$dispatch('is-authenticated', result)
+//          window.location.reload()
+        })
+      },
+
       facebookSignIn() {
         var self = this
         var provider = new firebase.auth.FacebookAuthProvider();
 
-        firebase.auth().signInWithRedirect(provider).then(function(result) {
+        firebase.auth().signInWithRedirect(provider).then((result) => {
           var token = result.credential.accessToken;
-          var user = result.user;
+          var user = result.user;w
 
-          console.log(token)
-          self.$dispatch('is-authenticated')
-          self.$router.go('/carta-do-presidente')
-        }).catch(function(error) {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          var email = error.email;
-          var credential = error.credential;
-
-          console.log(errorMessage)
-        });
+          console.log(user)
+//          this.$router.go('/')
+          //window.location.reload()
+        })
       }
     }
   }
@@ -39,17 +54,25 @@
   .login-view
     background white
     text-align center
-    width 300px
+    width 500px
     padding 60px 0
     float none
     margin 50px auto
+    .fields
+      display inline-block
+      width 250px
+      padding 20px
+      border 1px solid #ccc
+      border-radius 5px
     .logo, .facebook-login
       display inline-block
       float none
       clear both
     .logo
       height 150px
-      margin 0 0 40px 0
+      margin 0 0 20px 0
+    p
+      padding 0 0 20px 0
     .facebook-login
       background #3b5998
       color white

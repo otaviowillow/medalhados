@@ -12,15 +12,18 @@
 
         <h4>Deixe seus dados e receba mais informações</h4>
 
-        <form>
+        <div class="form">
           <input v-model="user.nome" type="text" placeholder="Seu Nome">
           <input v-model="user.email" type="text" placeholder="Seu E-mail">
           <input v-model="user.cidade" type="text" placeholder="Sua Cidade">
 
           <span>Seus dados serão utilizados exclusivamente para lhe fornecer mais informações sobre o nosso clube</span>
 
-          <input type="submit" class="submit" value="Enviar" @click.prevent="enviarRegistro">
-        </form>
+          <button class="submit" @click.prevent="enviarRegistro" :disabled="isSending">
+            <span v-if="!isSending">Enviar</span>
+            <ui-progress-circular :show="isSending" color="white" type="indeterminate"></ui-progress-circular>
+          </button>
+        </div>
       </div>
     </article>
 
@@ -71,7 +74,7 @@
         <li>
           <img src="/static/img/site/port-3.jpeg">
           <h3>O seu talento de degustador será reconhecido.</h3>
-          <p>Periodicamente, os degustadores melhor avaliados serão convidados pela Vinho Magazine para participarem de degustações especiais da revista e até mesmo de consagrados concursos anuais de vinhos, como o "Concours de Bruxelles - Edição Brasil" e "The Best of Wine Weekend”.</p>
+          <p>Periodicamente, os degustadores melhor avaliados serão convidados pela Vinho Magazine para participarem de degustações especiais da revista e até mesmo de consagrados concursos anuais de vinhos, como o "Concours Mondial de Bruxelles - Edição Brasil" e "The Best of Wine Weekend”.</p>
         </li>
         <li>
           <img src="/static/img/site/port-4.jpeg">
@@ -118,11 +121,11 @@
           </li>
           <li>
             <i class="fa fa-trophy"></i>
-            <h4>Wine O'Clock</h4>
+            <h4>Ivini</h4>
           </li>
           <li>
             <i class="fa fa-trophy"></i>
-            <h4>L'Ateruso</h4>
+            <h4>L'Aretuso</h4>
           </li>
           <li>
             <i class="fa fa-trophy"></i>
@@ -157,7 +160,7 @@
         <h2>Entre para o primeiro clube de degustadores pelo preço de um clube de vinhos comum</h2>
 
         <div class="content">
-          <aside>
+          <aside class="plano-prices">
             <h4>PLANO EXPERT</h4>
             <h5>289</h5>
             <span>*12 parcelas sem juros no cartão de crédito de um pagamento único no valor total de R$3.468,00 </span>
@@ -167,7 +170,7 @@
               <i class="fa fa-trophy"></i>
               <aside>
                 <h4>Receba vinhos premiados todo mês</h4>
-                <p>4 garrafas mensais de 375ml de vinho premiado em concursos, com no mínimo medalha de prata</p>
+                <p>2 garrafas mensais de 750ml de vinho premiado em concursos, com no mínimo medalha de prata</p>
               </aside>
             </li>
             <li>
@@ -194,14 +197,14 @@
             <li>
               <i class="fa fa-glass"></i>
               <aside>
-                <h4>Partice de Degustações</h4>
+                <h4>Participe de Degustações</h4>
                 <p>convite para participação em eventos e degustações promovidos pelo clube</p>
               </aside>
             </li>
             <li>
               <i class="fa fa-shopping-cart"></i>
               <aside>
-                <h4>Compre vinhos com desgostos</h4>
+                <h4>Compre vinhos com descontos</h4>
                 <p>descontos em compras de vinhos junto a produtores e importadores participantes</p>
               </aside>
             </li>
@@ -212,8 +215,8 @@
 
     <footer>
       <nav>
-        <button class="fa fa-facebook"></button>
-        <button class="fa fa-envelope-o"></button>
+        <a href="https://www.facebook.com/Medalhados" class="fa fa-facebook"></a>
+        <a href="mailto:eu@zeluiztavares.com.br" target="_blank" class="fa fa-envelope-o"></a>
       </nav>
       <span>© 2016 Medalhados. All Rights Reserved</span>
       <h1 class="logo">Medalhados</h1>
@@ -241,17 +244,22 @@
         show: {
           success: false,
           error: false
-        }
+        },
+        isSending: false
       }
     },
     methods: {
       enviarRegistro() {
         var email = 'eu@zeluiztavares.com.br'
 
+        this.isSending = true
+
         this.$http.post('https://formspree.io/' + email, this.user).then((response) => {
           this.show.success = true
+          this.isSending = false
         }).catch((error) => {
           this.show.error = true
+          this.isSending = false
         })
       }
     }
@@ -267,19 +275,34 @@
       font-weight 700
       text-transform uppercase
     h2
-      font-size 36px
+      font-size 1.8em
+      @media screen and (min-width: 800px)
+        font-size 36px
     h3
-      font-size 22px
+      font-size 1.3em
+      @media screen and (min-width: 800px)
+        font-size 22px
     h4
       font-weight 500
       padding 20px 0 70px 0
     p
       color #888
-      font-size 1.1em
-      line-height 30px
+      font-size .9em
+      line-height 20px
+      margin 0 0 10px 0
+      @media screen and (min-width: 800px)
+        font-size 1.1em
+        line-height 30px
+        margin 0
     button,
     .login
       cursor pointer
+    .login
+      background white
+      font-size .8em
+      padding 10px 15px
+      border-radius 5px
+      border 1px solid black
     .logo
       display inline-block
       background url("/static/img/site/logo.png") no-repeat
@@ -298,56 +321,82 @@
       padding 0 5%
       text-align left
       .logo
-        width 90%
+        width 40%
+        @media screen and (min-width: 800px)
+          width 90%
     .center
       display inline-block
-      width 1140px
+      width 90%
+      @media screen and (min-width: 800px)
+        max-width 1140px
 
     .intro
       background url("/static/img/site/fundo.jpeg") center no-repeat
       color white
       text-align center
-      padding 100px 0 80px 0
+      padding 100px 5% 80px 5%
       margin 90px 0 0 0
+      width 90%
       h1
-        font-size 56px
-        font-weight 300
+        font-family 'American Typewriter'
+        font-size 2.3em
+        font-weight normal
         text-transform uppercase
         margin 0 0 20px 0
+        text-shadow 1px 1px 1px rgba(0,0,0,.5)
+        @media screen and (min-width: 800px)
+          font-size 56px
       h3
         font-weight 400
         padding-bottom 10px
+        text-shadow 1px 1px 1px rgba(0,0,0,.5)
+      h4
+        text-shadow 1px 1px 1px rgba(0,0,0,.5)
       span
         display block
         font-size .7em
         font-weight 400
         text-align left
         padding 10px 0 40px 0
-      form
+        text-shadow 1px 1px 1px rgba(0,0,0,.5)
+      .form
         float none
-        width 300px
+        width 100%
         margin 0 auto
+        @media screen and (min-width: 800px)
+          width 300px
         input
           width 95%
           padding 4% 2.5%
           border-radius 5px
           margin-bottom 20px
-          &.submit
-            background #c28b4b
-            color white
-            width auto
-            border none
-            border-radius 3px
+        .submit
+          background #c28b4b
+          color white
+          width auto
+          border none
+          border-radius 3px
+          font-size 1em
+          padding 10px 80px
+          span
             font-size 1em
-            padding 10px 80px
+            padding 0
     .about
-      margin 80px 0
+      margin 40px 0
+      @media screen and (min-width: 800px)
+        margin 80px 0
       img
-        margin 60px 0 0 0
+        margin 30px 0 0 0
+        width 100%
+        @media screen and (min-width: 800px)
+          margin 60px 0 0 0
+          width auto
       h2, ul
         display inline-block
         text-align left
-        width 750px
+        width 100%
+        @media screen and (min-width: 800px)
+          width 750px
       h2
         font-size 22px
         font-weight 400
@@ -355,7 +404,9 @@
         color #222
         padding 25px 0 0 0
       ul
-        width 750px
+        width 100%
+        @media screen and (min-width: 800px)
+          width 750px
       li
         padding 13px 0 0 0
         &:before
@@ -372,19 +423,35 @@
         padding 80px 0 20px 0
     .advantages
       padding 60px 0 0 0
+      width 100%
+      @media screen and (min-width: 800px)
+        width auto
       li
         display inline-block
-        width 360px
+        width 100%
         vertical-align top
         text-align center
         padding 0 0 60px 0
-        margin 0 10px
+        margin 0
+        @media screen and (min-width: 800px)
+          width 360px
+          margin 0 10px
+      h3, p
+        width 90%
+        padding 15px 5%
+        @media screen and (min-width: 800px)
+          width auto
+          padding 0
       h3
         line-height 28px
         padding 15px 0
       p
         font-size 15px
         line-height 24px
+      img
+        width 100%
+        @media screen and (min-width: 800px)
+          width auto
     .exclusives
       background rgba(148,21,46,.8)
       padding 80px 0
@@ -396,12 +463,17 @@
         padding 0 0 80px 0
       ol
         display inline-block
-        width 960px
+        width 90%
+        padding 0 5%
+        @media screen and (min-width: 800px)
+          width 960px
       li
         display inline-block
         font-size 16px
         color white
-        width 200px
+        width 100%
+        @media screen and (min-width: 800px)
+          width 200px
       .fa-trophy
         font-size 48px
         color #f7e257
@@ -412,8 +484,12 @@
         padding 90px 0 60px 0
       blockquote
         display inline-block
-        width 45%
-        padding 0 2%
+        vertical-align top
+        width 96%
+        padding 0 2% 30px 2%
+        @media screen and (min-width: 800px)
+          width 45%
+          padding 0 2%
         cite
           text-align center
           img
@@ -442,36 +518,65 @@
         text-transform uppercase
         padding 20px 0
         font-weight 300
-      ul
-        display flex
-        flex 0 0 70%
-        flex-wrap wrap
-      li
-        flex 0 0 43%
-        display flex
-        padding 0 3% 40px 3%
-        .fa
-          color rgba(250,250,250,.6)
-          font-size 3em
-          margin 0 20px 0 0
-        aside
-          text-align left
-          h4
-            font-size 14px
-            font-weight 700
-            padding 0 0 20px 0
-          p
-            color black
-            font-size .85em
-            line-height 2em
       .content
-        display flex
+        .plano-prices
+          padding-right 5%
+          margin-bottom 40px
+          @media screen and (min-width: 800px)
+            margin-bottom 0
+          span
+            display block
+            width 100%
+            line-height 1.5em
+            text-align center
+            @media screen and (min-width: 800px)
+              text-align left
+      ul
+        display block
+        @media screen and (min-width: 800px)
+          display flex
+          flex 0 0 70%
+          flex-wrap wrap
+        li
+          padding 0 3% 40px 3%
+          @media screen and (min-width: 800px)
+            display flex
+            flex 0 0 43%
+          .fa
+            color rgba(250,250,250,.6)
+            font-size 3em
+            margin 10px 0
+            @media screen and (min-width: 800px)
+              margin 0 20px 0 0
+      aside
+        text-align left
+        h4
+          font-size 14px
+          font-weight 700
+          padding 0 0 20px 0
+          text-align center
+          @media screen and (min-width: 800px)
+            text-align left
+        p
+          color black
+          font-size .85em
+          line-height 2em
+          text-align center
+          @media screen and (min-width: 800px)
+            text-align left
+      .content
+        display block
+        @media screen and (min-width: 800px)
+          display flex
         span
           font-size .7em
       h5
         font-size 8em
         font-weight 700
         color #b6cf6c
+        text-align center
+        @media screen and (min-width: 800px)
+          text-align left
         &:before
           content '$'
           font-weight 300
@@ -489,11 +594,16 @@
       nav, span, .logo
         flex 1 auto
       nav
-        button
+        text-align center
+        @media screen and (min-width: 800px)
+          text-align left
+        a
           background none
           cursor pointer
           padding 10px
           border none
+          color: #000
+          text-decoration none
       span
         flex 3 auto
         font-size .7em

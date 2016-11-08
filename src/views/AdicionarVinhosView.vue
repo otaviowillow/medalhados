@@ -2,12 +2,12 @@
   <div class="adicionar-vinhos">
     <form class="main-card">
       <div class="introducao">
-        <h2>Introdução</h2>
+        <h2>Impressões do Editor</h2>
         <ui-textbox name="intro" :value.sync="vinho.intro" :multi-line="true"></ui-textbox>
       </div>
 
       <div class="video">
-        <h2>Video Aula</h2>
+        <h2>Associar Vídeo</h2>
         <p>ID do vídeo do youtube: <em>https://www.youtube.com/watch?v=<strong>veMmZtybxu0</strong></em></p>
         <ui-textbox name="video" :value.sync="vinho.video"></ui-textbox>
       </div>
@@ -50,6 +50,16 @@
               <ui-textbox name="fermentacao" :value.sync="vinho.fermentacao" label="Fermentação" validation-rules="required" @blurred="formState"></ui-textbox>
               <ui-textbox name="notaOficial" :value.sync="vinho.notaOficial" label="Nota Oficial" validation-rules="required" @blurred="formState"></ui-textbox>
             </fieldset>
+
+            <fieldset>
+              <ui-textbox name="concurso" :value.sync="vinho.concurso" label="Concurso" @blurred="formState"></ui-textbox>
+              <ui-textbox name="editor" :value.sync="vinho.editor" label="Editor" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="ecommerce" :value.sync="vinho.ecommerce" label="Link para e-commerce" validation-rules="required" @blurred="formState"></ui-textbox>
+            </fieldset>
+
+            <fieldset>
+              <ui-textbox name="referencia" :value.sync="vinho.referencia" label="Referência" @blurred="formState"></ui-textbox>
+            </fieldset>
           </div>
         </div>
       </div>
@@ -72,6 +82,10 @@
         formDisabled: true,
         paises: [],
         vinho: {
+          concurso: '',
+          editor: '',
+          ecommerce: '',
+          referencia: '',
           amostra: '',
           intro: '',
           criadoEm: '',
@@ -104,7 +118,6 @@
     },
     ready: function() {
       this.setPaises(this.paises)
-      this.getAmostra()
     },
     methods: {
       fetchAmostra() {
@@ -153,14 +166,6 @@
         firebase.database().ref('vinhos/' + this.vinho.amostra).set(this.vinho);
 
         this.$router.go('/')
-      },
-      getAmostra() {
-        var vinhos = firebase.database().ref().child('vinhos')
-
-        return vinhos.once('value', (snapshot) => {
-          if(snapshot.val() !== null)
-            this.vinho.amostra = 1 //snapshot.val().length
-        })
       },
       setPaises(countries) {
         this.$http.get('../node_modules/world-countries/dist/countries.json').then((response) => {

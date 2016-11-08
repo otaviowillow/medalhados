@@ -12,6 +12,7 @@ import VideoView from './views/VideoView.vue'
 import VinhosView from './views/VinhosView.vue'
 import VinhoView from './views/VinhoView.vue'
 import LoginView from './views/LoginView.vue'
+import SignUpView from './views/SignUpView.vue'
 import HomeView from './views/HomeView.vue'
 import FichasView from './views/FichasView.vue'
 import CartaView from './views/CartaView.vue'
@@ -32,7 +33,11 @@ Vue.filter('toString', toString)
 Vue.filter('toInt', toInt)
 
 // routing
-var router = new Router()
+export var router = new Router({
+  // hashbang: false,
+  // history: true,
+  // saveScrollPosition: true
+})
 
 router.map({
   '/': {
@@ -96,10 +101,24 @@ router.map({
     component: LoginView,
     auth: false
   },
+  '/registrar': {
+    name: 'registrar',
+    component: SignUpView,
+    auth: false
+  },
   '/home': {
     name: 'home',
     component: HomeView,
     auth: false
+  },
+  '/logout': {
+    component: function (resolve) {
+      var self = this
+
+      firebase.auth().signOut().then(() => {
+        window.location.reload()
+      })
+    }
   },
 })
 
@@ -111,6 +130,9 @@ router.beforeEach(function (transition) {
     } else if (transition.to.path == '/' && user || transition.to.name == 'login' && user) {
       window.scrollTo(0, 0)
       transition.redirect('/fichas')
+    } else if (transition.to.path == '/logout' && !user) {
+      window.scrollTo(0, 0)
+      transition.redirect('/')
     } else {
       window.scrollTo(0, 0)
       transition.next()

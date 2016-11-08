@@ -5,11 +5,9 @@
         <ui-toolbar type="clear" :hide-nav-icon="true">
           <div class="nota">
             <medalha :nota="nota"></medalha>
-            <!--<object class="medalha" :data="medalha"></object>-->
-            <!--<h4>{{ nota }}</h4>-->
           </div>
           <div slot="actions">
-            <ui-icon-button type="clear" icon="shopping_cart"></ui-icon-button>
+            <ui-icon-button @click="goToStore" type="clear" icon="shopping_cart"></ui-icon-button>
           </div>
         </ui-toolbar>
         <footer>
@@ -65,6 +63,9 @@
     },
 
     methods: {
+      goToStore() {
+        window.open(this.vinho.ecommerce)
+      },
       expandirVinho() {
         console.log(this.vinho.key)
 

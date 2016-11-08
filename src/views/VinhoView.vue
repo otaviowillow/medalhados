@@ -7,7 +7,7 @@
                     text-color="white"
                     hide-nav-icon>
           <div slot="actions">
-            <ui-icon-button type="clear" color="white" icon="shopping_cart"></ui-icon-button>
+            <ui-icon-button @click="goToStore" type="clear" color="white" icon="shopping_cart"></ui-icon-button>
             <ui-icon-button type="clear" color="white" icon="arrow_forward" @click="goToVinhos"></ui-icon-button>
           </div>
         </ui-toolbar>
@@ -102,6 +102,9 @@
     methods: {
       goToVinhos() {
         this.$router.go('/vinhos')
+      },
+      goToStore() {
+        window.open(this.vinho.ecommerce)
       }
     }
   }

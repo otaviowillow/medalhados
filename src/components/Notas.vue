@@ -52,6 +52,12 @@
 
             return notas.tintos
             break;
+          case 'Espumante':
+            for(var i = 0; i < notas.espumantes.length; i++)
+              this.notaTotal += notas.espumantes[i].nota
+
+            return notas.espumantes
+            break;
           default:
             for(var i = 0; i < notas.tintos.length; i++)
               this.notaTotal += notas.tintos[i].nota
@@ -81,7 +87,7 @@
       align-items flex-end
       justify-content flex-end
       flex 0 0 300px
-      background-position center top
+      background-position center
       background-size cover
       background-repeat no-repeat
       h3

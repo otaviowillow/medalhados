@@ -13,8 +13,8 @@
     <p>Daqui pra frente, você tem dois caminhos a seguir:</p>
 
     <ol>
-      <li>1) Se esta é sua primeira degustação - ou mesmo se quiser recordar - assista a video-aula que preparei especialmente para orientá-lo sobre as técnicas de avaliação de vinhos.</li>
-      <li>2) Se já se sente preparado para partir direto para a degustação, vá em frente: digite no campo marcado o código da amostra que irá degustar e acesse a ficha oficial de avaliação. Nela, você encontrará os dados básicos normalmente oferecidos aos jurados e os campos para você dar suas notas sobre os diversos quesitos de avaliação. Se tiver dúvidas sobre o significado de cada quesito, clique no símbolo “?” existente ao lado de cada um.</li>
+      <li>1) Se esta é sua primeira degustação - ou mesmo se quiser recordar - assista a <a v-link="{ name: 'video', params: { id: 'qYN1M9oc8-w' } }">video-aula</a> que preparei especialmente para orientá-lo sobre as técnicas de avaliação de vinhos.</li>
+      <li>2) Se já se sente preparado para partir direto para a degustação, vá em frente: <a v-link="{ name: 'fichas' }">digite no campo marcado o código da amostra que irá degustar e acesse a ficha oficial de avaliação</a>. Nela, você encontrará os dados básicos normalmente oferecidos aos jurados e os campos para você dar suas notas sobre os diversos quesitos de avaliação. Se tiver dúvidas sobre o significado de cada quesito, clique no símbolo “?” existente ao lado de cada um.</li>
     </ol>
 
     <p>Após confirmar suas notas, revelaremos a você tudo sobre o vinho que degustou e, mais uma vez, você terá dois caminhos a seguir:</p>
@@ -28,14 +28,16 @@
     <p>Estou torcendo por você!</p>
 
     <div class="signature">
-      <img src="/static/img/signature.png">
-      <span>Eduardo Virotti</span>
+      <figure>
+        <img src="/static/img/signature.png">
+        <figcaption>Eduardo Virotti</figcaption>
+      </figure>
     </div>
 
-    <footer>
-      <ui-button v-link="{ name: 'video', params: { id: 'qYN1M9oc8-w' } }">Video Aula</ui-button>
-      <ui-button v-link="{ path: 'fichas' }">Ficha</ui-button>
-    </footer>
+    <!--<footer>-->
+      <!--<ui-button v-link="{ name: 'video', params: { id: 'qYN1M9oc8-w' } }">Video Aula</ui-button>-->
+      <!--<ui-button v-link="{ path: 'fichas' }">Ficha</ui-button>-->
+    <!--</footer>-->
   </div>
 </template>
 
@@ -50,22 +52,25 @@
 <style lang="stylus">
   .carta
     background white
-    width 450px
-    padding 20px
+    width 650px
+    padding 50px
     margin 0 auto 50px auto
+    a
+      color crimson
+      font-weight 700
     h2, p, li
       margin 0 0 15px 0
       line-height 1.5em
       white-space pre-wrap
     .signature
-      float right
+      text-align right
       margin-bottom 20px
-      img, span
-        float left
-        clear both
+      figure
+        display inline-block
+        text-align center
       img
         height 70px
-      span
+      figcaption
         width 100%
         text-align center
         padding 5px 0 0 0

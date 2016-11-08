@@ -1,9 +1,17 @@
 <template>
   <div class="nota-individual">
     <aside>
-      <h4>{{ subcategoria }}</h4> <i class="material-icons">help_outline</i>
+      <h4>{{ subcategoria.nome }}</h4>
+      <ui-icon-button
+            :tooltip="subcategoria.descricao"
+            tooltip-position="right center"
+            icon="help_outline"
+            type="flat"
+            hide-ripple-ink>
+      </ui-icon-button>
     </aside>
     <ui-radio-group
+            @change="novaNota"
             :options="notas | toString"
             :value.sync="selecionada | toString"
             :name="radioGroupName"></ui-radio-group>
@@ -14,15 +22,31 @@
   export default{
     props: {
       categoria: '',
-      subcategoria: '',
+      subcategoria: {},
       notas: [],
       selecionada: '',
+      pontuacao: 0
     },
 
     computed: {
       radioGroupName() {
-        return this.categoria + this.subcategoria
+        return this.categoria + this.subcategoria.nome
       },
+    },
+
+    methods: {
+      novaNota() {
+        var self = this
+        var radios = document.getElementsByClassName('ui-radio-input')
+
+        self.pontuacao = 0
+
+        for(var i = 0; i < radios.length; i++)
+          if(radios[i].checked)
+            self.pontuacao += parseInt(radios[i].value)
+
+        self.$dispatch('mudar-nota', self.pontuacao)
+      }
     }
   }
 </script>
@@ -41,6 +65,11 @@
       h4, i
         display inline
         vertical-align middle
+      .ui-icon-button-flat.color-default
+        cursor default
+        vertical-align middle
+        &:hover
+          background-color transparent
       i
         padding 0 10px
     .ui-radio-group-options-wrapper
