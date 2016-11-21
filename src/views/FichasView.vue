@@ -65,6 +65,13 @@
       }
     },
 
+    route: {
+      data ({ to }) {
+        this.$dispatch('is-authenticated')
+        this.$dispatch('is-admin', this.usuario)
+      }
+    },
+
     filters: {
       'stringThing': {
         read: function(val) {
@@ -75,6 +82,12 @@
 //          var number = +val.replace(/[^\d.]/g, '')
 //          return isNaN(number) ? 0 : parseFloat(number.toFixed(2))
         }
+      }
+    },
+
+    computed: {
+      usuario() {
+        return firebase.auth().currentUser
       }
     },
 

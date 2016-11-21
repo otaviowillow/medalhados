@@ -33,6 +33,13 @@
       }
     },
 
+    route: {
+      data ({ to }) {
+        this.$dispatch('is-authenticated')
+        this.$dispatch('is-admin', this.usuario)
+      }
+    },
+
     ready: function() {
       return Promise.all([
         this.fetchVinhos(),

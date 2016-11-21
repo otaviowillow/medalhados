@@ -13,12 +13,17 @@
     },
     route: {
       data({to}) {
+        this.$dispatch('is-authenticated')
+        this.$dispatch('is-admin', this.usuario)
         return {
           video_url: to.params.id
         }
       }
     },
     computed: {
+      usuario() {
+        return firebase.auth().currentUser
+      },
       videoUrl() {
         return 'https://www.youtube.com/embed/' + this.video_url
       }

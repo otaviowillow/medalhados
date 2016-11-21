@@ -9,6 +9,17 @@
   export default{
     components:{
       CartaDoPresidente
+    },
+    route: {
+      data ({ to }) {
+        this.$dispatch('is-authenticated')
+        this.$dispatch('is-admin', this.usuario)
+      }
+    },
+    computed: {
+      usuario() {
+        return firebase.auth().currentUser
+      }
     }
   }
 </script>

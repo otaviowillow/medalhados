@@ -135,6 +135,7 @@ router.beforeEach(function (transition) {
       transition.redirect('/')
     } else {
       window.scrollTo(0, 0)
+      transition.to.params[ 'loggedIn' ] = true
       transition.next()
     }
   })

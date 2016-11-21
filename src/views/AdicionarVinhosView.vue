@@ -2,7 +2,7 @@
   <div class="adicionar-vinhos">
     <form class="main-card">
       <div class="introducao">
-        <h2>Impressões do Editor</h2>
+        <h2>Impressões do Curador</h2>
         <ui-textbox name="intro" :value.sync="vinho.intro" :multi-line="true"></ui-textbox>
       </div>
 
@@ -29,36 +29,44 @@
 
             <fieldset>
               <ui-select name="tipo" :value.sync="vinho.tipo" :options="tipos" label="Tipo" default="Tinto" required></ui-select>
-              <ui-textbox name="nome" :value.sync="vinho.nome" label="Nome" label="Nome" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-select name="familia" :value.sync="vinho.familia" :options="familias" label="Família" default="Vinhos Tranquilos" required></ui-select>
+              <ui-select name="procedencia" :value.sync="vinho.procedencia.nome" :options="paises" label="Procedência" show-search required></ui-select>
+            </fieldset>
+
+            <fieldset>
+              <ui-textbox name="regiao" :value.sync="vinho.regiao" label="Região" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="produtor" :value.sync="vinho.produtor" label="Produtor" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="importador" :value.sync="vinho.importador" label="Importador" @blurred="formState"></ui-textbox>
+            </fieldset>
+
+            <fieldset>
+              <ui-textbox name="rotulo" :value.sync="vinho.rotulo" label="Rótulo" label="Rótulo" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="safra" :value.sync="vinho.safra" label="Safra" validation-rules="required" @blurred="formState"></ui-textbox>
               <ui-textbox name="castas" :value.sync="vinho.castas" label="Castas" validation-rules="required" @blurred="formState"></ui-textbox>
             </fieldset>
 
             <fieldset>
-              <ui-textbox name="produtor" :value.sync="vinho.produtor" label="Produtor" validation-rules="required" @blurred="formState"></ui-textbox>
-              <ui-textbox name="importador" :value.sync="vinho.importador" label="Importador" validation-rules="required" @blurred="formState"></ui-textbox>
-              <ui-textbox name="origem" :value.sync="vinho.origem" label="Origem" validation-rules="required" @blurred="formState"></ui-textbox>
-            </fieldset>
-
-            <fieldset>
-              <ui-select name="regiao" :value.sync="vinho.regiao.nome" :options="paises" label="Região" show-search required></ui-select>
-              <ui-textbox name="safra" :value.sync="vinho.safra" label="Safra" validation-rules="required" @blurred="formState"></ui-textbox>
-              <ui-textbox name="alcool" :value.sync="vinho.alcool" label="Álcool" validation-rules="required" @blurred="formState"></ui-textbox>
-            </fieldset>
-
-            <fieldset>
-              <ui-textbox name="preco" :value.sync="vinho.preco" type="number" label="Preço" validation-rules="required" @blurred="formState"></ui-textbox>
-              <ui-textbox name="fermentacao" :value.sync="vinho.fermentacao" label="Fermentação" validation-rules="required" @blurred="formState"></ui-textbox>
-              <ui-textbox name="notaOficial" :value.sync="vinho.notaOficial" label="Nota Oficial" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="alcool" :value.sync="vinho.alcool" label="Graduação Alcoólica" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="caracteristicasProducao" :value.sync="vinho.caracteristicasproducao" label="Características de Produção" @blurred="formState"></ui-textbox>
+              <ui-textbox name="envelhecimento" :value.sync="vinho.envelhecimento" label="Envelhecimento" @blurred="formState"></ui-textbox>
             </fieldset>
 
             <fieldset>
               <ui-textbox name="concurso" :value.sync="vinho.concurso" label="Concurso" @blurred="formState"></ui-textbox>
-              <ui-textbox name="editor" :value.sync="vinho.editor" label="Editor" validation-rules="required" @blurred="formState"></ui-textbox>
-              <ui-textbox name="ecommerce" :value.sync="vinho.ecommerce" label="Link para e-commerce" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="notaOficial" :value.sync="vinho.notaOficial" label="Nota Oficial" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="medalha" :value.sync="vinho.medalha" label="Medalha" @blurred="formState"></ui-textbox>
             </fieldset>
 
             <fieldset>
-              <ui-textbox name="referencia" :value.sync="vinho.referencia" label="Referência" @blurred="formState"></ui-textbox>
+              <ui-textbox name="referencia" :value.sync="vinho.referencia" label="Referências" @blurred="formState"></ui-textbox>
+              <ui-textbox name="curador" :value.sync="vinho.curador" label="Curador" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="harmonizacao" :value.sync="vinho.harmonizacao" label="Sugestão de Harmonização" @blurred="formState"></ui-textbox>
+            </fieldset>
+
+            <fieldset>
+              <ui-textbox name="preco" :value.sync="vinho.preco" label="Preço de Mercado" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="ofertaAssociados" :value.sync="vinho.ofertaAssociados" label="Oferta para Associados" @blurred="formState"></ui-textbox>
+              <ui-textbox name="ecommerce" :value.sync="vinho.ecommerce" label="Link para e-commerce" @blurred="formState"></ui-textbox>
             </fieldset>
           </div>
         </div>
@@ -79,6 +87,7 @@
     data() {
       return {
         tipos: ['Espumante', 'Tinto', 'Branco', 'Sobremesa', 'Rose'],
+        familias: ['Vinho Tranquilo', 'Vinho Espumante'],
         formDisabled: true,
         paises: [],
         vinho: {
@@ -90,11 +99,15 @@
           intro: '',
           criadoEm: '',
           tipo: '',
-          nome: '',
+          rotulo: '',
           foto_garrafa_url: null,
           alcool: '',
           castas: '',
           produtor: '',
+          harmonizacao: '',
+          caracteristicasProducao: '',
+          ofertaAssociados: '',
+          envelhecimento: '',
           importador: '',
           origem: '',
           notaOficial: '',
@@ -111,6 +124,7 @@
     },
     route: {
       data ({ to }) {
+        this.$dispatch('is-authenticated')
         Promise.all([
           this.fetchAmostra()
         ])
@@ -186,6 +200,8 @@
 <style lang="stylus">
   .adicionar-vinhos
     width 100%
+    fieldset
+      margin 0 0 10px 0
     .introducao, .video, .wrapper
       width 95%
       padding 2.5%

@@ -28,29 +28,33 @@
         senha: ''
       }
     },
-
+    route: {
+      data ({ to }) {
+        this.$dispatch('is-authenticated')
+      }
+    },
     methods: {
       signUp() {
         var displayName = this.primeiroNome + " " + this.ultimoNome
+        var self = this
 
-        firebase.auth().createUserWithEmailAndPassword(this.email, this.senha).then((user) => {
+        firebase.auth().createUserWithEmailAndPassword(self.email, self.senha).then((user) => {
           user.updateProfile({
-            displayName: displayName
-          }).then(function() {
-            firebase.auth().signInWithEmailAndPassword(this.email, this.senha).then(function (result) {
-              this.$dispatch('is-authenticated')
-              window.location.reload()
-            }).catch(function(error) {
-              var errorCode = error.code;
-              var errorMessage = error.message;
-            });
-          }, function(error) {
-            // An error happened.
+          displayName: displayName
+        }).then(function() {
+          firebase.auth().signInWithEmailAndPassword(self.email, self.senha).then(function (result) {
+            self.$dispatch('is-authenticated', result)
+          }).catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
           });
-        }).catch((error) => {
+        }, function(error) {
+          // An error happened.
+        });
+      }).catch((error) => {
           var errorCode = error.code;
-          var errorMessage = error.message;
-        })
+        var errorMessage = error.message;
+      })
       }
     }
   }

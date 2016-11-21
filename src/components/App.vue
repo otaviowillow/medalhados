@@ -1,7 +1,7 @@
 <template>
   <div class="main-wrapper">
 
-    <main-header :usuario="usuario" :authenticated="authenticated"></main-header>
+    <main-header :admin="admin" :authenticated="authenticated"></main-header>
 
     <router-view
             class="view"
@@ -19,7 +19,7 @@
   export default {
     data() {
       return {
-        usuario: {},
+        admin: false,
         selected: '',
         authenticated: false,
       }
@@ -28,13 +28,27 @@
       'is-authenticated' : function (user) {
         this.authenticated = true
 
-        var usr = user.uid
-        var userRef = firebase.database().ref('usuarios').child(usr)
+        if(user) {
+          var usr = user.uid
+          var userRef = firebase.database().ref('usuarios').child(usr)
 
-        userRef.on('value', (snapshot) => {
-          this.usuario = snapshot.val()
-          console.log(this.usuario)
-        })
+          userRef.on('value', (snapshot) => {
+            console.log(snapshot.val())
+            this.usuario = snapshot.val()
+          })
+        }
+      },
+      'is-admin' : function (user) {
+        console.log(user)
+        if(user) {
+          var usr = user.uid
+          var userRef = firebase.database().ref('usuarios').child(usr)
+
+          userRef.on('value', (snapshot) => {
+            console.log(snapshot.val())
+            this.admin = snapshot.val().isAdmin
+          })
+        }
       }
     },
     components: {

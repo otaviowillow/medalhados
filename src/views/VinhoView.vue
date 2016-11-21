@@ -19,15 +19,13 @@
       </header>
       <div class="card-body">
         <div class="detalhes-vinho">
-          <h2>{{ vinho.nome }}</h2>
+          <h2>{{ vinho.rotulo }}</h2>
           <p>{{ vinho.tipo }}</p>
-
-          <!--<span>{{ vinho.origem }}, {{ vinho.regiao.nome }}</span>-->
 
           <div class="medalhas">
             <dl>
               <dt>Nota Oficial</dt>
-              <dd><medalha :nota="vinho.notaOficial"></medalha></dd>
+              <dd><medalha :nota="vinho.notaOficial" :tipo="vinho.medalha"></medalha></dd>
             </dl>
             <dl>
               <dt>Sua nota</dt>
@@ -37,11 +35,11 @@
         </div>
 
         <ul>
-          <li>Origem: {{ vinho.origem }}</li>
-          <li>Região: {{ vinho.regiao.nome }}</li>
+          <li>Região: {{ vinho.regiao }}</li>
+          <li>Procedência: {{ vinho.procedencia.nome }}</li>
           <li>Castas: {{ vinho.castas }}</li>
           <li>Produtor: {{ vinho.produtor }}</li>
-          <li>Importador: {{ vinho.importador }}</li>
+          <!--<li>Importador: {{ vinho.importador }}</li>-->
           <li>Safra: {{ vinho.safra }}</li>
           <li>Álcool: {{ vinho.alcool }}</li>
         </ul>
@@ -64,6 +62,8 @@
 
     route: {
       data ({ to }) {
+        this.$dispatch('is-authenticated')
+        this.$dispatch('is-admin', this.usuario)
         this.vinhoKey = to.params.id
         this.$bindAsObject('vinho', firebase.database().ref('vinhos/' + this.vinhoKey))
         this.$bindAsObject('vinhoUsuario', firebase.database().ref('usuarios/' + firebase.auth().currentUser.uid + '/vinhos').child(this.vinhoKey))
@@ -73,6 +73,9 @@
     computed: {
       notaUsuario() {
         return this.vinhoUsuario.nota
+      },
+      usuario() {
+        return firebase.auth().currentUser
       },
       backgroundType() {
         switch (this.vinho.tipo) {
@@ -129,8 +132,9 @@
         vertical-align top
       figure
         background-color white
-        background-size auto 100%
+        background-size auto 80%
         background-position center
+        background-repeat no-repeat
         flex 0 0 300px
         height 300px
         border-radius 50%
@@ -139,6 +143,11 @@
         width 95%
         padding 0 2.5%
         white-space pre-wrap
+        display flex
+        align-items center
+        p
+          flex 1 auto
+          font-size 1.5em
     .card-body
       display flex
       width 95%

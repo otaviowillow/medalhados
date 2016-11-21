@@ -1,6 +1,6 @@
 <template>
   <header class="vinho-detalhes has-background" :style="{ backgroundImage: 'url(' + backgroundType + ')' }">
-    <ui-toolbar title="Vinho Tranquilo"
+    <ui-toolbar :title="vinho.familia"
                 brand="Ficha de Degustação"
                 type="clear"
                 text-color="white"

@@ -11,15 +11,15 @@
           </div>
         </ui-toolbar>
         <footer>
-          <h3>{{ vinho.nome }}</h3>
-          <h4>{{ vinho.tipo }}</h4>
+          <h3>{{ vinho.rotulo }}</h3>
+          <h4 v-if="expandido">{{ vinho.tipo }}</h4>
         </footer>
         <div class="detalhes" v-if="expandido">
           <p>Castas: {{vinho.castas}}</p>
           <p>Produtor: {{vinho.produtor}}</p>
           <p>Importador: {{vinho.importador}}</p>
-          <p>Origem: {{ vinho.origem }}</p>
-          <p>Região: {{ vinho.regiao.nome }}</p>
+          <p>Região: {{ vinho.regiao }}</p>
+          <p>Procedência: {{ vinho.procedencia.nome }}</p>
           <p>Álcool: {{vinho.alcool}}</p>
           <p>Cepa: {{vinho.cepa}}</p>
           <p>Safra: {{vinho.safra}}</p>

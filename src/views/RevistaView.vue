@@ -10,6 +10,11 @@
       return{
         msg:'hello vue'
       }
+    },
+    route: {
+      data ({ to }) {
+        this.$dispatch('is-authenticated')
+      }
     }
   }
 </script>

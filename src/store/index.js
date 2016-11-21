@@ -149,7 +149,7 @@ store.fetchIndividualVinho = () => {
     produtor: 'Casa Ferreirinha',
     importador: 'Cantu',
     origem: 'Portugal',
-    regiao: 'Douro',
+    procedencia: 'Douro',
     safra: '2012',
     amostra: '???',
     avaliado: false,

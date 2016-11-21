@@ -2,7 +2,7 @@
   <div class="medalha">
     <div class="wrapper">
       <h3 :class="medal">{{ nota }}</h3>
-      <h4>{{ medal }}</h4>
+      <h4 v-if="tipo">{{ tipo }}</h4>
     </div>
   </div>
 </template>
@@ -10,19 +10,18 @@
 <script>
   export default {
     props: {
-      nota: 0
+      nota: 0,
+      tipo: ''
     },
 
     data() {
       return {
-        notaTotal: 97
+        notaTotal: 100
       }
     },
 
     computed: {
       medal() {
-        console.info(this.notaTotal +" "+" "+this.nota+" "+this.notaTotal * .8)
-
         if(this.nota > this.notaTotal * .8)
           return 'duplo-ouro'
 

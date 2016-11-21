@@ -7,7 +7,7 @@
         <ui-toolbar type="clear" :hide-nav-icon="true">
           <div slot="actions">
             <ui-icon-button type="clear" color="white" icon="more_vert" has-dropdown-menu
-            :menu-options="menu" dropdown-position="bottom right" @menu-option-selected="handleSelected"></ui-icon-button>
+                            :menu-options="menu" dropdown-position="bottom right" @menu-option-selected="handleSelected"></ui-icon-button>
           </div>
         </ui-toolbar>
 
@@ -24,14 +24,13 @@
           <li class="card has-background" v-for="vinho in vinhos" :style="{ backgroundImage: 'url(' + backgroundType(vinho[0].tipo) + ')' }">
             <!--<div :style="{ backgroundImage: 'url(' + backgroundType('Tinto') + ')' }"></div>-->
             <!--<h2>{{ vinho.length }}</h2>-->
-            <p>{{ vinho | json }}</p>
             <h2>{{ vinho | average }}</h2>
             <p>{{ vinho[0].tipo }}</p>
             <span>Nota Média</span>
           </li>
         </ul>
 
-        <grafico-notas></grafico-notas>
+        <!--<grafico-notas></grafico-notas>-->
       </article>
 
       <!--<ui-alert>Atenção! você foi selecionado!</ui-alert>-->
@@ -47,7 +46,6 @@
   export default{
     data() {
       return {
-        usuario: {},
         vinhos: [],
         totalAvaliados: 0,
         menu: [
@@ -62,10 +60,14 @@
     route: {
       data ({ to }) {
         document.title = 'Medalhados - Desgustador'
+        this.$dispatch('is-authenticated')
+        this.$dispatch('is-admin', this.usuario)
 
         Promise.all([
           this.fetchDetalhesUsuario()
-        ])
+        ]).then(() => {
+          this.organizeData()
+        })
       }
     },
 
@@ -77,17 +79,13 @@
 
     filters: {
       average(array) {
-        return _.meanBy(array, 'nota');
+        return Math.round(_.meanBy(array, 'nota'));
       }
     },
 
     components: {
       GraficoNotas,
       UploadImagemUsuario
-    },
-
-    ready: function () {
-      console.log(this.backgroundType('Tinto'))
     },
 
     methods: {
@@ -114,9 +112,7 @@
         var self = this
         var usuarioRef = firebase.database().ref('usuarios').child(this.usuario.uid).child('vinhos')
 
-        console.info("usuario " + this.usuario)
-
-        return usuarioRef.once("value", (snapshot) => {
+        return usuarioRef.once("value", function(snapshot) {
           self.vinhos = snapshot.val()
         })
       },

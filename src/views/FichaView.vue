@@ -25,20 +25,24 @@
         vinhoKey: '',
         usuario: {},
         notaTotal: 0,
-        pontuacao: 0
+        pontuacao: 100
       }
     },
 
     route: {
       data ({ to }) {
+        this.$dispatch('is-authenticated')
+        this.$dispatch('is-admin', this.usuario)
         this.vinhoKey = to.params.id
         this.$bindAsObject('vinho', firebase.database().ref('vinhos/' + this.vinhoKey))
         this.$bindAsObject('usuario', firebase.database().ref('usuarios').child(firebase.auth().currentUser.uid))
       }
     },
 
-    ready: function () {
-      this.novaNota()
+    computed: {
+      usuario() {
+        return firebase.auth().currentUser
+      }
     },
 
     components: {
@@ -53,20 +57,6 @@
       }
     },
 
-    methods: {
-      novaNota() {
-        var self = this
-        var radios = document.getElementsByClassName('ui-radio-input')
-
-        self.pontuacao = 0
-
-        for(var i = 0; i < radios.length; i++)
-          if(radios[i].checked)
-            self.pontuacao += parseInt(radios[i].value)
-
-        self.$dispatch('mudar-nota', self.pontuacao)
-      }
-    }
 
   }
 </script>
