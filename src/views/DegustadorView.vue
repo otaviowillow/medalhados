@@ -134,10 +134,15 @@
 </script>
 
 <style lang="stylus">
+  @import "../variables.styl"
+
   .degustador
     header
       position relative
       background #800020
+      text-align center
+      @media screen and (min-width: $tablet)
+        text-align left
       .profile-pic, aside
         display inline-block
         vertical-align middle

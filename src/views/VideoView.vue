@@ -1,6 +1,6 @@
 <template>
   <div class="youtube-video">
-    <iframe width="896" height="504" :src="videoUrl" frameborder="0" allowfullscreen></iframe>
+    <iframe :src="videoUrl" frameborder="0" allowfullscreen></iframe>
   </div>
 </template>
 
@@ -32,8 +32,18 @@
 </script>
 
 <style lang="stylus">
+  @import "../variables.styl"
+
   .youtube-video
-    width 896px
+    width 90%
+    height 200px
     float none
-    margin 0 auto
+    margin 30px auto
+    @media screen and (min-width: $tablet)
+      width 896px
+      height 504px
+      margin 0 auto
+    iframe
+      width 100%
+      height 100%
 </style>

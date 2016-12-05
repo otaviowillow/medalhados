@@ -114,13 +114,23 @@
 </script>
 
 <style lang="stylus">
+  @import "../variables.styl"
+
   .vinho-view
     margin-bottom 20px
     header
-      position: relative
-      display flex
+      position relative
+      display block
       background-size cover
       padding-top 8%
+      text-align center
+      @media screen and (min-width: $tablet)
+        display flex
+        text-align left
+      .ui-toolbar-title
+        display none
+        @media screen and (min-width: $tablet)
+          display inline-block
       .ui-toolbar
         position absolute
         top 0
@@ -136,8 +146,14 @@
         background-position center
         background-repeat no-repeat
         flex 0 0 300px
-        height 300px
+        height 150px
+        width 150px
         border-radius 50%
+        margin-top 60px
+        @media screen and (min-width: $tablet)
+          margin-top 0
+          height 300px
+          width auto
       blockquote
         color white
         width 95%
@@ -146,20 +162,37 @@
         display flex
         align-items center
         p
+          padding 30px 0
           flex 1 auto
-          font-size 1.5em
+          font-size 1em
+          @media screen and (min-width: $tablet)
+            padding 0
+            font-size 1.5em
     .card-body
-      display flex
+      display block
+      float left
       width 95%
       padding 2.5%
+      @media screen and (min-width: $tablet)
+        display flex
+        float inherit
       .medalhas
         float left
         clear both
+        width 100%
         margin 25px 0 0 0
+        text-align center
+        @media screen and (min-width: $tablet)
+          width auto
+          text-align left
         dl
-          float left
+          display inline-block
+          float none
           text-align center
-          margin 0 60px 0 0
+          margin 0 20px 0 0
+          @media screen and (min-width: $tablet)
+            float left
+            margin 0 60px 0 0
         dt
           font-size .8em
           text-align center
@@ -170,13 +203,30 @@
       .detalhes-vinho
         flex 2 auto
         h2
-          font-size 3em
+          margin 30px 0 15px 0
+          text-align center
+          font-size 2em
+          @media screen and (min-width: $tablet)
+            text-align left
+            font-size 3em
+            margin 0
+        p
+          text-align center
+          @media screen and (min-width: $tablet)
+            text-align left
         span
           float left
           font-style italic
           margin 10px 0 0 0
       ul
+        float left
         flex 1 auto
+        margin 30px 0 0 0
+        width 100%
+        @media screen and (min-width: $tablet)
+          float none
+          margin 0
+          width auto
         li
           font-size .8em
           width 95%

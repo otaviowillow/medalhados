@@ -90,12 +90,17 @@
     .ui-alert-toggle-transition
       margin-bottom 0
   .alert-error
-    width 650px
-    margin-left -325px
+    width 90%
+    margin-left 3%
+    @media screen and (min-width: $tablet)
+      width 650px
+      margin-left -325px
   .alert-success
-    width 350px
-    margin-left -150px
-
+    width 90%
+    margin-left 3%
+    @media screen and (min-width: $tablet)
+      width 350px
+      margin-left -150px
   .main-card
     background white
     width 90%

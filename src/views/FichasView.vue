@@ -3,19 +3,22 @@
     <div class="wrapper">
       <div class="card main card-shadow">
         <div class="card-body">
-          <h2>Sua Ficha</h2>
-          <p>Digite no campo marcado o código da amostra que irá degustar e acesse a ficha oficial de avaliação.</p>
+          <h2>Estou pronto para degustar!</h2>
+          <p>Digite no campo marcado o código da amostra que você recebeu e deseja degustar, para acessar a ficha oficial de avaliação.</p>
           <ui-textbox name="vinhoId" :value.sync="vinho.id" :autofocus="true" placeholder="_ _ _ - _ _" @keydown-enter="procurarVinho"></ui-textbox>
         </div>
+        <footer>
+          <ui-button @click="procurarVinho">Degustar</ui-button>
+        </footer>
       </div>
 
       <aside>
         <div class="video-aula card">
           <div class="card-header card-shadow">
-            <h2>Vídeo aula</h2>
+            <h2>Quero aprender mais!</h2>
           </div>
           <div class="card-body">
-            <p>Se esta é sua primeira degustação - ou mesmo se quiser recordar - assista a video-aula preparada especialmente para orientá-lo sobre as técnicas de avaliação de vinhos</p>
+            <p>Se esta é sua primeira degustação - ou mesmo se quiser recordar - assista a vídeo-aula preparada especialmente para orientar você sobre as técnicas de avaliação de vinhos.</p>
           </div>
           <footer>
             <ui-button v-link="{ name: 'video', params: { id: 'qYN1M9oc8' } }">Assistir</ui-button>
@@ -24,7 +27,10 @@
 
         <div class="carta-presidente card">
           <div class="card-header card-shadow">
-            <h2>Carta do Presidente</h2>
+            <h2>Quero mais instruções!</h2>
+          </div>
+          <div class="card-body">
+            <p>Para instruções completas sobre o funcionamento do Medalhados Experts Club, leia aqui a mensagem de boas vindas do nosso curador.</p>
           </div>
           <footer>
             <ui-button v-link="{ name: 'carta-do-presidente' }">Ler</ui-button>
@@ -119,6 +125,7 @@
   @import "../variables.styl"
 
   .degustar-view
+    margin-bottom 50px
     .alert-success
       width 450px
     .wrapper
@@ -126,10 +133,14 @@
     .card
       display inline-block
       position relative
-      width 390px
+      width 90%
       color white
       text-align left
       z-index 2
+      margin 0 auto
+      @media screen and (min-width: $tablet)
+        width 390px
+        margin auto
       .card-body
         background white
         color $textColor
@@ -141,7 +152,9 @@
         font-size 4em
         height 100px
       h2
-        font-size 3.5rem
+        font-size 2rem
+        @media screen and (min-width: $tablet)
+          font-size 3rem
       p
         font-size .9em
         line-height 1.5em
@@ -152,13 +165,18 @@
     .main
       background url("/static/img/cellar.jpg")
       background-size cover
-      padding 150px 30px 60px 30px
+      padding 70px 0 0 0
+      margin 0 0 10px 0
+      @media screen and (min-width: $tablet)
+        padding 120px 0 0 0
+        margin 0
       .card-body
         background transparent
+        padding-bottom 13px
         h2, p
           color white
         p
-          margin 15px 0 30px 0
+          margin 15px 0 44px 0
     .video-aula
       .card-header
         background url("/static/img/wine_camera.jpg") center
@@ -172,13 +190,19 @@
       .card-header
         padding 43px 30px 10px 30px
         h2
-          font-size 2em
+          font-size 1.5em
     aside
-      margin-left 5px
+      width 90%
+      margin 0 auto
+      @media screen and (min-width: $tablet)
+        width auto
+        margin-left 5px
       .card
         float left
         clear both
-        width 350px
+        width 100%
+        @media screen and (min-width: $tablet)
+          width 350px
         h2
-          font-size 2.5rem
+          font-size 1.5rem
 </style>

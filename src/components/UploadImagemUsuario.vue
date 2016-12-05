@@ -56,11 +56,16 @@
 </script>
 
 <style lang="stylus">
+  @import "../variables.styl"
+
   .upload-imagem-usuario
     display inline-block
     vertical-align middle
     width 80px
     height 80px
+    margin 30px 0 15px 0
+    @media screen and (min-width: $tablet)
+      margin 0
     .upload-image
       background url("/static/img/no-avatar.jpg")
       background-size cover

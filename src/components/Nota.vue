@@ -52,16 +52,22 @@
 </script>
 
 <style lang="stylus">
+  @import "../variables.styl"
+
   .nota-individual
     display table
     width 95%
     padding 0 2.5%
     aside, .ui-radio-group
-      display table-cell
+      display block
+      @media screen and (min-width: $tablet)
+        display table-cell
     aside
       white-space nowrap
       vertical-align middle
-      width 20%
+      width 100%
+      @media screen and (min-width: $tablet)
+        width 20%
       h4, i
         display inline
         vertical-align middle
@@ -80,11 +86,18 @@
         height 100%
         margin-left 0
         padding 8px 0
+        text-align center
+        @media screen and (min-width: $tablet)
+          text-align left
         &:last-child
           float right
       .ui-radio-input-wrapper, .ui-radio-label-text
         display inline-block
         vertical-align text-bottom
+      .ui-radio-label-text
+        margin-left 0
+        @media screen and (min-width: $tablet)
+          margin-left 16px
       .ui-radio-input-wrapper
         margin-top 3px
       .ui-radio-border

@@ -72,29 +72,42 @@
 </script>
 
 <style lang="stylus">
+  @import "../variables.styl"
+
   .vinho-detalhes
     position relative
-    display flex
-    background-size 100% auto
+    display block
+    background-size cover
     background-position center
     color white
     width 100%
-    height 200px
+    @media screen and (min-width: $tablet)
+      display flex
+      height 200px
+      background-size 100% auto
     .ui-toolbar
+      display none
       position absolute
       top 0
       left 0
       width 95%
       padding 0 2.5%
+      @media screen and (min-width: $tablet)
+        display flex
+        border 1px solid red
     .vinho-descricao, .usuario-input, .amostra
       flex 1 auto
     .vinho-descricao
-      display flex
-      flex-direction column
+      display block
+      flex-direction row
       align-self center
       padding 0 2%
+      @media screen and (min-width: $tablet)
+        display flex
       h2
         font-size 3em
+        @media screen and (min-width: $tablet)
+          border 1px solid red
       h3
         margin 10px 0
     aside

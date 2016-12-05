@@ -27,19 +27,28 @@
 </script>
 
 <style lang="stylus">
+  @import "../variables.styl"
+
   .nota-header
     display table
     width 95%
     padding 10px 2.5%
     aside
-      display table-cell
+      display none
       white-space nowrap
       vertical-align middle
       width 20%
+      @media screen and (min-width: $tablet)
+        display table-cell
     li
       display inline-block
       font-size 2.5em
       width 20%
+      text-align center
+      @media screen and (min-width: $tablet)
+        text-align left
       img
-        height 35px
+        height 25px
+        @media screen and (min-width: $tablet)
+          height 35px
 </style>

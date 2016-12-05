@@ -76,20 +76,26 @@
 </script>
 
 <style lang="stylus">
+  @import "../variables.styl"
+
   .notas
     .card
-      display flex
+      display block
       margin-top 8px
+      @media screen and (min-width: $tablet)
+        display flex
     .nota-card-header
       box-shadow none
     aside
-      display flex
+      display block
       align-items flex-end
       justify-content flex-end
       flex 0 0 300px
       background-position center
       background-size cover
       background-repeat no-repeat
+      @media screen and (min-width: $tablet)
+        display flex
       h3
         color white
         font-size 1.6em
