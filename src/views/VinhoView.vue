@@ -7,20 +7,28 @@
                     text-color="white"
                     hide-nav-icon>
           <div slot="actions">
-            <ui-icon-button @click="goToStore" type="clear" color="white" icon="shopping_cart"></ui-icon-button>
-            <ui-icon-button type="clear" color="white" icon="arrow_forward" @click="goToVinhos"></ui-icon-button>
+            <ui-button color="success" icon="shopping_cart">
+              <span :class="vinho.ofertaAssociados ? 'promocao' : '' ">{{ vinho.preco }}</span>
+              <span class="preco-associado">{{ vinho.ofertaAssociados }}</span>
+            </ui-button>
+            <!--<ui-icon-button @click="goToStore" type="clear" color="white" icon="shopping_cart"></ui-icon-button>-->
+            <!--<ui-icon-button  type="clear" color="white" icon="arrow_forward" @click="goToVinhos"></ui-icon-button>-->
           </div>
         </ui-toolbar>
 
         <figure :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }"></figure>
         <blockquote>
           <p>{{ vinho.intro }}</p>
+          <span>Sugestão de Harmonização:</span>
+          <em>{{ vinho.harmonizacao }}</em>
         </blockquote>
       </header>
       <div class="card-body">
         <div class="detalhes-vinho">
           <h2>{{ vinho.rotulo }}</h2>
           <p>{{ vinho.tipo }}</p>
+
+          <h5 class="concurso" v-if="vinho.concurso"><i class="fa fa-trophy" aria-hidden="true"></i> {{ vinho.concurso }}</h5>
 
           <div class="medalhas">
             <dl>
@@ -39,9 +47,10 @@
           <li>Procedência: {{ vinho.procedencia.nome }}</li>
           <li>Castas: {{ vinho.castas }}</li>
           <li>Produtor: {{ vinho.produtor }}</li>
-          <!--<li>Importador: {{ vinho.importador }}</li>-->
           <li>Safra: {{ vinho.safra }}</li>
           <li>Álcool: {{ vinho.alcool }}</li>
+          <li v-if="vinho.caracteristicasproducao">Características de Produção: {{ vinho.caracteristicasproducao }}</li>
+          <li v-if="vinho.envelhecimento">Envelhecimento: {{ vinho.envelhecimento }}</li>
         </ul>
       </div>
     </div>
@@ -80,19 +89,19 @@
       backgroundType() {
         switch (this.vinho.tipo) {
           case 'Tinto':
-            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/red-wine-background.jpg?alt=media&token=da64ce08-8d9d-4674-a74f-b17f7d24c035'
+            return 'static/img/tranquilos/conjunto.jpg'
             break
           case 'Sobremesa':
-            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/dessert-wine-2.jpg?alt=media&token=6fde8138-2229-4f35-a826-581539ad7d7d'
+            return 'static/img/tranquilos/conjunto.jpg'
             break
           case 'Branco':
-            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/white-wine-1024-768.jpg?alt=media&token=b420b32a-6119-4d26-9251-7b9d54a33a05'
+            return 'static/img/tranquilos/conjunto.jpg'
             break
           case 'Espumante':
-            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/sparkling-wine.jpg?alt=media&token=c3409906-5569-4379-a4aa-2027356349c6'
+            return 'static/img/espumantes/conjunto.jpg'
             break
           case 'Rose':
-            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/rose-pour.jpg?alt=media&token=d7b56c4d-232f-4856-9ce1-a12457a03ac8'
+            return 'static/img/tranquilos/conjunto.jpg'
             break
         }
       }
@@ -131,6 +140,13 @@
         display none
         @media screen and (min-width: $tablet)
           display inline-block
+      .promocao
+        font-size .9em
+        text-shadow none
+        text-decoration line-through
+      .preco-associado
+        font-size 1.4em
+        text-shadow none
       .ui-toolbar
         position absolute
         top 0
@@ -155,33 +171,57 @@
           height 300px
           width auto
       blockquote
-        color white
-        width 95%
-        padding 0 2.5%
-        white-space pre-wrap
         display flex
-        align-items center
+        flex-flow column
+        justify-content center
+        padding 50px 0
+        @media screen and (min-width: $tablet)
+          padding 0
+        p, span, em
+          float left
+          width 90%
+          padding 0 5%
         p
-          padding 30px 0
-          flex 1 auto
-          font-size 1em
-          @media screen and (min-width: $tablet)
-            padding 0
-            font-size 1.5em
+          font-size 1.5em
+          padding 0 5% 15px 5%
+        span
+          font-style italic
+        em
+          font-size 1.3em
+      /*blockquote*/
+        /*color white*/
+        /*width 95%*/
+        /*padding 0 2.5%*/
+        /*white-space pre-wrap*/
+        /*display flex*/
+        /*align-items center*/
+        /*p*/
+          /*padding 30px 0*/
+          /*flex 1 auto*/
+          /*font-size 1em*/
+          /*@media screen and (min-width: $tablet)*/
+            /*padding 0*/
+            /*font-size 1.5em*/
     .card-body
       display block
       float left
       width 95%
       padding 2.5%
+      padding-bottom 5% !important
       @media screen and (min-width: $tablet)
         display flex
         float inherit
+      .concurso
+        padding-top 20px
+        text-align center
+        @media screen and (min-width: $tablet)
+          text-align left
       .medalhas
         display flex
         float left
         clear both
         width 100%
-        margin 25px 0 0 0
+        margin 10px 0 0 0
         text-align center
         @media screen and (min-width: $tablet)
           display inline-block

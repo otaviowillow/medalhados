@@ -173,6 +173,7 @@
       .card-body
         background transparent
         padding-bottom 13px
+        flex-direction column
         h2, p
           color white
         p
