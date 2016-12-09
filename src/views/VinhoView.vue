@@ -19,8 +19,8 @@
         <figure :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }"></figure>
         <blockquote>
           <p>{{ vinho.intro }}</p>
-          <span>Sugestão de Harmonização:</span>
-          <em>{{ vinho.harmonizacao }}</em>
+          <span v-if="vinho.harmonizacao">Sugestão de Harmonização:</span>
+          <em v-if="vinho.harmonizacao">{{ vinho.harmonizacao }}</em>
         </blockquote>
       </header>
       <div class="card-body">

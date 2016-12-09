@@ -51,19 +51,26 @@
 </script>
 
 <style lang="stylus">
+  @import "../variables.styl"
+
   .login-view
     background white
     text-align center
-    width 500px
-    padding 60px 0
+    width 80%
+    padding 60px 5%
     float none
     margin 50px auto
+    @media screen and (min-width: $tablet)
+      width 500px
+      padding 60px 0
     .fields
       display inline-block
-      width 250px
+      width 90%
       padding 20px
       border 1px solid #ccc
       border-radius 5px
+      @media screen and (min-width: $tablet)
+        width 250px
     .logo, .facebook-login
       display inline-block
       float none
