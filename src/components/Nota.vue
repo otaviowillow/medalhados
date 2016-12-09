@@ -66,16 +66,21 @@
       white-space nowrap
       vertical-align middle
       width 100%
+      padding 20px 0
       @media screen and (min-width: $tablet)
         width 20%
+        padding 0
       h4, i
         display inline
         vertical-align middle
       .ui-icon-button-flat.color-default
         cursor default
         vertical-align middle
+        display none
         &:hover
           background-color transparent
+        @media screen and (min-width: $tablet)
+          display inline-block
       i
         padding 0 10px
     .ui-radio-group-options-wrapper

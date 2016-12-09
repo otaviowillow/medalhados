@@ -41,19 +41,24 @@
       backgroundType() {
         switch (this.vinho.tipo) {
           case 'Tinto':
-            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/red-wine-background.jpg?alt=media&token=da64ce08-8d9d-4674-a74f-b17f7d24c035'
+//            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/red-wine-background.jpg?alt=media&token=da64ce08-8d9d-4674-a74f-b17f7d24c035'
+            return 'static/img/tranquilos/conjunto.jpg'
             break
           case 'Sobremesa':
-            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/dessert-wine-2.jpg?alt=media&token=6fde8138-2229-4f35-a826-581539ad7d7d'
+//            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/dessert-wine-2.jpg?alt=media&token=6fde8138-2229-4f35-a826-581539ad7d7d'
+            return 'static/img/tranquilos/conjunto.jpg'
             break
           case 'Branco':
-            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/white-wine-1024-768.jpg?alt=media&token=b420b32a-6119-4d26-9251-7b9d54a33a05'
+//            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/white-wine-1024-768.jpg?alt=media&token=b420b32a-6119-4d26-9251-7b9d54a33a05'
+            return 'static/img/tranquilos/conjunto.jpg'
             break
           case 'Espumante':
-            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/sparkling-wine.jpg?alt=media&token=c3409906-5569-4379-a4aa-2027356349c6'
+//            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/sparkling-wine.jpg?alt=media&token=c3409906-5569-4379-a4aa-2027356349c6'
+            return 'static/img/espumantes/conjunto.jpg'
             break
           case 'Rose':
-            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/rose-pour.jpg?alt=media&token=d7b56c4d-232f-4856-9ce1-a12457a03ac8'
+//            return 'https://firebasestorage.googleapis.com/v0/b/medalhados.appspot.com/o/rose-pour.jpg?alt=media&token=d7b56c4d-232f-4856-9ce1-a12457a03ac8'
+            return 'static/img/tranquilos/conjunto.jpg'
             break
         }
       }
@@ -94,7 +99,6 @@
       padding 0 2.5%
       @media screen and (min-width: $tablet)
         display flex
-        border 1px solid red
     .vinho-descricao, .usuario-input, .amostra
       flex 1 auto
     .vinho-descricao
@@ -104,10 +108,9 @@
       padding 0 2%
       @media screen and (min-width: $tablet)
         display flex
+        flex-direction column
       h2
         font-size 3em
-        @media screen and (min-width: $tablet)
-          border 1px solid red
       h3
         margin 10px 0
     aside

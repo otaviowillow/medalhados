@@ -1,17 +1,6 @@
 <template>
   <div class="adicionar-vinhos">
     <form class="main-card">
-      <div class="introducao">
-        <h2>Impressões do Curador</h2>
-        <ui-textbox name="intro" :value.sync="vinho.intro" :multi-line="true"></ui-textbox>
-      </div>
-
-      <div class="video">
-        <h2>Associar Vídeo</h2>
-        <p>ID do vídeo do youtube: <em>https://www.youtube.com/watch?v=<strong>veMmZtybxu0</strong></em></p>
-        <ui-textbox name="video" :value.sync="vinho.video"></ui-textbox>
-      </div>
-
       <div class="wrapper">
         <h2>Detalhes do Vinho</h2>
         <div class="content">
@@ -72,6 +61,17 @@
         </div>
       </div>
 
+      <div class="introducao">
+        <h2>Impressões do Curador</h2>
+        <ui-textbox name="intro" :value.sync="vinho.intro" :multi-line="true"></ui-textbox>
+      </div>
+
+      <div class="video">
+        <h2>Associar Vídeo</h2>
+        <p>ID do vídeo do youtube: <em>https://www.youtube.com/watch?v=<strong>veMmZtybxu0</strong></em></p>
+        <ui-textbox name="video" :value.sync="vinho.video"></ui-textbox>
+      </div>
+
       <footer>
         <ui-button @click.prevent="enviarVinho" :disabled="formDisabled" :color="formDisabled ? 'default' : 'success'">Enviar</ui-button>
       </footer>
@@ -84,42 +84,45 @@
   import countryList from 'world-countries'
 
   export default {
+    props: {
+      vinho: {
+        concurso: '',
+        editor: '',
+        ecommerce: '',
+        referencia: '',
+        amostra: '',
+        intro: '',
+        criadoEm: '',
+        tipo: '',
+        rotulo: '',
+        foto_garrafa_url: null,
+        alcool: '',
+        castas: '',
+        produtor: '',
+        harmonizacao: '',
+        caracteristicasProducao: '',
+        ofertaAssociados: '',
+        envelhecimento: '',
+        importador: '',
+        origem: '',
+        notaOficial: '',
+        regiao: {
+          nome: '',
+          codigo: ''
+        },
+        fermentacao: '',
+        safra: '',
+        avaliado: false,
+        preco: ''
+      }
+    },
+
     data() {
       return {
         tipos: ['Espumante', 'Tinto', 'Branco', 'Sobremesa', 'Rose'],
         familias: ['Vinho Tranquilo', 'Vinho Espumante'],
         formDisabled: true,
-        paises: [],
-        vinho: {
-          concurso: '',
-          editor: '',
-          ecommerce: '',
-          referencia: '',
-          amostra: '',
-          intro: '',
-          criadoEm: '',
-          tipo: '',
-          rotulo: '',
-          foto_garrafa_url: null,
-          alcool: '',
-          castas: '',
-          produtor: '',
-          harmonizacao: '',
-          caracteristicasProducao: '',
-          ofertaAssociados: '',
-          envelhecimento: '',
-          importador: '',
-          origem: '',
-          notaOficial: '',
-          regiao: {
-            nome: '',
-            codigo: ''
-          },
-          fermentacao: '',
-          safra: '',
-          avaliado: false,
-          preco: ''
-        }
+        paises: []
       }
     },
     route: {
@@ -198,6 +201,8 @@
 </script>
 
 <style lang="stylus">
+  @import "../variables.styl"
+
   .adicionar-vinhos
     width 100%
     fieldset
@@ -214,7 +219,7 @@
       padding-top 0
     .introducao
       textarea
-        height 300px
+        height 120px
     .video
       p
         font-size .9em
@@ -229,20 +234,36 @@
         width 100%
     .content
       display table
+      width 100%
+      @media screen and (min-width: $tablet)
+        width auto
     .upload-image
-      display table-cell
-      width 300px
+      display block
+      width 100%
+      height 300px
+      @media screen and (min-width: $tablet)
+        display table-cell
+        width 300px
+        height auto
     .fields
-      display table-cell
+      display block
+      width 100%
+      @media screen and (min-width: $tablet)
+        display table-cell
+        width auto
       fieldset
         display table
         width 100%
         h2
           padding 10px
       .ui-select, .ui-textbox
-        display table-cell
-        min-width 200px
-        padding 0 10px
+        display block
+        min-width 90%
+        padding 0 5%
+        @media screen and (min-width: $tablet)
+          display table-cell
+          min-width 200px
+          padding 0 10px
     .upload-image
       position relative
       .background-upload, .upload-file

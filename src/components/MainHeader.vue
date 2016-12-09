@@ -10,7 +10,7 @@
       <ui-button v-link="{ name: 'vinhos' }" type="flat" @click="toggleMenu">Vinhos</ui-button>
       <!--<ui-button v-link="{ name: 'revista' }" type="flat">Revista</ui-button>-->
       <ui-button v-link="{ name: 'video', params: { id: 'qYN1M9oc8-w' } }" type="flat" @click="toggleMenu">Video</ui-button>
-      <ui-button v-if="admin" v-link="{ name: 'adicionar-vinho' }" type="flat" icon="lock_outline" @click="toggleMenu">Adicionar vinho</ui-button>
+      <ui-button v-if="admin" v-link="{ name: 'listar-vinhos' }" type="flat" icon="lock_outline" @click="toggleMenu">Adicionar vinho</ui-button>
     </nav>
   </header>
 </template>

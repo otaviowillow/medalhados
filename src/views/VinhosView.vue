@@ -1,6 +1,6 @@
 <template>
   <div class="vinhos-view">
-    <p v-if="!loaded">Loading...</p>
+    <!--<p v-if="!loaded">Loading...</p>-->
 
     <div v-if="loaded">
       <ul v-if="medalhados.length > 0">

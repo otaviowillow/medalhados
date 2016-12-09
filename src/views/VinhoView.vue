@@ -177,19 +177,22 @@
         display flex
         float inherit
       .medalhas
+        display flex
         float left
         clear both
         width 100%
         margin 25px 0 0 0
         text-align center
         @media screen and (min-width: $tablet)
+          display inline-block
           width auto
           text-align left
         dl
           display inline-block
+          flex 1 auto
           float none
           text-align center
-          margin 0 20px 0 0
+          margin 0
           @media screen and (min-width: $tablet)
             float left
             margin 0 60px 0 0

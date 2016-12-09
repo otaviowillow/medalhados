@@ -17,31 +17,36 @@ store.fetchUsuario = () => {
     vinhos: {
       espumantes: {
         categoria: 'Espumantes',
-        foto_url: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQxHXDJsxoGqVG4RpToyDESZU98Q11KAG7hz5xt1X3NzuTBHc_f',
+        // foto_url: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQxHXDJsxoGqVG4RpToyDESZU98Q11KAG7hz5xt1X3NzuTBHc_f',
+        foto_url: 'static/img/espumantes/conjunto.jpg',
         media: 82,
         avaliados: []
       },
       brancos: {
         categoria: 'Brancos',
-        foto_url: 'http://lw13621580885130e654.provisorio.ws/wp-content/uploads/2013/09/destaque210.jpg',
+        // foto_url: 'http://lw13621580885130e654.provisorio.ws/wp-content/uploads/2013/09/destaque210.jpg',
+        foto_url: 'static/img/tranquilos/conjunto.jpg',
         media: 82,
         avaliados: []
       },
       rose: {
         categoria: 'Rose',
-        foto_url: 'http://andolinisrestaurant.com/wp-content/uploads/2016/05/rose-patio-pic.jpg',
+        // foto_url: 'http://andolinisrestaurant.com/wp-content/uploads/2016/05/rose-patio-pic.jpg',
+        foto_url: 'static/img/tranquilos/conjunto.jpg',
         media: 82,
         avaliados: []
       },
       tintos: {
         categoria: 'Tintos',
-        foto_url: 'http://paleolifestyledoctor.com/wp-content/uploads/2015/06/red-wine-free-desktop-wallpaper-5120x3200.jpg',
+        // foto_url: 'http://paleolifestyledoctor.com/wp-content/uploads/2015/06/red-wine-free-desktop-wallpaper-5120x3200.jpg',
+        foto_url: 'static/img/tranquilos/conjunto.jpg',
         media: 82,
         avaliados: []
       },
       sobremesa: {
         categoria: 'Sobremesa',
-        foto_url: 'http://www.bathcakecompany.co.uk/wp-content/uploads/2016/02/IMG_20160126_162504613-e1454601329963-630x423.jpg',
+        // foto_url: 'http://www.bathcakecompany.co.uk/wp-content/uploads/2016/02/IMG_20160126_162504613-e1454601329963-630x423.jpg',
+        foto_url: 'static/img/tranquilos/conjunto.jpg',
         media: 82,
         avaliados: []
       }
