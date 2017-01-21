@@ -3,18 +3,24 @@
     <aside>
       <h4>{{ subcategoria.nome }}</h4>
       <ui-icon-button
-            :tooltip="subcategoria.descricao"
-            tooltip-position="right center"
-            icon="help_outline"
-            type="flat"
-            hide-ripple-ink>
+        @click="toggleModal"
+        icon="help_outline"
+        type="flat"
+        hide-ripple-ink>
       </ui-icon-button>
     </aside>
     <ui-radio-group
-            @change="novaNota"
-            :options="notas | toString"
-            :value.sync="selecionada | toString"
-            :name="radioGroupName"></ui-radio-group>
+      @change="novaNota"
+      :options="notas | toString"
+      :value.sync="selecionada | toString"
+      :name="radioGroupName">
+    </ui-radio-group>
+
+    <ui-modal
+      :show.sync="modal.show" :header="subcategoria.nome"
+      :body="subcategoria.descricao"
+      :hide-footer="true"
+    ></ui-modal>
   </div>
 </template>
 
@@ -26,6 +32,14 @@
       notas: [],
       selecionada: '',
       pontuacao: 0
+    },
+
+    data() {
+      return {
+        modal: {
+          show: false
+        }
+      }
     },
 
     computed: {
@@ -46,6 +60,9 @@
             self.pontuacao += parseInt(radios[i].value)
 
         self.$dispatch('mudar-nota', self.pontuacao)
+      },
+      toggleModal() {
+        this.modal.show = !this.modal.show
       }
     }
   }
@@ -62,6 +79,11 @@
       display block
       @media screen and (min-width: $tablet)
         display table-cell
+    .ui-icon-button
+      cursor pointer !important
+    .ui-modal-body
+      white-space pre-line
+      line-height 20px
     aside
       white-space nowrap
       vertical-align middle

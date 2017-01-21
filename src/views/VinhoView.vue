@@ -7,6 +7,7 @@
                     text-color="white"
                     hide-nav-icon>
           <div slot="actions">
+            <p>{{ vinho.ofertaAssociados }}</p>
             <ui-button color="success" icon="shopping_cart">
               <span :class="vinho.ofertaAssociados ? 'promocao' : '' ">{{ vinho.preco }}</span>
               <span class="preco-associado">{{ vinho.ofertaAssociados }}</span>
@@ -17,12 +18,14 @@
         </ui-toolbar>
 
         <figure :style="{ backgroundImage: 'url(' + vinho.foto_garrafa_url + ')' }"></figure>
+
         <blockquote>
           <p>{{ vinho.intro }}</p>
           <span v-if="vinho.harmonizacao">Sugestão de Harmonização:</span>
           <em v-if="vinho.harmonizacao">{{ vinho.harmonizacao }}</em>
         </blockquote>
       </header>
+
       <div class="card-body">
         <div class="detalhes-vinho">
           <h2>{{ vinho.rotulo }}</h2>
@@ -131,6 +134,7 @@
       position relative
       display block
       background-size cover
+      background-position center bottom
       padding-top 8%
       text-align center
       @media screen and (min-width: $tablet)

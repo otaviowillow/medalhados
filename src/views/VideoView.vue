@@ -1,6 +1,12 @@
 <template>
   <div class="youtube-video">
-    <iframe :src="videoUrl" frameborder="0" allowfullscreen></iframe>
+    <!--<iframe :src="videoUrl" frameborder="0" allowfullscreen></iframe>-->
+    <iframe :src="videoUrl"frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    <ul>
+      <li v-for="video in videos">
+        <img :src="video.thumbnail" @click="openVideo(video.url)">
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -8,7 +14,29 @@
   export default{
     data() {
       return {
-        video_url: ''
+        video_url: '96432729',
+        videos: [
+          {
+            thumbnail: '/static/img/claquetes_001.jpeg',
+            url: '198637172'
+          },
+          {
+            thumbnail: '/static/img/claquetes_002.jpeg',
+            url: '198625928'
+          },
+          {
+            thumbnail: '/static/img/claquetes_003.jpeg',
+            url: '198626945'
+          },
+          {
+            thumbnail: '/static/img/claquetes_004.jpeg',
+            url: '198627637'
+          },
+          {
+            thumbnail: '/static/img/claquetes_005.jpeg',
+            url: '198628342'
+          }
+        ]
       }
     },
     route: {
@@ -25,7 +53,12 @@
         return firebase.auth().currentUser
       },
       videoUrl() {
-        return 'https://www.youtube.com/embed/' + this.video_url
+        return 'https://player.vimeo.com/video/' + this.video_url + '?color=9c00f0&title=0&byline=0&portrait=0'
+      }
+    },
+    methods: {
+      openVideo(video) {
+        this.video_url = video
       }
     }
   }
@@ -35,15 +68,22 @@
   @import "../variables.styl"
 
   .youtube-video
-    width 90%
-    height 200px
-    float none
-    margin 30px auto
-    @media screen and (min-width: $tablet)
-      width 896px
-      height 504px
-      margin 0 auto
+    text-align center
     iframe
-      width 100%
-      height 100%
+      width 90%
+      height 200px
+      float none
+      margin 30px auto
+      @media screen and (min-width: $tablet)
+        width 560px
+        height 315px
+        margin 0 auto
+    ul
+      margin 20px 0 0 0
+      li
+        display inline-block
+        padding 5px
+      img
+        width 180px
+        cursor pointer
 </style>

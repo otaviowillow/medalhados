@@ -6,15 +6,15 @@
     <p>Se você chegou até aqui, já sei duas coisas a seu respeito:</p>
 
     <ol>
-      <li>1) Assim como eu, você é apaixonado por vinhos, quer conhecer cada vez mais sobre o assunto e sempre aprimorar sua capacidade de avaliar.</li>
+      <li> 1) Assim como eu, você é apaixonado por vinhos, quer conhecer cada vez mais sobre o assunto e sempre aprimorar sua capacidade de avaliar.</li>
       <li>2) Recebeu na sua casa duas amostras de vinhos, sem identificação de rótulo, apenas com um código para fazer uma degustação às cegas, como as realizadas nos grandes concursos internacionais dos quais costumo participar.</li>
     </ol>
 
     <p>Daqui pra frente, você tem dois caminhos a seguir:</p>
 
     <ol>
-      <li>1) Se esta é sua primeira degustação - ou mesmo se quiser recordar - assista a <a v-link="{ name: 'video', params: { id: 'qYN1M9oc8-w' } }">vídeo-aula</a> que preparei especialmente para orientá-lo sobre as técnicas de avaliação de vinhos.</li>
-      <li>2) Se já se sente preparado para partir direto para a degustação, vá em frente: <a v-link="{ name: 'fichas' }">digite no campo marcado o código da amostra que irá degustar e acesse a ficha oficial de avaliação</a>. Nela, você encontrará os dados básicos normalmente oferecidos aos jurados e os campos para você dar suas notas sobre os diversos quesitos de avaliação. Se tiver dúvidas sobre o significado de cada quesito, clique no símbolo “?” existente ao lado de cada um.</li>
+      <li>1) Se esta é sua primeira degustação - ou mesmo se quiser recordar - assista a vídeo-aula que preparei especialmente para orientá-lo sobre as técnicas de avaliação de vinhos.</li>
+      <li>2) Se já se sente preparado para partir direto para a degustação, vá em frente: digite no campo marcado o código da amostra que irá degustar e acesse a ficha oficial de avaliação. Nela, você encontrará os dados básicos normalmente oferecidos aos jurados e os campos para você dar suas notas sobre os diversos quesitos de avaliação. Se tiver dúvidas sobre o significado de cada quesito, clique no símbolo “?” existente ao lado de cada um.</li>
     </ol>
 
     <p>Após confirmar suas notas, revelaremos a você tudo sobre o vinho que degustou e, mais uma vez, você terá dois caminhos a seguir:</p>
@@ -30,7 +30,7 @@
     <div class="signature">
       <figure>
         <img src="/static/img/signature.png">
-        <figcaption>Eduardo Virotti</figcaption>
+        <figcaption>Eduardo Viotti</figcaption>
       </figure>
     </div>
   </div>

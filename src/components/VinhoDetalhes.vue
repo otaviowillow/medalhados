@@ -83,7 +83,7 @@
     position relative
     display block
     background-size cover
-    background-position center
+    background-position bottom center
     color white
     width 100%
     @media screen and (min-width: $tablet)

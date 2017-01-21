@@ -8,9 +8,9 @@
       <ui-button v-link="{ name: 'degustador' }" type="flat" @click="toggleMenu">Degustador</ui-button>
       <ui-button v-link="{ name: 'fichas' }" type="flat" @click="toggleMenu">Fichas</ui-button>
       <ui-button v-link="{ name: 'vinhos' }" type="flat" @click="toggleMenu">Vinhos</ui-button>
-      <!--<ui-button v-link="{ name: 'revista' }" type="flat">Revista</ui-button>-->
-      <ui-button v-link="{ name: 'video', params: { id: 'qYN1M9oc8-w' } }" type="flat" @click="toggleMenu">Video</ui-button>
-      <ui-button v-if="admin" v-link="{ name: 'listar-vinhos' }" type="flat" icon="lock_outline" @click="toggleMenu">Adicionar vinho</ui-button>
+      <ui-button @click="goTo('http://www.epifanica.com.br/vinhomagazine')" type="flat">VinhoMagazine</ui-button>
+      <ui-button v-link="{ name: 'video', params: { id: '198637172' } }" type="flat" @click="toggleMenu">Video</ui-button>
+      <ui-button v-if="admin" v-link="{ name: 'listar-vinhos' }" type="flat" icon="lock_outline" @click="toggleMenu">Admin</ui-button>
     </nav>
   </header>
 </template>
@@ -32,6 +32,9 @@
         var navMenu = document.getElementsByClassName('main-menu')[0]
 
         navMenu.classList.remove('show')
+      },
+      goTo(url) {
+        location.href = url
       }
     }
   }

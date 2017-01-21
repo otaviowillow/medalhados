@@ -3,7 +3,7 @@ import Keen from 'keen-ui'
 import VueCharts from 'vue-charts'
 import Router from 'vue-router'
 import Resource from 'vue-resource'
-import { domain, fromNow, toString, toInt } from './filters'
+import { domain, fromNow, toString, toInt, hifen } from './filters'
 import App from './components/App.vue'
 import DegustadorView from './views/DegustadorView.vue'
 import FichaView from './views/FichaView.vue'
@@ -32,6 +32,7 @@ Vue.filter('fromNow', fromNow)
 Vue.filter('domain', domain)
 Vue.filter('toString', toString)
 Vue.filter('toInt', toInt)
+Vue.filter('hifen', hifen)
 
 // routing
 export var router = new Router({
@@ -50,13 +51,6 @@ router.map({
     component: DegustadorView,
     auth: true
   },
-
-  // '/fichas': {
-  //   name: 'fichas',
-  //   component: FichasView,
-  //   showFichas: true,
-  //   auth: true
-  // },
   '/revista': {
     name: 'revista',
     component: RevistaView,

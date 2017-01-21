@@ -35,3 +35,23 @@ export function toString (value) {
 export function toInt(value) {
   return parseInt(value)
 }
+
+export function hifen(input) {
+  // return value.match(/\d{3}(?=\d{2,3})|\d+/g).join("-")
+  var format = [3];
+  var sep = "-";
+
+  var output = "";
+  var idx = 0;
+  for (var i = 0; i < format.length && idx < input.length; i++) {
+    output += input.substr(idx, format[i]);
+    if (idx + format[i] < input.length) output += sep;
+    idx += format[i];
+  }
+
+  output += input.substr(idx);
+
+  console.log(output)
+
+  return output;
+}

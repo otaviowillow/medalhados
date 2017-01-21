@@ -32,7 +32,10 @@
   export default {
     data() {
       return {
-        selecionada: 0
+        selecionada: 0,
+        modal: {
+          show: false
+        }
       }
     },
 
@@ -71,6 +74,12 @@
     components: {
       Nota,
       NotaHeader
+    },
+
+    methods: {
+      toogleModal() {
+        this.modal.show = !this.modal.show
+      }
     }
   }
 </script>

@@ -79,7 +79,6 @@
     &:hover
       background transparent !important
 
-
   .alert
     background white
     position fixed
@@ -162,7 +161,8 @@
   .main-wrapper
     &:before
       content ''
-      background $mainColor
+      background url("/static/img/site/fundo.jpeg") center no-repeat
+      background-size cover
       position absolute
       top 0
       left 0

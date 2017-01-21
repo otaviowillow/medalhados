@@ -2,7 +2,8 @@
   <div class="home-view">
     <header>
       <h1 class="logo">Medalhados</h1>
-      <button class="login" v-link="{ name: 'login' }">Log in</button>
+      <button class="login" v-link="{ name: 'login' }">Acessar</button>
+      <button class="login assinar" @click="goTo('//assine.medalhados.com.br')">Assinar</button>
     </header>
     <article class="intro">
       <div>
@@ -161,9 +162,9 @@
 
         <div class="content">
           <aside class="plano-prices">
-            <h4>PLANO EXPERT</h4>
-            <h5>289</h5>
-            <span>*12 parcelas sem juros no cartão de crédito de um pagamento único no valor total de R$3.468,00 </span>
+            <h4>PLANO "MEU MEDALHADOS"</h4>
+            <h5>270</h5>
+            <span>*12 parcelas sem juros no cartão de crédito de um pagamento único no valor total de R$3.240,00 </span>
           </aside>
           <ul>
             <li>
@@ -261,6 +262,9 @@
           this.show.error = true
           this.isSending = false
         })
+      },
+      goTo(url) {
+        window.location = url
       }
     }
   }
@@ -300,9 +304,14 @@
     .login
       background white
       font-size .8em
+      text-transform uppercase
       padding 10px 15px
       border-radius 5px
       border 1px solid black
+    .assinar
+      background #b71c1c
+      color white
+      border 1px solid white
     .logo
       display inline-block
       background url("/static/img/site/logo.png") no-repeat
@@ -323,7 +332,7 @@
       .logo
         width 40%
         @media screen and (min-width: 800px)
-          width 90%
+          width 75%
     .center
       display inline-block
       width 90%

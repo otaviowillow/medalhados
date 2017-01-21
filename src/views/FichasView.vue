@@ -1,16 +1,32 @@
 <template>
   <div class="degustar-view">
     <div class="wrapper">
-      <div class="card main card-shadow">
-        <div class="card-body">
-          <h2>Estou pronto para degustar!</h2>
-          <p>Digite no campo marcado o código da amostra que você recebeu e deseja degustar, para acessar a ficha oficial de avaliação.</p>
-          <ui-textbox name="vinhoId" :value.sync="vinho.id" :autofocus="true" placeholder="_ _ _ - _ _" @keydown-enter="procurarVinho"></ui-textbox>
+      <aside>
+        <div class="card main card-shadow">
+          <div class="card-body">
+            <h2>Estou pronto para degustar!</h2>
+            <p>Digite no campo marcado o código da amostra que você recebeu e deseja degustar, para acessar a ficha oficial de avaliação.</p>
+            <input type="text" v-model="vinho.id | stringhing" maxlength="3" max="3" class="ui-textbox-input" placeholder="_ _ _ - _ _">
+            <!--<ui-textbox name="vinhoId" :value.sync="vinho.id" :autofocus="true" placeholder="_ _ _ - _ _" @keydown="adicionarHifen" @keydown-enter="procurarVinho"></ui-textbox>-->
+          </div>
+          <footer>
+            <ui-button @click="procurarVinho">Degustar</ui-button>
+          </footer>
         </div>
-        <footer>
-          <ui-button @click="procurarVinho">Degustar</ui-button>
-        </footer>
-      </div>
+
+        <div class="vinho-magazine card">
+          <div class="card-header card-shadow">
+            <h2>Quero me atualizar!</h2>
+          </div>
+          <div class="card-body">
+            <!--<p>Banca digital com a Vinho Magazine online</p>-->
+            <p>Para acessar as mais recentes edições da Vinho Magazine na versão online, acesse a nossa banca digital e selecione o exemplar.</p>
+          </div>
+          <footer>
+            <ui-button @click="goTo('http://www.epifanica.com.br/vinhomagazine')">Banca</ui-button>
+          </footer>
+        </div>
+      </aside>
 
       <aside>
         <div class="video-aula card">
@@ -18,6 +34,7 @@
             <h2>Quero aprender mais!</h2>
           </div>
           <div class="card-body">
+            <!--<p>Vídeo-aula sobre técnicas de avaliação de vinhos.</p>-->
             <p>Se esta é sua primeira degustação - ou mesmo se quiser recordar - assista a vídeo-aula preparada especialmente para orientar você sobre as técnicas de avaliação de vinhos.</p>
           </div>
           <footer>
@@ -30,6 +47,7 @@
             <h2>Quero mais instruções!</h2>
           </div>
           <div class="card-body">
+            <!--<p>Mensagem de boas vindas do nosso curador.</p>-->
             <p>Para instruções completas sobre o funcionamento do Medalhados Experts Club, leia aqui a mensagem de boas vindas do nosso curador.</p>
           </div>
           <footer>
@@ -38,6 +56,7 @@
         </div>
       </aside>
     </div>
+
     <div class="alert alert-success">
       <ui-alert type="success" :show="show.success.state" @dismissed="show.success.state = false">
         Esse vinho já foi avaliado! <a v-link="{ name: 'vinho', params: { id: show.success.link } }">Confira aqui</a> o vinho
@@ -79,16 +98,22 @@
     },
 
     filters: {
-      'stringThing': {
+      'stringhing': {
         read: function(val) {
+
+          console.log(val.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"))
 //          return val.match(new RegExp('.{1,4}$|.{1,3}', 'g')).join("-");
 //          return '$'+val.toFixed(2)
         },
         write: function(val, oldVal) {
+          console.log(val.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"))
+
+
+
 //          var number = +val.replace(/[^\d.]/g, '')
 //          return isNaN(number) ? 0 : parseFloat(number.toFixed(2))
         }
-      }
+      },
     },
 
     computed: {
@@ -116,6 +141,31 @@
             })
           }
         })
+      },
+      format(input, format, sep) {
+        var output = "";
+        var idx = 0;
+        for (var i = 0; i < format.length && idx < input.length; i++) {
+          output += input.substr(idx, format[i]);
+          if (idx + format[i] < input.length) output += sep;
+          idx += format[i];
+        }
+
+        output += input.substr(idx);
+
+        return output;
+      },
+      hifenadd(val) {
+        var foo = val.value.replace(/-/g, ""); // remove hyphens
+        // You may want to remove all non-digits here
+        // var foo = $(this).val().replace(/\D/g, "");
+
+        if (foo.length > 0) {
+          foo = this.format(foo, [3, 2, 4, 3, 3], "-");
+        }
+      },
+      goTo(url) {
+        location.href = url
       }
     }
   }
@@ -168,7 +218,6 @@
       padding 70px 0 0 0
       margin 0 0 10px 0
       @media screen and (min-width: $tablet)
-        padding 120px 0 0 0
         margin 0
       .card-body
         background transparent
@@ -176,22 +225,33 @@
         flex-direction column
         h2, p
           color white
+        h2
+          font-size 2em
+          margin-bottom 20px
         p
-          margin 15px 0 44px 0
+          margin 0
     .video-aula
       .card-header
         background url("/static/img/wine_camera.jpg") center
         background-size 100% auto
         /*background-size cover*/
-        padding 70px 30px 30px 30px
+        /*padding 70px 30px 30px 30px*/
+        padding 43px 15px 10px 20px
     .carta-presidente
-      background url("/static/img/writing-a-letter.jpg") center
-      background-size cover
       margin 10px 0 0 0
       .card-header
+        background url("/static/img/writing-a-letter.jpg") center
+        background-size cover
         padding 43px 30px 10px 30px
         h2
           font-size 1.5em
+    .vinho-magazine
+      width 500px
+      margin-top 10px
+      .card-header
+        background url("/static/img/vinhomagazine.jpg") bottom center
+        background-size cover
+        padding 43px 30px 10px 30px
     aside
       width 90%
       margin 0 auto

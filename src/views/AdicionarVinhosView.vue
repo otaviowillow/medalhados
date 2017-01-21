@@ -17,43 +17,43 @@
             </fieldset>
 
             <fieldset>
-              <ui-select name="tipo" :value.sync="vinho.tipo" :options="tipos" label="Tipo" default="Tinto" required></ui-select>
-              <ui-select name="familia" :value.sync="vinho.familia" :options="familias" label="Família" default="Vinhos Tranquilos" required></ui-select>
-              <ui-select name="procedencia" :value.sync="vinho.procedencia.nome" :options="paises" label="Procedência" show-search required></ui-select>
+              <ui-select name="tipo" :value.sync="vinho.tipo" :options="tipos" label="Tipo *" default="Tinto"></ui-select>
+              <ui-select name="familia" :value.sync="vinho.familia" :options="familias" label="Família *" default="Vinhos Tranquilos"></ui-select>
+              <ui-select name="procedencia" :value.sync="vinho.procedencia.nome" :options="paises" label="Procedência *" show-search></ui-select>
             </fieldset>
 
             <fieldset>
-              <ui-textbox name="regiao" :value.sync="vinho.regiao" label="Região" validation-rules="required" @blurred="formState"></ui-textbox>
-              <ui-textbox name="produtor" :value.sync="vinho.produtor" label="Produtor" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="regiao" :value.sync="vinho.regiao" label="Região *" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="produtor" :value.sync="vinho.produtor" label="Produtor *" validation-rules="required" @blurred="formState"></ui-textbox>
               <ui-textbox name="importador" :value.sync="vinho.importador" label="Importador" @blurred="formState"></ui-textbox>
             </fieldset>
 
             <fieldset>
-              <ui-textbox name="rotulo" :value.sync="vinho.rotulo" label="Rótulo" label="Rótulo" validation-rules="required" @blurred="formState"></ui-textbox>
-              <ui-textbox name="safra" :value.sync="vinho.safra" label="Safra" validation-rules="required" @blurred="formState"></ui-textbox>
-              <ui-textbox name="castas" :value.sync="vinho.castas" label="Castas" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="rotulo" :value.sync="vinho.rotulo" label="Rótulo *" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="safra" :value.sync="vinho.safra" label="Safra *" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="castas" :value.sync="vinho.castas" label="Castas *" validation-rules="required" @blurred="formState"></ui-textbox>
             </fieldset>
 
             <fieldset>
-              <ui-textbox name="alcool" :value.sync="vinho.alcool" label="Graduação Alcoólica" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="alcool" :value.sync="vinho.alcool" label="Graduação Alcoólica *" validation-rules="required" @blurred="formState"></ui-textbox>
               <ui-textbox name="caracteristicasProducao" :value.sync="vinho.caracteristicasproducao" label="Características de Produção" @blurred="formState"></ui-textbox>
               <ui-textbox name="envelhecimento" :value.sync="vinho.envelhecimento" label="Envelhecimento" @blurred="formState"></ui-textbox>
             </fieldset>
 
             <fieldset>
               <ui-textbox name="concurso" :value.sync="vinho.concurso" label="Concurso" @blurred="formState"></ui-textbox>
-              <ui-textbox name="notaOficial" :value.sync="vinho.notaOficial" label="Nota Oficial" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="notaOficial" :value.sync="vinho.notaOficial" label="Nota Oficial *" validation-rules="required" @blurred="formState"></ui-textbox>
               <ui-textbox name="medalha" :value.sync="vinho.medalha" label="Medalha" @blurred="formState"></ui-textbox>
             </fieldset>
 
             <fieldset>
               <ui-textbox name="referencia" :value.sync="vinho.referencia" label="Referências" @blurred="formState"></ui-textbox>
-              <ui-textbox name="curador" :value.sync="vinho.curador" label="Curador" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="curador" :value.sync="vinho.curador" label="Curador *" validation-rules="required" @blurred="formState"></ui-textbox>
               <ui-textbox name="harmonizacao" :value.sync="vinho.harmonizacao" label="Sugestão de Harmonização" @blurred="formState"></ui-textbox>
             </fieldset>
 
             <fieldset>
-              <ui-textbox name="preco" :value.sync="vinho.preco" label="Preço de Mercado" validation-rules="required" @blurred="formState"></ui-textbox>
+              <ui-textbox name="preco" :value.sync="vinho.preco" label="Preço de Mercado *" validation-rules="required" @blurred="formState"></ui-textbox>
               <ui-textbox name="ofertaAssociados" :value.sync="vinho.ofertaAssociados" label="Oferta para Associados" @blurred="formState"></ui-textbox>
               <ui-textbox name="ecommerce" :value.sync="vinho.ecommerce" label="Link para e-commerce" @blurred="formState"></ui-textbox>
             </fieldset>
@@ -73,9 +73,16 @@
       </div>
 
       <footer>
-        <ui-button @click.prevent="enviarVinho" :disabled="formDisabled" :color="formDisabled ? 'default' : 'success'">Enviar</ui-button>
+        <!--<ui-button @click.prevent="enviarVinho" :disabled="form.disabled" :color="form.disabled ? 'default' : 'success'">Enviar</ui-button>-->
+        <ui-button @click.prevent="enviarVinho" color="success">Enviar</ui-button>
       </footer>
     </form>
+
+    <div class="alert alert-success">
+      <ui-alert type="success" :show="show.success.state" @dismissed="show.success.state = false">
+        Vinho alterado com sucesso!
+      </ui-alert>
+    </div>
   </div>
 </template>
 
@@ -121,8 +128,15 @@
       return {
         tipos: ['Espumante', 'Tinto', 'Branco', 'Sobremesa', 'Rose'],
         familias: ['Vinho Tranquilo', 'Vinho Espumante'],
-        formDisabled: true,
-        paises: []
+        form: {
+          disabled: true
+        },
+        paises: [],
+        show: {
+          success: {
+            state: false
+          }
+        }
       }
     },
     route: {
@@ -146,7 +160,7 @@
           var num = arr.length
 
           var zero = 3 - num.toString().length + 1;
-          var filteredList = Array(+(zero > 0 && zero)).join("0") + num + '-16';
+          var filteredList = Array(+(zero > 0 && zero)).join("0") + num + '-17';
 
           this.vinho.amostra = filteredList
         })
@@ -171,10 +185,15 @@
         var textboxes = document.getElementsByClassName('ui-textbox')
 
         for(var i = 0; i < textboxes.length; i++)
-          if(textboxes[i].classList.contains('invalid') || !textboxes[i].classList.contains('dirty'))
-            this.formDisabled = true
+          if(textboxes[i].classList.contains('invalid') || !textboxes[i].classList.contains('dirty')) {
+            this.form.disabled = true
+            console.log(textboxes[i])
+            console.log(textboxes.length)
+//            console.log(textboxes[i].classList.contains('invalid'))
+//            console.log(textboxes[i].classList.contains('dirty'))
+          }
           else
-            this.formDisabled = false
+            this.form.disabled = false
       },
       enviarVinho() {
         var utc = new Date()
@@ -182,10 +201,11 @@
 
         firebase.database().ref('vinhos/' + this.vinho.amostra).set(this.vinho);
 
-        this.$router.go('/')
+//        this.$router.go('/')
+        this.show.success.state = true
       },
       setPaises(countries) {
-        this.$http.get('../node_modules/world-countries/dist/countries.json').then((response) => {
+        this.$http.get('../static/countries.json').then((response) => {
           var countriesData = response.data
 
           for(var i = 0; i < countriesData.length; i++) {
