@@ -34,7 +34,9 @@
         navMenu.classList.remove('show')
       },
       goTo(url) {
-        location.href = url
+        var win = window.open(url, '_blank')
+
+        win.focus()
       }
     }
   }
@@ -92,6 +94,6 @@
       border-bottom 3px solid white
     .show
       display inline-block
-      background #b71c1c
+      background transparent
       z-index 9
 </style>

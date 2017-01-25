@@ -9,6 +9,12 @@
             transition="fade"
             transition-mode="out-in">
     </router-view>
+
+    <div class="alert alert-error">
+      <ui-alert type="error" :show="error.show" @dismissed="error.show = false">
+        {{ error.message }}
+      </ui-alert>
+    </div>
   </div>
 </template>
 
@@ -22,6 +28,10 @@
         admin: false,
         selected: '',
         authenticated: false,
+        error: {
+          show: false,
+          message: ''
+        }
       }
     },
     events: {
@@ -49,6 +59,10 @@
             this.admin = snapshot.val().isAdmin
           })
         }
+      },
+      'display-error' : function (error) {
+        this.error.message = error
+        this.error.show = true
       }
     },
     components: {
@@ -159,7 +173,8 @@
     opacity 0
 
   .main-wrapper
-    &:before
+    &:before,
+    &:after
       content ''
       background url("/static/img/site/fundo.jpeg") center no-repeat
       background-size cover
@@ -169,4 +184,6 @@
       height 250px
       width 100%
       z-index -1
+    &:after
+      background rgba(0,0,0,.3)
 </style>

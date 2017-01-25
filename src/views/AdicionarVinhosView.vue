@@ -17,8 +17,8 @@
             </fieldset>
 
             <fieldset>
-              <ui-select name="tipo" :value.sync="vinho.tipo" :options="tipos" label="Tipo *" default="Tinto"></ui-select>
-              <ui-select name="familia" :value.sync="vinho.familia" :options="familias" label="Família *" default="Vinhos Tranquilos"></ui-select>
+              <ui-select name="tipo" :value.sync="vinho.tipo" :options="tipos" label="Tipo *" :default="vinho.tipo"></ui-select>
+              <ui-select name="familia" :value.sync="vinho.familia" :options="familias" label="Família *" default="Vinho Tranquilo"></ui-select>
               <ui-select name="procedencia" :value.sync="vinho.procedencia.nome" :options="paises" label="Procedência *" show-search></ui-select>
             </fieldset>
 
@@ -80,7 +80,7 @@
 
     <div class="alert alert-success">
       <ui-alert type="success" :show="show.success.state" @dismissed="show.success.state = false">
-        Vinho alterado com sucesso!
+        Vinho alterado com sucesso! <a v-link="{ name: 'listar-vinhos' }">Clique aqui</a> para voltar à lista de vinhos
       </ui-alert>
     </div>
   </div>

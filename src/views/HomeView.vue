@@ -163,8 +163,8 @@
         <div class="content">
           <aside class="plano-prices">
             <h4>PLANO "MEU MEDALHADOS"</h4>
-            <h5>270</h5>
-            <span>*12 parcelas sem juros no cartão de crédito de um pagamento único no valor total de R$3.240,00 </span>
+            <h5>280</h5>
+            <span>*Usufruindo do benefício do Desconto Fidelidade com cobrança de 12 parcelas sem juros no cartão de crédito, referentes a um pagamento no valor total anual de <strong>R$3.360,00</strong>. Preço normal sem desconto: R$6.720,00</span>
           </aside>
           <ul>
             <li>

@@ -6,7 +6,7 @@
           <div class="card-body">
             <h2>Estou pronto para degustar!</h2>
             <p>Digite no campo marcado o código da amostra que você recebeu e deseja degustar, para acessar a ficha oficial de avaliação.</p>
-            <input type="text" v-model="vinho.id | stringhing" maxlength="3" max="3" class="ui-textbox-input" placeholder="_ _ _ - _ _">
+            <input type="text" v-model="vinho.id" maxlength="6" max="6" class="ui-textbox-input" @keypress.enter="procurarVinho" placeholder="_ _ _ - _ _">
             <!--<ui-textbox name="vinhoId" :value.sync="vinho.id" :autofocus="true" placeholder="_ _ _ - _ _" @keydown="adicionarHifen" @keydown-enter="procurarVinho"></ui-textbox>-->
           </div>
           <footer>
@@ -124,8 +124,13 @@
 
     methods: {
       procurarVinho() {
-        var vinhoRef = firebase.database().ref('vinhos/' + this.vinho.id)
-        var usuarioVinhoRef = firebase.database().ref('usuarios').child(firebase.auth().currentUser.uid).child('vinhos/' + this.vinho.id)
+        var vinhoId = this.vinho.id
+        var vinhoIdOnlyNumbers = vinhoId.replace(/[^0-9\.]+/g, '') // Apenas numeros
+        var vinhoIdFinal = vinhoIdOnlyNumbers.match(/\d{3}(?=\d{2,3})|\d+/g).join("-")  // Adicione hifem no terceiro
+
+        console.log(vinhoIdFinal)
+        var vinhoRef = firebase.database().ref('vinhos/' + vinhoIdFinal)
+        var usuarioVinhoRef = firebase.database().ref('usuarios').child(firebase.auth().currentUser.uid).child('vinhos/' + vinhoIdFinal)
 
         vinhoRef.once('value', (snapshot) => {
           if(!snapshot.val()) {
@@ -136,7 +141,7 @@
                 this.show.success.link = snapshot.val().key
                 return this.show.success.state = true
               } else {
-                return this.$router.go('/ficha/' + this.vinho.id)
+                return this.$router.go('/ficha/' + vinhoIdFinal)
               }
             })
           }
@@ -236,13 +241,13 @@
         background-size 100% auto
         /*background-size cover*/
         /*padding 70px 30px 30px 30px*/
-        padding 43px 15px 10px 20px
+        padding 91px 15px 30px 20px
     .carta-presidente
       margin 10px 0 0 0
       .card-header
         background url("/static/img/writing-a-letter.jpg") center
         background-size cover
-        padding 43px 30px 10px 30px
+        padding 91px 15px 30px 20px
         h2
           font-size 1.5em
     .vinho-magazine

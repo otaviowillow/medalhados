@@ -1,36 +1,72 @@
 <template>
   <div class="card login-view">
     <!--<object class="logo" data="/static/img/gold_medal.svg"></object>-->
-    <img class="logo" src="/static/img/medalhados_logo.png">
+    <img class="logo" src="/static/img/medalhados_logo_color.png">
     <p>Bem-vindo ao primeiro clube de degustadores do Brasil.</p>
     <p>E, talvez, do mundo.</p>
 
-    <!--<button class="facebook-login" @click="facebookSignIn"><i class="fa fa-facebook"></i> Login with Facebook</button>-->
     <div class="fields">
       <ui-textbox name="email" :value.sync="email" label="Degustador"></ui-textbox>
       <ui-textbox name="senha" :value.sync="senha" label="Senha" type="password"></ui-textbox>
       <ui-button @click.prevent="emailSignIn">Acessar</ui-button>
     </div>
+
+    <!--<div v-else class="fields">-->
+      <!--<p>Digite seu email para que possamos lhe enviar uma requisição para resetar sua senha</p>-->
+      <!--<reset-email></reset-email>-->
+    <!--</div>-->
+
+    <!--<button @click.prevent="resetOn">Esqueceu sua senha?</button>-->
   </div>
 </template>
 
 <script>
   import * as firebase from 'firebase'
+  import ResetEmail from '../components/ResetEmail.vue'
 
   export default{
     data() {
       return {
         email: '',
-        senha: ''
+        senha: '',
+        reset: false
       }
     },
 
+    components: {
+      ResetEmail
+    },
+
     methods: {
+      resetOn() {
+        console.log(this.reset)
+        this.reset = !this.reset
+        console.log(this.reset)
+      },
+
       emailSignIn() {
+        var self = this
+
         firebase.auth().signInWithEmailAndPassword(this.email, this.senha).then((result) => {
           this.$dispatch('is-authenticated', result)
-//          window.location.reload()
-        })
+        }, function(error) {
+          console.log(error)
+
+          switch (error.code) {
+            case 'auth/invalid-email':
+              self.$dispatch('display-error', 'O e-mail está formatado incorretamente')
+              break;
+            case 'auth/user-not-found':
+              self.$dispatch('display-error', 'Não há um usuário com esse email. Certifique-se que sua conta está registrada')
+              break;
+            case 'auth/user-disabled':
+              self.$dispatch('display-error', 'Esse usuário foi desabilitado')
+              break;
+            case 'auth/wrong-password':
+              self.$dispatch('display-error', 'Sua senha foi digitada incorretamente')
+              break;
+          }
+        });
       },
 
       facebookSignIn() {
@@ -39,7 +75,7 @@
 
         firebase.auth().signInWithRedirect(provider).then((result) => {
           var token = result.credential.accessToken;
-          var user = result.user;w
+          var user = result.user;
 
           console.log(user)
 //          this.$router.go('/')
