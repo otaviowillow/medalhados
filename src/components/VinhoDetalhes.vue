@@ -7,7 +7,7 @@
                 show-brand
                 hide-nav-icon>
       <div slot="actions">
-        <ui-icon-button type="clear" color="white" icon="delete"></ui-icon-button>
+        <!--<ui-icon-button type="clear" color="white" icon="delete"></ui-icon-button>-->
       </div>
     </ui-toolbar>
 
@@ -15,7 +15,7 @@
       <h2>{{vinho.amostra}}</h2>
       <h3>{{vinho.tipo}}</h3>
       <footer>
-        <p>Casta: {{vinho.casta}}</p>
+        <p>Casta: {{vinho.castas}}</p>
         <p>Safra: {{vinho.safra}}</p>
       </footer>
     </div>

@@ -13,18 +13,20 @@
 
         <h4>Deixe seus dados e receba mais informações</h4>
 
-        <div class="form">
-          <input v-model="user.nome" type="text" placeholder="Seu Nome">
-          <input v-model="user.email" type="text" placeholder="Seu E-mail">
-          <input v-model="user.cidade" type="text" placeholder="Sua Cidade">
+        <iframe src="https://player.vimeo.com/video/198081334" class="video" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
-          <span>Seus dados serão utilizados exclusivamente para lhe fornecer mais informações sobre o nosso clube</span>
+        <!--<div class="form">-->
+          <!--<input v-model="user.nome" type="text" placeholder="Seu Nome">-->
+          <!--<input v-model="user.email" type="text" placeholder="Seu E-mail">-->
+          <!--<input v-model="user.cidade" type="text" placeholder="Sua Cidade">-->
 
-          <button class="submit" @click.prevent="enviarRegistro" :disabled="isSending">
-            <span v-if="!isSending">Enviar</span>
-            <ui-progress-circular :show="isSending" color="white" type="indeterminate"></ui-progress-circular>
-          </button>
-        </div>
+          <!--<span>Seus dados serão utilizados exclusivamente para lhe fornecer mais informações sobre o nosso clube</span>-->
+
+          <!--<button class="submit" @click.prevent="enviarRegistro" :disabled="isSending">-->
+            <!--<span v-if="!isSending">Enviar</span>-->
+            <!--<ui-progress-circular :show="isSending" color="white" type="indeterminate"></ui-progress-circular>-->
+          <!--</button>-->
+        <!--</div>-->
       </div>
     </article>
 
@@ -164,7 +166,11 @@
           <aside class="plano-prices">
             <h4>PLANO "MEU MEDALHADOS"</h4>
             <h5>280</h5>
-            <span>*Usufruindo do benefício do Desconto Fidelidade com cobrança de 12 parcelas sem juros no cartão de crédito, referentes a um pagamento no valor total anual de <strong>R$3.360,00</strong>. Preço normal sem desconto: R$6.720,00</span>
+            <span>*Usufruindo do benefício do Desconto Fidelidade com cobrança de 12 parcelas sem juros no cartão de crédito, referentes a um pagamento no valor total anual de R$3.360,00. Preço normal sem desconto: R$6.720,00</span>
+
+            <div class="assine-wrapper">
+              <button class="login" @click="goTo('//assine.medalhados.com.br')">Assinar</button>
+            </div>
           </aside>
           <ul>
             <li>
@@ -321,6 +327,13 @@
       width 100px
       text-indent -9999px
       vertical-align middle
+    .video
+      width 100%
+      max-width 640px
+      height 360px
+      @media screen and (min-width: 800px)
+        width 640px
+        height 360px
     header
       background white
       position fixed
@@ -540,6 +553,12 @@
             text-align center
             @media screen and (min-width: 800px)
               text-align left
+          .assine-wrapper
+            width 100%
+            text-align center
+            padding 10px 0 0 0
+          .login
+            background transparent
       ul
         display block
         @media screen and (min-width: 800px)

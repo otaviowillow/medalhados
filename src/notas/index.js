@@ -138,7 +138,7 @@ notas.espumantes = [
           nome: 'Brilho',
           descricao: 'Quase sempre acompanha a avaliação de limpidez, pois vinhos opacos e/ou turvos também não têm brilho, mas pode haver casos em que o vinho tenha indesejadas partículas em suspensão e ainda assim seja brilhante. Diante dessa situação, só cabe penalizar tal amostra pela limpidez – mas não pelo brilho.'
         },
-        notasPossiveis: [5, 2],
+        notasPossiveis: [5, 1],
         selecionada: 5
       },
       {
@@ -170,16 +170,16 @@ notas.espumantes = [
           nome: 'Franqueza',
           descricao: 'Sempre o quesito mais discutido. Define a facilidade com que se identifica o aroma, ou família de aromas. Também define a sanidade do vinho. Separa vinhos “limpos” aromaticamente, de vinhos com aroma “sujo”. Quanto mais claramente se apresentar o aroma do vinho e mais fácil for a sua identificação, maior a sua franqueza. Um vinho com aromas que se mesclam entre agradáveis e desagradáveis, como enxofre e frutas vermelhas, por exemplo, não teria um aroma límpido, definido – e portanto estaria passível de penalização por pouca franqueza. A maior parte dos defeitos aromáticos ataca a franqueza do vinho, caso do TCA/TBA (bouchonée) e dos aromas redutivos e ou sulfurosos.'
         },
-        notasPossiveis: [6, 5, 4, 3, 2],
-        selecionada: 6
+        notasPossiveis: [8, 7, 6, 4, 2],
+        selecionada: 8
       },
       {
         categoria: {
           nome: 'Qualidade',
           descricao: 'É o item mais importante da avaliação aromática. O degustador deve aplicar aqui a sua capacidade de reconhecer qualidade e não suas preferências de gosto pessoal. Um bom provador não precisa gostar, por exemplo, de vinhos rosados, para reconhecer as qualidades de um rosé. Na avaliação qualitativa, o mais importante a valorizar é o equilíbrio entre as diversas facetas aromáticas do vinho, e o reconhecimento dos aromas primários (advindos da fruta, da planta, das raízes, do solo e do clima), secundários (advindos do processo de elaboração/vinificação, como a ação das leveduras, extração, controle de temperatura, fermentação malolática, em barricas de madeira etc.) e terciários (advindos do processo de estágio, seja em carvalho, em receptáculo neutro –aço ou fibra– ou na própria garrafa).'
         },
-        notasPossiveis: [20, 18, 16, 14, 12],
-        selecionada: 20
+        notasPossiveis: [16, 14, 12, 10, 8],
+        selecionada: 16
       }
     ]
   },
@@ -194,8 +194,8 @@ notas.espumantes = [
           nome: 'Intensidade',
           descricao: 'É o volume de sabor captado pelas papilas gustativas. Um vinho insípido, aguado, diluído, teria eventualmente uma avaliação mais baixa neste quesito, enquanto um vinho com muita acidez, capaz de impressionar fortemente o palato, alcançaria valores mais elevados.'
         },
-        notasPossiveis: [9, 8, 7, 5, 4],
-        selecionada: 9
+        notasPossiveis: [8, 7, 6, 5, 4],
+        selecionada: 8
       },
       {
         categoria: {
@@ -218,8 +218,8 @@ notas.espumantes = [
           nome: 'Persistência',
           descricao: 'Avalia a permanência do sabor de um vinho no palato após a deglutição ou degustação, no caso de tratar-se de uma prova técnica, em que a ingesta do vinho é desaconselhada ou vetada. É medida em caudalies, termo francês que denomina a unidade de medida desta permanência gustativa, e equivale a segundos. Exemplo: “este é um vinho de 15 caudalies”.'
         },
-        notasPossiveis: [8, 7, 6, 5, 4],
-        selecionada: 8
+        notasPossiveis: [7, 6, 5, 4, 3],
+        selecionada: 7
       }
     ]
   },
@@ -233,8 +233,8 @@ notas.espumantes = [
           nome: 'Harmonia',
           descricao: 'A última fase da avaliação deve contemplar em que medida visual, aroma e paladar se combinam, se estão em harmonia ou desacordo, e se se mantêm em equilíbrio. \n Essa nota deve, portanto, acompanhar as demais. Um vinho que tenha sido avaliado como excelente e muito bom na maioria dos quesitos não deve ter a harmonia penalizada, por exemplo, por questão de coerência.'
         },
-        notasPossiveis: [11, 10, 9, 8, 7],
-        selecionada: 11
+        notasPossiveis: [10, 9, 8, 7, 6],
+        selecionada: 10
       }
     ]
   },

@@ -7,13 +7,10 @@
                     text-color="white"
                     hide-nav-icon>
           <div slot="actions">
-            <p>{{ vinho.ofertaAssociados }}</p>
             <ui-button color="success" icon="shopping_cart">
               <span :class="vinho.ofertaAssociados ? 'promocao' : '' ">{{ vinho.preco }}</span>
               <span class="preco-associado">{{ vinho.ofertaAssociados }}</span>
             </ui-button>
-            <!--<ui-icon-button @click="goToStore" type="clear" color="white" icon="shopping_cart"></ui-icon-button>-->
-            <!--<ui-icon-button  type="clear" color="white" icon="arrow_forward" @click="goToVinhos"></ui-icon-button>-->
           </div>
         </ui-toolbar>
 
