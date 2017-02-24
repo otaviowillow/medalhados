@@ -97,25 +97,6 @@
       }
     },
 
-    filters: {
-      'stringhing': {
-        read: function(val) {
-
-          console.log(val.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"))
-//          return val.match(new RegExp('.{1,4}$|.{1,3}', 'g')).join("-");
-//          return '$'+val.toFixed(2)
-        },
-        write: function(val, oldVal) {
-          console.log(val.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"))
-
-
-
-//          var number = +val.replace(/[^\d.]/g, '')
-//          return isNaN(number) ? 0 : parseFloat(number.toFixed(2))
-        }
-      },
-    },
-
     computed: {
       usuario() {
         return firebase.auth().currentUser

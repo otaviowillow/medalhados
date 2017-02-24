@@ -162,7 +162,7 @@ notas.espumantes = [
           nome: 'Intensidade',
           descricao: 'É certamente a mais auto-explicativa. Reflete o volume de aroma, sua pungência, potência. Deve ser avaliada com o vinho em repouso e após agitação. A intensidade aromática se manifesta em duas fases: o ataque inicial e após alguns segundos no copo.'
         },
-        notasPossiveis: [8, 7, 6, 4, 2],
+        notasPossiveis: [8, 7, 5, 4, 3],
         selecionada: 8
       },
       {
@@ -194,7 +194,7 @@ notas.espumantes = [
           nome: 'Intensidade',
           descricao: 'É o volume de sabor captado pelas papilas gustativas. Um vinho insípido, aguado, diluído, teria eventualmente uma avaliação mais baixa neste quesito, enquanto um vinho com muita acidez, capaz de impressionar fortemente o palato, alcançaria valores mais elevados.'
         },
-        notasPossiveis: [8, 7, 6, 5, 4],
+        notasPossiveis: [8, 7, 6, 4, 2],
         selecionada: 8
       },
       {
