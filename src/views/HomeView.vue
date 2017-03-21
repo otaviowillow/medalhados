@@ -11,8 +11,6 @@
         <h3>O primeiro clube de degustadores de vinhos do Brasil.</h3>
         <h3>E talvez, do mundo.</h3>
 
-        <h4>Deixe seus dados e receba mais informações</h4>
-
         <iframe src="https://player.vimeo.com/video/198081334" class="video" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
         <!--<div class="form">-->

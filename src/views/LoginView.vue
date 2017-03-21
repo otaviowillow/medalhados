@@ -39,9 +39,7 @@
 
     methods: {
       resetOn() {
-        console.log(this.reset)
         this.reset = !this.reset
-        console.log(this.reset)
       },
 
       emailSignIn() {
