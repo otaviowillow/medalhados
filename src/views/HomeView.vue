@@ -164,7 +164,7 @@
           <aside class="plano-prices">
             <h4>PLANO "MEU MEDALHADOS"</h4>
             <h5>280</h5>
-            <span>*Usufruindo do benefício do Desconto Fidelidade com cobrança de 12 parcelas sem juros no cartão de crédito, referentes a um pagamento no valor total anual de R$3.360,00. Preço normal sem desconto: R$6.720,00</span>
+            <span>Usufruindo do benefício do Desconto Fidelidade com cobrança de 6 parcelas sem juros pelo Pag Seguro (todos os cartões), referentes a um pagamento no valor total semestral de R$1.680,00. Preço normal sem desconto: R$3.360,00</span>
 
             <div class="assine-wrapper">
               <button class="login" @click="goTo('//assine.medalhados.com.br')">Assinar</button>

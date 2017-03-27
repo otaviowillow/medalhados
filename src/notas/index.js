@@ -162,7 +162,7 @@ notas.espumantes = [
           nome: 'Intensidade',
           descricao: 'É certamente a mais auto-explicativa. Reflete o volume de aroma, sua pungência, potência. Deve ser avaliada com o vinho em repouso e após agitação. A intensidade aromática se manifesta em duas fases: o ataque inicial e após alguns segundos no copo.'
         },
-        notasPossiveis: [8, 7, 5, 4, 3],
+        notasPossiveis: [8, 7, 6, 4, 2],
         selecionada: 8
       },
       {
@@ -170,7 +170,7 @@ notas.espumantes = [
           nome: 'Franqueza',
           descricao: 'Sempre o quesito mais discutido. Define a facilidade com que se identifica o aroma, ou família de aromas. Também define a sanidade do vinho. Separa vinhos “limpos” aromaticamente, de vinhos com aroma “sujo”. Quanto mais claramente se apresentar o aroma do vinho e mais fácil for a sua identificação, maior a sua franqueza. Um vinho com aromas que se mesclam entre agradáveis e desagradáveis, como enxofre e frutas vermelhas, por exemplo, não teria um aroma límpido, definido – e portanto estaria passível de penalização por pouca franqueza. A maior parte dos defeitos aromáticos ataca a franqueza do vinho, caso do TCA/TBA (bouchonée) e dos aromas redutivos e ou sulfurosos.'
         },
-        notasPossiveis: [8, 7, 6, 4, 2],
+        notasPossiveis: [8, 7, 5, 4, 3],
         selecionada: 8
       },
       {
