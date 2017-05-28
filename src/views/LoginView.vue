@@ -6,7 +6,7 @@
     <p>E, talvez, do mundo.</p>
 
     <div class="fields">
-      <ui-textbox name="email" :value.sync="email" label="Degustador"></ui-textbox>
+      <ui-textbox name="email" :value.sync="email" label="E-mail Cadastrado"></ui-textbox>
       <ui-textbox name="senha" :value.sync="senha" label="Senha" type="password" @keypress.enter.prevent="emailSignIn"></ui-textbox>
       <ui-button @click.prevent="emailSignIn">Acessar</ui-button>
     </div>
