@@ -100,6 +100,7 @@
     left 50%
     margin-bottom 12px
     z-index 10
+    transform translate(-50%,0)
     .ui-alert-toggle-transition
       margin-bottom 0
   .alert-error
@@ -107,7 +108,6 @@
     margin-left 3%
     @media screen and (min-width: $tablet)
       width 650px
-      margin-left -325px
   .alert-success
     width 90%
     margin-left 3%

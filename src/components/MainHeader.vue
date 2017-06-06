@@ -90,10 +90,14 @@
         margin 0
     .ui-button-content
       color white
+      @media screen and (min-width: $tablet)
+        color black
     .v-link-active
       border-bottom 3px solid white
     .show
       display inline-block
-      background transparent
+      background white
       z-index 9
+      @media screen and (min-width: $tablet)
+        background transparent
 </style>
