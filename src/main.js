@@ -16,7 +16,9 @@ import SignUpView from './views/SignUpView.vue'
 import HomeView from './views/HomeView.vue'
 import FichasView from './views/FichasView.vue'
 import CartaView from './views/CartaView.vue'
+import AdminView from './views/AdminView.vue'
 import ListarVinhosView from './views/ListarVinhosView.vue'
+import ListarUsuariosView from './views/ListarUsuariosView.vue'
 import AdicionarVinhosView from './views/AdicionarVinhosView.vue'
 import * as firebase from 'firebase'
 import VueFire from "vuefire";
@@ -91,6 +93,21 @@ router.map({
     component: CartaView,
     auth: true
   },
+  '/listar-vinhos': {
+    name: 'listar-vinhos',
+    component: ListarVinhosView,
+    auth: true
+  },
+  '/listar-usuarios': {
+    name: 'listar-usuarios',
+    component: ListarUsuariosView,
+    auth: true
+  },
+  '/admin': {
+    name: 'admin',
+    component: AdminView,
+    auth: true
+  },
   '/login': {
     name: 'login',
     component: LoginView,
@@ -104,11 +121,6 @@ router.map({
   '/home': {
     name: 'home',
     component: HomeView,
-    auth: false
-  },
-  '/listar-vinhos': {
-    name: 'listar-vinhos',
-    component: ListarVinhosView,
     auth: false
   },
   '/logout': {

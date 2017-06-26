@@ -1,11 +1,9 @@
 <template>
   <div class="card signup-view">
-    <!--<object class="logo" data="/static/img/gold_medal.svg"></object>-->
     <img class="logo" src="/static/img/medalhados_logo.png">
     <p>Bem-vindo ao primeiro clube de degustadores do Brasil.</p>
     <p>E, talvez, do mundo.</p>
 
-    <!--<button class="facebook-login" @click="facebookSignIn"><i class="fa fa-facebook"></i> Login with Facebook</button>-->
     <div class="fields">
       <ui-textbox name="primeiroNome" :value.sync="primeiroNome" label="Primeiro Nome"></ui-textbox>
       <ui-textbox name="ultimoNome" :value.sync="ultimoNome" label="Último Nome"></ui-textbox>
@@ -39,22 +37,21 @@
         var self = this
 
         firebase.auth().createUserWithEmailAndPassword(self.email, self.senha).then((user) => {
-          user.updateProfile({
-          displayName: displayName
+          firebase.database().ref('usuarios/' + firebase.auth().currentUser.uid).set({
+            id: user.uid,
+            email: self.email,
+            displayName: this.primeiroNome + " " + this.ultimoNome,
+            primeiroNome: this.primeiroNome,
+            ultimoNome: this.ultimoNome,
+          })
         }).then(function() {
           firebase.auth().signInWithEmailAndPassword(self.email, self.senha).then(function (result) {
-            self.$dispatch('is-authenticated', result)
-          }).catch(function(error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-          });
-        }, function(error) {
-          // An error happened.
-        });
-      }).catch((error) => {
+            // window.location.reload();
+          })
+        }).catch((error) => {
           var errorCode = error.code;
-        var errorMessage = error.message;
-      })
+          var errorMessage = error.message;
+        })
       }
     }
   }

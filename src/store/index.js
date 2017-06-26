@@ -52,7 +52,7 @@ store.fetchUsuario = () => {
       }
     }
   }
-  
+
   return usuario
 }
 
@@ -76,7 +76,7 @@ store.fetchIndividualVinho = () => {
     preco: 125,
     notas: []
   }
-  
+
   return vinho
 }
 
@@ -90,11 +90,20 @@ store.fetchVinhos = () => {
   })
 }
 
+// var config = {
+//   apiKey: "AIzaSyC8Blps39GwdxP57vPaok1135Pbr9ROMbA",
+//   authDomain: "medalhados.firebaseapp.com",
+//   databaseURL: "https://medalhados.firebaseio.com",
+//   storageBucket: "medalhados.appspot.com",
+// };
+
 var config = {
-  apiKey: "AIzaSyC8Blps39GwdxP57vPaok1135Pbr9ROMbA",
-  authDomain: "medalhados.firebaseapp.com",
-  databaseURL: "https://medalhados.firebaseio.com",
-  storageBucket: "medalhados.appspot.com",
+  apiKey: "AIzaSyDUVmVzgr80-aUNeR8bIkNAfAAet6qm8Ug",
+  authDomain: "staging-medalhados.firebaseapp.com",
+  databaseURL: "https://staging-medalhados.firebaseio.com",
+  projectId: "staging-medalhados",
+  storageBucket: "staging-medalhados.appspot.com",
+  messagingSenderId: "481464046786"
 };
 
 firebase.initializeApp(config);
