@@ -43,19 +43,16 @@
           var userRef = firebase.database().ref('usuarios').child(usr)
 
           userRef.on('value', (snapshot) => {
-            console.log(snapshot.val())
             this.usuario = snapshot.val()
           })
         }
       },
       'is-admin' : function (user) {
-        console.log(user)
         if(user) {
           var usr = user.uid
           var userRef = firebase.database().ref('usuarios').child(usr)
 
           userRef.on('value', (snapshot) => {
-            console.log(snapshot.val())
             this.admin = snapshot.val().isAdmin
           })
         }

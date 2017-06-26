@@ -78,6 +78,7 @@
   .listar-user
     .main-card
       background transparent
+      box-shadow none
     .flex
       display flex
     .footer
