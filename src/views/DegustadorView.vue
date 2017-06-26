@@ -11,10 +11,10 @@
           </div>
         </ui-toolbar>
 
-        <upload-imagem-usuario :usuario="usuario"></upload-imagem-usuario>
+        <upload-imagem-usuario :usuario="currentUser"></upload-imagem-usuario>
 
         <aside>
-          <h2>{{ usuario.displayName }}</h2>
+          <h2>{{ usuario.primeiroNome }} {{ usuario.ultimoNome }}</h2>
           <h3>{{ totalAvaliados }} Vinhos avaliados</h3>
         </aside>
       </header>
@@ -46,6 +46,7 @@
   export default{
     data() {
       return {
+        usuario: {},
         vinhos: [],
         totalAvaliados: 0,
         menu: [
@@ -61,7 +62,7 @@
       data ({ to }) {
         document.title = 'Medalhados - Desgustador'
         this.$dispatch('is-authenticated')
-        this.$dispatch('is-admin', this.usuario)
+        this.$dispatch('is-admin', this.currentUser)
 
         Promise.all([
           this.fetchDetalhesUsuario()
@@ -72,7 +73,7 @@
     },
 
     computed: {
-      usuario() {
+      currentUser() {
         return firebase.auth().currentUser
       }
     },
@@ -110,10 +111,11 @@
       },
       fetchDetalhesUsuario() {
         var self = this
-        var usuarioRef = firebase.database().ref('usuarios').child(this.usuario.uid).child('vinhos')
+        var usuarioRef = firebase.database().ref('usuarios').child(this.currentUser.uid)
 
         return usuarioRef.once("value", function(snapshot) {
-          self.vinhos = snapshot.val()
+          self.usuario = snapshot.val()
+          self.vinhos = snapshot.val().vinhos
         })
       },
       organizeData() {

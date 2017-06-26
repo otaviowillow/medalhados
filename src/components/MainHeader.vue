@@ -10,7 +10,7 @@
       <ui-button v-link="{ name: 'vinhos' }" type="flat" @click="toggleMenu">Vinhos</ui-button>
       <ui-button @click="goTo('http://assine.medalhados.com.br/revista-virtual/')" type="flat">VinhoMagazine</ui-button>
       <ui-button v-link="{ name: 'video', params: { id: '198637172' } }" type="flat" @click="toggleMenu">Video</ui-button>
-      <ui-button v-if="admin" v-link="{ name: 'admin' }" type="flat" icon="lock_outline" @click="toggleMenu">Admin</ui-button>
+      <ui-button v-if="admin" v-link="{ name: 'admin' }" type="flat" icon="lock_outline" color="white" @click="toggleMenu">Admin</ui-button>
     </nav>
   </header>
 </template>
@@ -60,6 +60,7 @@
       height 40px
       border none
       z-index 10
+      cursor pointer
       @media screen and (min-width: $tablet)
         height 60px
     .main-menu
@@ -89,9 +90,9 @@
         clear none
         margin 0
     .ui-button-content
-      color white
+      color black
       @media screen and (min-width: $tablet)
-        color black
+        color white
     .v-link-active
       border-bottom 3px solid white
     .show

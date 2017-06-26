@@ -4,14 +4,15 @@
       <li class="card" v-for="usuario in usuarios">
         <div class="flex">
           <aside>
-            <h3>{{ usuario.displayName }}</h3>
+            <h3>{{ usuario.primeiroNome }} {{ usuario.ultimoNome }}</h3>
             <p>{{ usuario.email }}</p>
           </aside>
           <nav>
             <ui-icon-button color="red" icon="delete" type="secondary" @click="prepareToRemove(usuario)"></ui-icon-button>
           </nav>
         </div>
-        <ul class="vinhos">
+        <ul class="vinhos" v-if="usuario.vinhos">
+          <h4>Vinhos testados:</h4>
           <li v-for="vinho in usuario.vinhos">
             <h2>{{ vinho.key }}</h2>
             <em><strong>Nota:</strong> {{ vinho.nota }}</em>
@@ -86,6 +87,8 @@
     nav
       flex 1 auto
       text-align right
+    h4
+      margin 30px 0 0 10px
     .card
       background white
       margin 10px 0
