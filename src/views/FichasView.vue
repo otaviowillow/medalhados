@@ -7,7 +7,6 @@
             <h2>Estou pronto para degustar!</h2>
             <p>Digite no campo marcado o código da amostra que você recebeu e deseja degustar, para acessar a ficha oficial de avaliação.</p>
             <input type="text" v-model="vinho.id" maxlength="6" max="6" class="ui-textbox-input" @keypress.enter="procurarVinho" placeholder="_ _ _ - _ _">
-            <!--<ui-textbox name="vinhoId" :value.sync="vinho.id" :autofocus="true" placeholder="_ _ _ - _ _" @keydown="adicionarHifen" @keydown-enter="procurarVinho"></ui-textbox>-->
           </div>
           <footer>
             <ui-button @click="procurarVinho">Degustar</ui-button>
@@ -19,11 +18,10 @@
             <h2>Quero me atualizar!</h2>
           </div>
           <div class="card-body">
-            <!--<p>Banca digital com a Vinho Magazine online</p>-->
             <p>Para acessar as mais recentes edições da Vinho Magazine na versão online, acesse a nossa banca digital e selecione o exemplar.</p>
           </div>
           <footer>
-            <ui-button @click="goTo('http://www.epifanica.com.br/vinhomagazine')">Banca</ui-button>
+            <ui-button @click="goTo('https://assine.medalhados.com.br/revista-virtual')">Banca</ui-button>
           </footer>
         </div>
       </aside>
@@ -34,11 +32,10 @@
             <h2>Quero aprender mais!</h2>
           </div>
           <div class="card-body">
-            <!--<p>Vídeo-aula sobre técnicas de avaliação de vinhos.</p>-->
             <p>Se esta é sua primeira degustação - ou mesmo se quiser recordar - assista a vídeo-aula preparada especialmente para orientar você sobre as técnicas de avaliação de vinhos.</p>
           </div>
           <footer>
-            <ui-button v-link="{ name: 'video', params: { id: 'qYN1M9oc8' } }">Assistir</ui-button>
+            <ui-button @click="goTo('https://assine.medalhados.com.br/videos')">Assistir</ui-button>
           </footer>
         </div>
 
@@ -47,7 +44,6 @@
             <h2>Quero mais instruções!</h2>
           </div>
           <div class="card-body">
-            <!--<p>Mensagem de boas vindas do nosso curador.</p>-->
             <p>Para instruções completas sobre o funcionamento do Medalhados Experts Club, leia aqui a mensagem de boas vindas do nosso curador.</p>
           </div>
           <footer>

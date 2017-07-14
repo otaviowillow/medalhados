@@ -187,10 +187,6 @@
         for(var i = 0; i < textboxes.length; i++)
           if(textboxes[i].classList.contains('invalid') || !textboxes[i].classList.contains('dirty')) {
             this.form.disabled = true
-            console.log(textboxes[i])
-            console.log(textboxes.length)
-//            console.log(textboxes[i].classList.contains('invalid'))
-//            console.log(textboxes[i].classList.contains('dirty'))
           }
           else
             this.form.disabled = false
@@ -201,7 +197,6 @@
 
         firebase.database().ref('vinhos/' + this.vinho.amostra).set(this.vinho);
 
-//        this.$router.go('/')
         this.show.success.state = true
       },
       setPaises(countries) {
@@ -211,7 +206,6 @@
           for(var i = 0; i < countriesData.length; i++) {
             var country = countriesData[i]
 
-//            countries.push({nome: country.translations.por.common, code: country.cioc})
             countries.push(country.translations.por.common)
           }
         })

@@ -11,11 +11,9 @@
             <ui-icon-button color="red" icon="delete" type="secondary" @click="prepareToRemove(usuario)"></ui-icon-button>
           </nav>
         </div>
-        <ul class="vinhos" v-if="usuario.vinhos">
-          <h4>Vinhos testados:</h4>
-          <li v-for="vinho in usuario.vinhos">
-            <h2>{{ vinho.key }}</h2>
-            <em><strong>Nota:</strong> {{ vinho.nota }}</em>
+        <ul class="vinhos">
+          <li v-for="vinho in vinhos">
+            <admin-usuario :vinho-comparado="vinho" :usuario="usuario"></admin-usuario>
           </li>
         </ul>
       </li>
@@ -33,10 +31,16 @@
 </template>
 
 <script>
+  import AdminUsuario from '../components/AdminUsuario.vue'
+
   export default {
+    components: {
+      AdminUsuario
+    },
     data() {
       return {
         usuarios: [],
+        vinhos: [],
         usuarioToBeRemoved: {},
         showModal: false
       }
@@ -44,8 +48,11 @@
     route: {
       data ({ to }) {
         Promise.all([
-          this.fetchUsuarios()
-        ])
+          this.fetchUsuarios(),
+          this.fetchVinhos()
+        ]).then(() => {
+          this.compareArrays()
+        })
       }
     },
 
@@ -56,6 +63,17 @@
         return usuariosRef.on('value', (snapshot) => {
           this.usuarios = snapshot.val()
         })
+      },
+      fetchVinhos() {
+        var vinhosRef = firebase.database().ref('/vinhos')
+
+        return vinhosRef.once('value', (snapshot) => {
+          this.vinhos = snapshot.val()
+        })
+      },
+      compareArrays() {
+        console.log(this.usuarios)
+        // console.log(this.vinhos)
       },
       prepareToRemove(usuario) {
         this.usuarioToBeRemoved = usuario
@@ -99,9 +117,12 @@
       aside
         padding 10px
     .vinhos
+      display flex
+      flex-wrap wrap
       li
-        display inline-block
-        padding 10px
+        padding 5px
+        &:first-child
+          display none
       strong
         font-weight 700
 </style>

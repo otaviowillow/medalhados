@@ -89,7 +89,9 @@ var config = {
   apiKey: "AIzaSyC8Blps39GwdxP57vPaok1135Pbr9ROMbA",
   authDomain: "medalhados.firebaseapp.com",
   databaseURL: "https://medalhados.firebaseio.com",
+  projectId: "medalhados",
   storageBucket: "medalhados.appspot.com",
+  messagingSenderId: "960039902274"
 };
 
 // var config = {

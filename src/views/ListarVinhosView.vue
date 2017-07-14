@@ -3,10 +3,8 @@
     <ul class="main-card admin-vinhos">
       <li class="card" v-for="vinho in vinhos" @click="selectVinho(vinho.amostra)">
         <h3>{{ vinho.amostra }}</h3>
-        <!--<ui-icon-button type="flat" icon="delete_forever" @click="removeVinho(vinho.amostra)"></ui-icon-button>-->
       </li>
       <ui-button color="success" v-link="{ name: 'adicionar-vinho' }">Adicionar novo vinho</ui-button>
-      <!--<ui-button color="success" v-link="{ name: 'adicionar-vinhos' }">Adicionar novo vinho</ui-button>-->
     </ul>
 
     <adicionar-vinhos v-if="vinho.amostra" :vinho="vinho"></adicionar-vinhos>
@@ -34,8 +32,6 @@
         Promise.all([
           this.fetchVinhos()
         ])
-
-        console.log(this.vinho)
       }
     },
 
@@ -48,19 +44,13 @@
         })
       },
       selectVinho(event) {
-        console.log(event)
-
         var vinhosRef = firebase.database().ref('/vinhos').child(event)
 
         return vinhosRef.once('value', (snapshot) => {
-          console.log(snapshot.val())
-
           this.vinho = snapshot.val()
         })
       },
       removeVinho(event) {
-        console.log(event)
-
         var vinhosRef = firebase.database().ref('/vinhos').child(event)
 
         vinhosRef.remove()

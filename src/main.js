@@ -45,7 +45,7 @@ export var router = new Router({
 
 router.map({
   '/': {
-    component: HomeView,
+    component: LoginView,
     auth: false
   },
   '/degustador': {
@@ -124,11 +124,12 @@ router.map({
     auth: false
   },
   '/logout': {
+    name: 'logout',
     component: function (resolve) {
       var self = this
 
       firebase.auth().signOut().then(() => {
-        window.location.reload()
+        window.location.replace("https://assine.medalhados.com.br/perfil")
       })
     }
   },
