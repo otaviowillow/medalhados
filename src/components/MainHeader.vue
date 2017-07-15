@@ -98,7 +98,7 @@
       border-bottom 3px solid white
     .show
       display inline-block
-      background white
+      background #999
       z-index 9
       @media screen and (min-width: $tablet)
         background transparent
