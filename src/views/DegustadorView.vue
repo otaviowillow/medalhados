@@ -22,8 +22,6 @@
       <article class="main">
         <ul class="todos-vinhos">
           <li class="card has-background" v-for="vinho in vinhos" :style="{ backgroundImage: 'url(' + backgroundType(vinho[0].tipo) + ')' }">
-            <!--<div :style="{ backgroundImage: 'url(' + backgroundType('Tinto') + ')' }"></div>-->
-            <!--<h2>{{ vinho.length }}</h2>-->
             <h2>{{ vinho | average }}</h2>
             <p>{{ vinho[0].tipo }}</p>
             <span>Nota Média</span>
@@ -65,7 +63,8 @@
         this.$dispatch('is-admin', this.currentUser)
 
         Promise.all([
-          this.fetchDetalhesUsuario()
+          this.fetchDetalhesUsuario(),
+          this.fetchDetalhesVinhos()
         ]).then(() => {
           this.organizeData()
         })
@@ -113,10 +112,22 @@
         var self = this
         var usuarioRef = firebase.database().ref('usuarios').child(this.currentUser.uid)
 
-        return usuarioRef.once("value", function(snapshot) {
+        return usuarioRef.once("value").then((snapshot) => {
           self.usuario = snapshot.val()
-          self.vinhos = snapshot.val().vinhos
-        })
+        });
+      },
+      fetchDetalhesVinhos() {
+        var self = this
+        var usuarioRef = firebase.database().ref('usuarios').child(this.currentUser.uid).child('vinhos')
+
+        return usuarioRef.once("value").then((snapshot) => {
+          snapshot.forEach(function(childSnapshot) {
+            var childData = childSnapshot.val();
+
+            if(childData.avaliado == true)
+              self.vinhos.push(childData)
+          });
+        });
       },
       organizeData() {
         function valuesToArray(obj) {

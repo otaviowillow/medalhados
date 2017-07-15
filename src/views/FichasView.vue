@@ -80,7 +80,7 @@
           },
           error: {
             state: false,
-            message: 'Esse vinho não existe, confira o código digitado e tente novamente.'
+            message: 'Esse vinho não está disponível, confira o código digitado e tente novamente.'
           }
         }
       }
@@ -105,7 +105,6 @@
         var vinhoIdOnlyNumbers = vinhoId.replace(/[^0-9\.]+/g, '') // Apenas numeros
         var vinhoIdFinal = vinhoIdOnlyNumbers.match(/\d{3}(?=\d{2,3})|\d+/g).join("-")  // Adicione hifem no terceiro
 
-        console.log(vinhoIdFinal)
         var vinhoRef = firebase.database().ref('vinhos/' + vinhoIdFinal)
         var usuarioVinhoRef = firebase.database().ref('usuarios').child(firebase.auth().currentUser.uid).child('vinhos/' + vinhoIdFinal)
 
@@ -114,12 +113,15 @@
             return this.show.error.state = true
           } else {
             usuarioVinhoRef.once('value', (snapshot) => {
-              if(snapshot.val()) {
+              if(snapshot.val() == null)
+                return this.show.error.state = true
+
+              if(snapshot.val().avaliado == true) {
                 this.show.success.link = snapshot.val().key
                 return this.show.success.state = true
-              } else {
-                return this.$router.go('/ficha/' + vinhoIdFinal)
               }
+
+              return this.$router.go('/ficha/' + vinhoIdFinal)
             })
           }
         })

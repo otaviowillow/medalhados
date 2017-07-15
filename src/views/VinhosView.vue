@@ -85,7 +85,8 @@
           snapshot.forEach(function(childSnapshot) {
             var childData = childSnapshot.val();
 
-            self.avaliados.push(childData)
+            if(childData.avaliado == true)
+              self.avaliados.push(childData)
           });
         });
       },
@@ -95,7 +96,6 @@
         return avaliadosPeloUsuario.once('value', (snapshot) => {
           snapshot.forEach((childSnapshot) => {
             if(childSnapshot.val().key == this.vinho.key) {
-              console.log(childSnapshot.val().nota)
               childSnapshot.val().nota
             }
           })
@@ -106,8 +106,6 @@
       },
       setMedalhados() {
         this.medalhados = _.intersectionBy(this.vinhos, this.avaliados, 'key')
-
-        console.log(this.medalhados.length)
       }
     }
   }
@@ -141,7 +139,7 @@
         flex 0 0 300px
         height 350px
         margin 0 0 20px 0
-  
+
     .testado
       background white
       width 500px

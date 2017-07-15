@@ -1,11 +1,13 @@
 <template>
   <div class="fichas">
     <div class="main-card">
-      <vinho-detalhes :vinho="vinho" :pontuacao.sync="pontuacao"></vinho-detalhes>
+      <div>
+        <vinho-detalhes :vinho="vinho" :pontuacao.sync="pontuacao"></vinho-detalhes>
 
-      <notas :tipo="vinho.tipo" :nota-total.sync="notaTotal"></notas>
+        <notas :tipo="vinho.tipo" :nota-total.sync="notaTotal"></notas>
 
-      <botao-voto :vinho="vinho" :vinho-key="vinhoKey" :nota-total="notaTotal" :usuario="usuario"></botao-voto>
+        <botao-voto :vinho="vinho" :vinho-key="vinhoKey" :nota-total="notaTotal" :usuario="usuario"></botao-voto>
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +38,8 @@
         this.vinhoKey = to.params.id
         this.$bindAsObject('vinho', firebase.database().ref('vinhos/' + this.vinhoKey))
         this.$bindAsObject('usuario', firebase.database().ref('usuarios').child(firebase.auth().currentUser.uid))
+        this.checkIfAllowed()
+        // this.checkAllowed()
       }
     },
 
@@ -57,6 +61,17 @@
       }
     },
 
+    methods: {
+      checkIfAllowed() {
+        var vinho = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos/' + this.vinhoKey)
 
+        vinho.once('value', (snapshot) => {
+          if(snapshot.val() == null || snapshot.val().avaliado == true)
+            return this.$router.go('/')
+
+          return
+        })
+      }
+    }
   }
 </script>
