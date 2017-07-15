@@ -72,9 +72,6 @@
 <style lang="stylus">
   @import "../variables.styl"
 
-  html, body
-    overflow-x scroll
-
   body
     padding 0
     margin 0
