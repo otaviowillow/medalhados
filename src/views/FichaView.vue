@@ -65,8 +65,11 @@
         var vinho = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos/' + this.vinhoKey)
 
         vinho.once('value', (snapshot) => {
-          if(snapshot.val() == null || snapshot.val().avaliado == true)
+          if(snapshot.val() == null)
             return this.$router.go('/')
+
+          if(snapshot.val().avaliado == true)
+            return this.$router.go('/vinho/' + this.vinhoKey)
 
           return
         })

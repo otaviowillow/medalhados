@@ -61,7 +61,8 @@
           nota: this.nota
         });
 
-        this.$router.go('/vinho/' + this.vinhoKey)
+        // this.$router.go('/vinho/' + this.vinhoKey)
+        window.location.reload()
       }
     }
   }
