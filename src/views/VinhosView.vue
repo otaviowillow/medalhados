@@ -96,6 +96,7 @@
         return avaliadosPeloUsuario.once('value', (snapshot) => {
           snapshot.forEach((childSnapshot) => {
             if(childSnapshot.val().key == this.vinho.key) {
+              console.log(childSnapshot.val().nota)
               childSnapshot.val().nota
             }
           })

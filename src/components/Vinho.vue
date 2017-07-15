@@ -67,8 +67,6 @@
         window.open(this.vinho.ecommerce)
       },
       expandirVinho() {
-        console.log(this.vinho.key)
-
         this.$router.go('/vinho/' + this.vinho.key)
       },
       fetchAvaliados() {

@@ -10,7 +10,7 @@
       <ui-button v-link="{ name: 'vinhos' }" type="flat" @click="toggleMenu">Vinhos</ui-button>
       <!-- <ui-button @click="goTo('http://assine.medalhados.com.br/revista-virtual/')" type="flat">VinhoMagazine</ui-button> -->
       <!-- <ui-button v-link="{ name: 'video', params: { id: '198637172' } }" type="flat" @click="toggleMenu">Video</ui-button> -->
-      <ui-button v-link="{ name: 'logout' }" type="flat" @click="toggleMenu">Sair</ui-button>
+      <ui-button v-link="{ name: 'logout' }" color="primary" @click="toggleMenu">Sair</ui-button>
       <ui-button v-if="admin" v-link="{ name: 'admin' }" type="flat" icon="lock_outline" color="white" @click="toggleMenu">Admin</ui-button>
     </nav>
   </header>

@@ -39,7 +39,6 @@
         this.$bindAsObject('vinho', firebase.database().ref('vinhos/' + this.vinhoKey))
         this.$bindAsObject('usuario', firebase.database().ref('usuarios').child(firebase.auth().currentUser.uid))
         this.checkIfAllowed()
-        // this.checkAllowed()
       }
     },
 

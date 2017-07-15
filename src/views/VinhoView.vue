@@ -76,6 +76,7 @@
         this.vinhoKey = to.params.id
         this.$bindAsObject('vinho', firebase.database().ref('vinhos/' + this.vinhoKey))
         this.$bindAsObject('vinhoUsuario', firebase.database().ref('usuarios/' + firebase.auth().currentUser.uid + '/vinhos').child(this.vinhoKey))
+        this.checkIfAllowed()
       }
     },
 
@@ -112,6 +113,17 @@
     },
 
     methods: {
+      checkIfAllowed() {
+        var vinho = firebase.database().ref('usuarios/' + this.usuario.uid + '/vinhos/' + this.vinhoKey)
+
+        vinho.once('value', (snapshot) => {
+          console.log(snapshot.val());
+          if(snapshot.val() == null || snapshot.val().avaliado == false)
+            return this.$router.go('/')
+
+          return
+        })
+      },
       goToVinhos() {
         this.$router.go('/vinhos')
       },

@@ -54,8 +54,6 @@
       avaliarVinho() {
         var usuarioVinhos = firebase.database().ref('usuarios/' + firebase.auth().currentUser.uid)
 
-        console.log(this.vinhoKey)
-
         usuarioVinhos.child('vinhos').child(this.vinhoKey).set({
           avaliado: true,
           tipo: this.vinho.tipo,
